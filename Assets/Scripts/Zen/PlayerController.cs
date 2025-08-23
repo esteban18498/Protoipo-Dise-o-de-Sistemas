@@ -8,7 +8,7 @@ using ZenCommand;
 using ZenCommand.commands;
 
 
-public class PlayerController : MonoBehaviour
+public class PlayerController_to_deprecrate : MonoBehaviour
 {
     private Rigidbody2D rb;
     private SpriteRenderer model;

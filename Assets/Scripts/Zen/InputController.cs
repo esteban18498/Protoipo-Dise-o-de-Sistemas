@@ -6,7 +6,7 @@ using ZenUtils;
 
 public class InputController : MonoBehaviour
 {
-    private PlayerController playerController;
+    private PlayerController_to_deprecrate playerController;
 
     private PlayerInput playerInput;
     private InputAction comboAction;
@@ -21,7 +21,7 @@ public class InputController : MonoBehaviour
     // Start is called before the first frame update
     void Awake()
     {
-        playerController = GetComponent<PlayerController>();
+        playerController = GetComponent<PlayerController_to_deprecrate>();
         playerInput = GetComponent<PlayerInput>();
 
         comboAction = playerInput.actions["Combo"];
