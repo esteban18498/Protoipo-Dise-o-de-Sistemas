@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class ArenaController : MonoBehaviour
@@ -30,7 +31,7 @@ public class ArenaController : MonoBehaviour
     public SpotController getNextSpot(SpotController currentSpot)
     {
         int currentIndex = Spots.IndexOf(currentSpot);
-        if (currentIndex < 0) return null;
+        if (currentIndex == Spots.Count-1)  return null;
         int nextIndex = (currentIndex + 1) % Spots.Count;
         return Spots[nextIndex];
     }
@@ -38,7 +39,7 @@ public class ArenaController : MonoBehaviour
     public SpotController getPrevSpot(SpotController currentSpot)
     {
         int currentIndex = Spots.IndexOf(currentSpot);
-        if (currentIndex < 0) return null;
+        if (currentIndex == 0) return null;
         int prevIndex = (currentIndex - 1 + Spots.Count) % Spots.Count;
         return Spots[prevIndex];
     }
