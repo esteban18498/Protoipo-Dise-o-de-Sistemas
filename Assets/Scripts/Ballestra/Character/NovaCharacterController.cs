@@ -3,12 +3,15 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UIElements;
 
-public class CharacterController : MonoBehaviour
+public class NovaCharacterController : MonoBehaviour
 {
     // --- State ---
 
     [Header("State")]
     [SerializeField] public SpotController CurrentSpot;
+    
+    [SerializeField] private ICharacterState characterState;
+
 
 
     // --- References ---
@@ -83,3 +86,4 @@ public class CharacterController : MonoBehaviour
         anchor.position = CurrentSpot.transform.position;
     }
 }
+

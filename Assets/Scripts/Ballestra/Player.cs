@@ -5,7 +5,7 @@ using UnityEngine.InputSystem;
 
 public class Player : MonoBehaviour
 {
-    [SerializeField] public CharacterController CharacterController;
+    [SerializeField] public NovaCharacterController CharacterController;
 
     private PlayerInput playerInput;
     private InputAction moveAction;
