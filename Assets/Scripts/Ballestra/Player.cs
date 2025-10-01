@@ -9,15 +9,19 @@ public class Player : MonoBehaviour
 
     private PlayerInput playerInput;
     private InputAction moveAction;
+    private InputAction freezAction;
 
     // Start is called before the first frame update
     void Awake()
     {
         playerInput = GetComponent<PlayerInput>();
+        
         moveAction = playerInput.actions["Move"];
-
         moveAction.performed += Move;
         moveAction.canceled += Move;
+
+        freezAction = playerInput.actions["Freez"];
+        freezAction.started += Freez;
     }
 
     // Update is called once per frame
@@ -28,18 +32,25 @@ public class Player : MonoBehaviour
 
     void Move(InputAction.CallbackContext context)
     {
+        if (CharacterController.combat_state == Combat_state.free_move) {
 
-        // check flip side
-        // player is allways facing right
+            if (context.ReadValue<Vector2>().x < 0)
+            {
+                CharacterController.MoveToPreviousSpot();
+            }
+            else if (context.ReadValue<Vector2>().x > 0)
+            {
+                CharacterController.MoveToNextSpot();
+            }
+        }
 
-        if (context.ReadValue<Vector2>().x < 0)
+        if (CharacterController.combat_state == Combat_state.freez)
         {
-            CharacterController.MoveToPreviousSpot();
+            // load combo/action modificators
         }
-        else if (context.ReadValue<Vector2>().x > 0)
-        {
-            // normal side
-            CharacterController.MoveToNextSpot();
-        }
+    }
+
+    void Freez(InputAction.CallbackContext context) { 
+        CharacterController.RequestFreezState();
     }
 }

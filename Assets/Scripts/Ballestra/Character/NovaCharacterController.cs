@@ -12,6 +12,8 @@ public class NovaCharacterController : MonoBehaviour
     
     [SerializeField] private ICharacterState characterState;
 
+    public Combat_state combat_state = Combat_state.free_move;
+
 
 
     // --- References ---
@@ -84,6 +86,30 @@ public class NovaCharacterController : MonoBehaviour
         if (nextSpot == null) return;
         CurrentSpot = nextSpot;
         anchor.position = CurrentSpot.transform.position;
+    }
+
+    public void RequestFreezState() {
+
+        if (combat_state != Combat_state.free_move) {
+            return;
+        }
+
+        CombatManager.Instance.EnterFreezState();
+    }
+
+    public void EnterFreezState()
+    {
+        combat_state = Combat_state.freez;
+    }
+
+    public void EnterPerformState()
+    {
+        combat_state = Combat_state.perfom;
+    }
+
+    public void EnterFreeMoveState()
+    {
+        combat_state = Combat_state.free_move;
     }
 }
 
