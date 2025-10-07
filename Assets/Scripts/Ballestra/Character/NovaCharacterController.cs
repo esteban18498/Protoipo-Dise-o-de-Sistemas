@@ -9,10 +9,13 @@ public class NovaCharacterController : MonoBehaviour
 
     [Header("State")]
     [SerializeField] public SpotController CurrentSpot;
-    
     [SerializeField] private ICharacterState characterState;
-
     public Combat_state combat_state = Combat_state.free_move;
+
+
+    // --- Combat Action Queue ---
+    [Header("Combat Action Queue")]
+    public CombatActionQueue actionQueue = new CombatActionQueue();
 
 
 
@@ -67,8 +70,28 @@ public class NovaCharacterController : MonoBehaviour
         );
         */
     }
-    
-        // Move anchor to the next spot in the arenaController's list
+
+    void Update()
+    {
+        switch (combat_state)
+        {
+            case Combat_state.free_move:
+
+                break;
+            case Combat_state.freez:
+
+                break;
+            case Combat_state.perfom:
+
+                break;
+            default:
+                throw new System.Exception("Unknown combat state: " + combat_state);
+        }
+    }
+
+
+
+    // Move anchor to the next spot in the arenaController's list
     public void MoveToNextSpot()
     {
         if (arena == null) return;
@@ -88,9 +111,11 @@ public class NovaCharacterController : MonoBehaviour
         anchor.position = CurrentSpot.transform.position;
     }
 
-    public void RequestFreezState() {
+    public void RequestFreezState()
+    {
 
-        if (combat_state != Combat_state.free_move) {
+        if (combat_state != Combat_state.free_move)
+        {
             return;
         }
 
@@ -105,11 +130,26 @@ public class NovaCharacterController : MonoBehaviour
     public void EnterPerformState()
     {
         combat_state = Combat_state.perfom;
+        actionQueue.FillQueueWithSteps(this);
+        StartCoroutine(performActionTimer());
     }
 
     public void EnterFreeMoveState()
     {
         combat_state = Combat_state.free_move;
+        actionQueue.ClearQueue();
+    }
+    
+    public IEnumerator performActionTimer()
+    {
+        // Example: Wait for 1 second before performing the next action
+        while (actionQueue.HasActions())
+        {
+            actionQueue.ExecuteNextAction();
+
+            yield return new WaitForSeconds(1f); // Wait 1 second between actions
+        }
+        EnterFreeMoveState();
     }
 }
 
