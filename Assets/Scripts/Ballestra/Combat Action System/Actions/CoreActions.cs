@@ -9,7 +9,7 @@ public class Action_Step : ICombatAction // concrect implementantion of void act
 
     public Combat_Action_Type actionType => Combat_Action_Type.Utils;
 
-    public List<Combat_Action_mod> mods => new List<Combat_Action_mod>();
+    public ListKey<Combat_Action_mod> mods => new ListKey<Combat_Action_mod>(new List<Combat_Action_mod>());
 
     NovaCharacterController recieverCharacter;
 
@@ -23,6 +23,11 @@ public class Action_Step : ICombatAction // concrect implementantion of void act
     {
         recieverCharacter = character;
     }
+
+    public ICombatAction createActionInstance(NovaCharacterController character)
+    {
+        return new Action_Step(character);
+    }
     
 }
 
@@ -32,7 +37,7 @@ public class Action_Advance : ICombatAction // concrect implementantion of actio
 
     public Combat_Action_Type actionType => Combat_Action_Type.Move;
 
-    public List<Combat_Action_mod> mods => new List<Combat_Action_mod>();
+    public ListKey<Combat_Action_mod> mods => new ListKey<Combat_Action_mod>(new List<Combat_Action_mod>());
 
     NovaCharacterController recieverCharacter;
 
@@ -57,6 +62,10 @@ public class Action_Advance : ICombatAction // concrect implementantion of actio
         recieverCharacter = character;
     }
 
+    public ICombatAction createActionInstance(NovaCharacterController character)
+    {
+        return new Action_Advance(character);
+    }
 }
 
 public class Action_Attack : ICombatAction // concrect implementantion of attack action
@@ -65,14 +74,14 @@ public class Action_Attack : ICombatAction // concrect implementantion of attack
 
     public Combat_Action_Type actionType => Combat_Action_Type.Attack;
 
-    public List<Combat_Action_mod> mods => new List<Combat_Action_mod>();
+    public ListKey<Combat_Action_mod> mods => new ListKey<Combat_Action_mod>(new List<Combat_Action_mod>());
 
     NovaCharacterController recieverCharacter;
 
     public void Execute()
     {
         // trigger attack logic/animation
-        
+
 
         Debug.Log($"{recieverCharacter.name} Executing Attack Action: Attacking.");
     }
@@ -82,4 +91,8 @@ public class Action_Attack : ICombatAction // concrect implementantion of attack
         recieverCharacter = character;
     }
 
+    public ICombatAction createActionInstance(NovaCharacterController character)
+    {
+        return new Action_Attack(character);
+    }
 }

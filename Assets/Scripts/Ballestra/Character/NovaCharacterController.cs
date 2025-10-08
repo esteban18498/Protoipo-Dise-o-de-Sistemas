@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEditor.Timeline.Actions;
@@ -16,9 +17,9 @@ public class NovaCharacterController : MonoBehaviour
 
 
     // --- Combat Action Queue ---
-    [Header("Combat Action Queue")]
+    [Header("Combat Action ")]
+    public CombatActionDictionary CombatActionDictionary;
     public CombatActionQueue actionQueue = new CombatActionQueue();
-
 
 
     // --- References ---
@@ -56,6 +57,8 @@ public class NovaCharacterController : MonoBehaviour
         {
             rigCharacter.speed = speed;
         }
+
+        CombatActionDictionary = new CombatActionDictionary(this);
     }
     void Start()
     {
@@ -136,6 +139,16 @@ public class NovaCharacterController : MonoBehaviour
     public void EnterFreezState()
     {
         combat_state = Combat_state.freez;
+
+
+        //actionQueue.EnqueueAction(new Action_Advance(this));
+
+        /*
+        CombatActionDictionary.MovesDictionary.TryGetValue(
+            new ListKey<Combat_Action_mod>(new List<Combat_Action_mod>{}), out ICombatAction action);
+        Debug.Log($"Enqueued {action} action");
+        actionQueue.EnqueueAction(action);
+        */
     }
 
     public void EnterPerformState()
