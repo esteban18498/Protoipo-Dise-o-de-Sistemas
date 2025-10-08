@@ -6,7 +6,7 @@
             "id": "cfb2adf8-0ff2-4872-ba48-8bd8390cc2b3",
             "actions": [
                 {
-                    "name": "Move",
+                    "name": "Directional",
                     "type": "Value",
                     "id": "a94d8c35-33df-4d3a-b971-4b5d710cc76d",
                     "expectedControlType": "Vector2",
@@ -22,6 +22,24 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
+                },
+                {
+                    "name": "Move",
+                    "type": "Button",
+                    "id": "5c57a1c5-60fe-43fc-8803-1e587ab1e7c6",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Attack",
+                    "type": "Button",
+                    "id": "93658a17-2d43-44a9-9799-0b96bda2947b",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -32,7 +50,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Move",
+                    "action": "Directional",
                     "isComposite": true,
                     "isPartOfComposite": false
                 },
@@ -43,7 +61,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": ";Keyboard&Mouse",
-                    "action": "Move",
+                    "action": "Directional",
                     "isComposite": false,
                     "isPartOfComposite": true
                 },
@@ -54,7 +72,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": ";Keyboard&Mouse",
-                    "action": "Move",
+                    "action": "Directional",
                     "isComposite": false,
                     "isPartOfComposite": true
                 },
@@ -65,7 +83,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": ";Keyboard&Mouse",
-                    "action": "Move",
+                    "action": "Directional",
                     "isComposite": false,
                     "isPartOfComposite": true
                 },
@@ -76,7 +94,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": ";Keyboard&Mouse",
-                    "action": "Move",
+                    "action": "Directional",
                     "isComposite": false,
                     "isPartOfComposite": true
                 },
@@ -87,7 +105,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": ";Keyboard&Mouse",
-                    "action": "Move",
+                    "action": "Directional",
                     "isComposite": false,
                     "isPartOfComposite": true
                 },
@@ -98,7 +116,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": ";Keyboard&Mouse",
-                    "action": "Move",
+                    "action": "Directional",
                     "isComposite": false,
                     "isPartOfComposite": true
                 },
@@ -109,7 +127,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": ";Keyboard&Mouse",
-                    "action": "Move",
+                    "action": "Directional",
                     "isComposite": false,
                     "isPartOfComposite": true
                 },
@@ -120,7 +138,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": ";Keyboard&Mouse",
-                    "action": "Move",
+                    "action": "Directional",
                     "isComposite": false,
                     "isPartOfComposite": true
                 },
@@ -132,6 +150,28 @@
                     "processors": "",
                     "groups": "Keyboard&Mouse",
                     "action": "Freez",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "17e4b06a-eb32-4ab4-a094-d0e4cecd9e7c",
+                    "path": "<Keyboard>/j",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard&Mouse",
+                    "action": "Move",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "957bd807-3158-44c9-a814-ff85e1518ea6",
+                    "path": "<Keyboard>/k",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard&Mouse",
+                    "action": "Attack",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
@@ -658,7 +698,7 @@
             "id": "bb01feb4-5a66-4e4f-932a-946fa8cd7388",
             "actions": [
                 {
-                    "name": "Move",
+                    "name": "Directional",
                     "type": "Value",
                     "id": "e98d5d84-1ee6-4637-9e32-131ee52699f3",
                     "expectedControlType": "Vector2",
@@ -674,6 +714,24 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
+                },
+                {
+                    "name": "Move",
+                    "type": "Button",
+                    "id": "e3de00f4-d4e8-4929-b397-0cefa4c6bcf7",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Attack",
+                    "type": "Button",
+                    "id": "0696159b-1525-4880-b3e9-288ec5d0f446",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -684,7 +742,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "Gamepad",
-                    "action": "Move",
+                    "action": "Directional",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -696,6 +754,28 @@
                     "processors": "",
                     "groups": "Gamepad",
                     "action": "Freez",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "680314e9-5114-4916-bad2-f476b859b22b",
+                    "path": "<Gamepad>/buttonSouth",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Gamepad",
+                    "action": "Move",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "b234f3a2-a768-48ca-8d33-937933ec5574",
+                    "path": "<Gamepad>/buttonWest",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Gamepad",
+                    "action": "Attack",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

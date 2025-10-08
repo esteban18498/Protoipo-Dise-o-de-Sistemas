@@ -56,5 +56,30 @@ public class Action_Advance : ICombatAction // concrect implementantion of actio
     {
         recieverCharacter = character;
     }
-    
+
+}
+
+public class Action_Attack : ICombatAction // concrect implementantion of attack action
+{
+    public int staminaCost => 1;
+
+    public Combat_Action_Type actionType => Combat_Action_Type.Attack;
+
+    public List<Combat_Action_mod> mods => new List<Combat_Action_mod>();
+
+    NovaCharacterController recieverCharacter;
+
+    public void Execute()
+    {
+        // trigger attack logic/animation
+        
+
+        Debug.Log($"{recieverCharacter.name} Executing Attack Action: Attacking.");
+    }
+
+    public Action_Attack(NovaCharacterController character)
+    {
+        recieverCharacter = character;
+    }
+
 }

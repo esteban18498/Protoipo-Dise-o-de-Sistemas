@@ -8,20 +8,29 @@ public class Player : MonoBehaviour
     [SerializeField] public NovaCharacterController CharacterController;
 
     private PlayerInput playerInput;
-    private InputAction moveAction;
+    private InputAction directionalAction;
     private InputAction freezAction;
+    private InputAction moveAction;
+    private InputAction attackAction;
 
     // Start is called before the first frame update
     void Awake()
     {
         playerInput = GetComponent<PlayerInput>();
-        
-        moveAction = playerInput.actions["Move"];
-        moveAction.performed += Move;
-        moveAction.canceled += Move;
+
+        directionalAction = playerInput.actions["Directional"];
+        directionalAction.performed += DirectionalAction;
+        directionalAction.canceled += DirectionalAction;
 
         freezAction = playerInput.actions["Freez"];
         freezAction.started += Freez;
+
+        moveAction = playerInput.actions["Move"];
+        moveAction.started += MoveAction;
+        
+        attackAction = playerInput.actions["Attack"];
+        attackAction.started += AttackAction;
+
     }
 
     // Update is called once per frame
@@ -30,9 +39,10 @@ public class Player : MonoBehaviour
 
     }
 
-    void Move(InputAction.CallbackContext context)
+    void DirectionalAction(InputAction.CallbackContext context)
     {
-        if (CharacterController.combat_state == Combat_state.free_move) {
+        if (CharacterController.combat_state == Combat_state.free_move)
+        {
 
             if (context.ReadValue<Vector2>().x < 0)
             {
@@ -50,7 +60,26 @@ public class Player : MonoBehaviour
         }
     }
 
-    void Freez(InputAction.CallbackContext context) { 
+    void Freez(InputAction.CallbackContext context)
+    {
         CharacterController.RequestFreezState();
+    }
+
+    void MoveAction(InputAction.CallbackContext context)
+    {
+        if (CharacterController.combat_state == Combat_state.freez)
+        {
+            //check for mods? here?
+            CharacterController.actionQueue.EnqueueAction(new Action_Advance(CharacterController));
+        }
+    }
+    
+    void AttackAction(InputAction.CallbackContext context)
+    {
+        if (CharacterController.combat_state == Combat_state.freez)
+        {
+            //check for mods? here?
+            CharacterController.actionQueue.EnqueueAction(new Action_Attack(CharacterController));
+        }
     }
 }
