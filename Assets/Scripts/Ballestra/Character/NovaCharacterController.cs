@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.Timeline.Actions;
 using UnityEngine;
 using UnityEngine.UIElements;
 
@@ -148,6 +149,7 @@ public class NovaCharacterController : MonoBehaviour
     {
         combat_state = Combat_state.free_move;
         actionQueue.ClearQueue();
+
     }
 
     public IEnumerator performActionTimer()

@@ -16,7 +16,7 @@ public class Action_Step : ICombatAction // concrect implementantion of void act
     public void Execute()
     {
         // Do nothing
-        Debug.Log($"{recieverCharacter.name} Executing Step Action: Doing nothing.");
+        //Debug.Log($"{recieverCharacter.name} Executing Step Action: Doing nothing.");
     }
 
     public Action_Step(NovaCharacterController character)
@@ -48,7 +48,7 @@ public class Action_Advance : ICombatAction // concrect implementantion of actio
             recieverCharacter.MoveToPreviousSpot();
         }
 
-        Debug.Log($"{recieverCharacter.name} moved to {recieverCharacter.CurrentSpot.name}");
+        //Debug.Log($"{recieverCharacter.name} moved to {recieverCharacter.CurrentSpot.name}");
 
     }
 
