@@ -9,6 +9,7 @@ public class NovaCharacterController : MonoBehaviour
 
     [Header("State")]
     [SerializeField] public SpotController CurrentSpot;
+    private SpotController lastSpot;
     [SerializeField] private ICharacterState characterState;
     public Combat_state combat_state = Combat_state.free_move;
 
@@ -97,6 +98,7 @@ public class NovaCharacterController : MonoBehaviour
         if (arena == null) return;
         var nextSpot = arena.getNextSpot(CurrentSpot);
         if (nextSpot == null) return;
+        lastSpot = CurrentSpot;
         CurrentSpot = nextSpot;
         anchor.position = CurrentSpot.transform.position;
     }
@@ -107,7 +109,15 @@ public class NovaCharacterController : MonoBehaviour
         if (arena == null) return;
         var nextSpot = arena.getPrevSpot(CurrentSpot);
         if (nextSpot == null) return;
+        lastSpot = CurrentSpot;
         CurrentSpot = nextSpot;
+        anchor.position = CurrentSpot.transform.position;
+    }
+
+    public void MoveBackToLastSpot()
+    {
+        if (lastSpot == null) return;
+        CurrentSpot = lastSpot;
         anchor.position = CurrentSpot.transform.position;
     }
 
@@ -139,7 +149,7 @@ public class NovaCharacterController : MonoBehaviour
         combat_state = Combat_state.free_move;
         actionQueue.ClearQueue();
     }
-    
+
     public IEnumerator performActionTimer()
     {
         // Example: Wait for 1 second before performing the next action
