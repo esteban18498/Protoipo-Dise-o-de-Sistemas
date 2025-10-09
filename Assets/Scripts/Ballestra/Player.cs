@@ -13,6 +13,8 @@ public class Player : MonoBehaviour
     private InputAction moveAction;
     private InputAction attackAction;
 
+    public ListKey<Combat_Action_mod> mods;
+
     // Start is called before the first frame update
     void Awake()
     {
@@ -27,9 +29,11 @@ public class Player : MonoBehaviour
 
         moveAction = playerInput.actions["Move"];
         moveAction.started += MoveAction;
-        
+
         attackAction = playerInput.actions["Attack"];
         attackAction.started += AttackAction;
+        
+        mods = new ListKey<Combat_Action_mod>(new List<Combat_Action_mod>());
 
     }
 
@@ -57,7 +61,41 @@ public class Player : MonoBehaviour
         if (CharacterController.combat_state == Combat_state.freez)
         {
             // load combo/action modificators
+            // e.g., if context.ReadValue<Vector2>().y > 0 then add Combat_Action_mod.Up to the current action's mod list
+
+            if (context.ReadValue<Vector2>().x < 0)
+            {
+                if (CharacterController.transform.localScale.x > 0)// facing right
+                {
+                    mods.add(Combat_Action_mod.Back);
+                }
+                else
+                {
+                    mods.add(Combat_Action_mod.Front);
+                }
+            }
+            else if (context.ReadValue<Vector2>().x > 0)
+            {
+                if (CharacterController.transform.localScale.x > 0)// facing right
+                {
+                    mods.add(Combat_Action_mod.Front);
+                }
+                else
+                {
+                    mods.add(Combat_Action_mod.Back);
+                }
+            }
+
+            if (context.ReadValue<Vector2>().y < 0)
+            {
+                mods.add(Combat_Action_mod.Down);
+            }
+            else if (context.ReadValue<Vector2>().y > 0)
+            {
+                mods.add(Combat_Action_mod.Up);
+            }
         }
+
     }
 
     void Freez(InputAction.CallbackContext context)
@@ -69,8 +107,10 @@ public class Player : MonoBehaviour
     {
         if (CharacterController.combat_state == Combat_state.freez)
         {
-            //check for mods? here?
-            CharacterController.actionQueue.EnqueueAction(new Action_Advance(CharacterController));
+            ICombatAction action = CharacterController.CombatActionDictionary.GetCombatAction(mods, Combat_Action_Type.Move);
+            CharacterController.actionQueue.EnqueueAction(action);
+
+            mods = new ListKey<Combat_Action_mod>(new List<Combat_Action_mod>()); // reset mods after enqueuing action
         }
     }
     
@@ -78,8 +118,11 @@ public class Player : MonoBehaviour
     {
         if (CharacterController.combat_state == Combat_state.freez)
         {
-            //check for mods? here?
-            CharacterController.actionQueue.EnqueueAction(new Action_Attack(CharacterController));
+            ICombatAction action = CharacterController.CombatActionDictionary.GetCombatAction(mods, Combat_Action_Type.Attack);
+            CharacterController.actionQueue.EnqueueAction(action);
+            
+            mods = new ListKey<Combat_Action_mod>(new List<Combat_Action_mod>()); // reset mods after enqueuing action
+
         }
     }
 }

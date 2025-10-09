@@ -10,10 +10,13 @@ public class CombatActionDictionary
     public Dictionary<ListKey<Combat_Action_mod>, ICombatAction> BlocksDictionary;
     public Dictionary<ListKey<Combat_Action_mod>, ICombatAction> UtilsDictionary;
 
+    public ICombatAction defaultAction;
+
     public CombatActionDictionary(NovaCharacterController character)
     {
-        //create core actions
+        defaultAction = new Action_Unknown(character); // default action
 
+        //create core actions
         #region Moves
         List<ICombatAction> CoreMoves = new List<ICombatAction>()
         {
@@ -33,6 +36,7 @@ public class CombatActionDictionary
         List<ICombatAction> CoreAttacks = new List<ICombatAction>()
         {
             new Action_Attack(character),
+            new Action_superAttack(character)
         };
         AttacksDictionary = new Dictionary<ListKey<Combat_Action_mod>, ICombatAction>();
         foreach (var action in CoreAttacks)
@@ -64,7 +68,38 @@ public class CombatActionDictionary
             UtilsDictionary[action.mods] = action;
         }
         #endregion
+
+
     }
 
+
+    public ICombatAction GetCombatAction(ListKey<Combat_Action_mod> mods, Combat_Action_Type type)
+    {
+        ICombatAction action = null;
+
+        if (type == Combat_Action_Type.Attack)
+        {
+            AttacksDictionary.TryGetValue(mods, out action);
+        }
+        else if (type == Combat_Action_Type.Block)
+        {
+            BlocksDictionary.TryGetValue(mods, out action);
+        }
+        else if (type == Combat_Action_Type.Utils)
+        {
+            UtilsDictionary.TryGetValue(mods, out action);
+        }
+        else // Move
+        {
+            MovesDictionary.TryGetValue(mods, out action);
+        }
+
+        if (action == null)
+        {
+            action = defaultAction;
+        }
+
+        return action;
+    }
 }
 

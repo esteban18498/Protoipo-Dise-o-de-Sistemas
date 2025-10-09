@@ -33,39 +33,44 @@ public interface ICombatAction
 }
 
 
-public class ListKey<T> 
+public class ListKey<T>
+{
+    private readonly IList<T> _list;
+
+    public ListKey(IList<T> list)
     {
-        private readonly IList<T> _list;
-
-        public ListKey(IList<T> list)
-        {
-            _list = list ?? throw new System.ArgumentNullException(nameof(list));
-        }
-
-        public override bool Equals(object obj)
-        {
-            return Equals(obj as ListKey<T>);
-        }
-
-        public bool Equals(ListKey<T> other)
-        {
-            if (other == null) return false;
-            if (ReferenceEquals(this, other)) return true;
-
-            // Compare list contents
-            return _list.SequenceEqual(other._list);
-        }
-
-        public override int GetHashCode()
-        {
-            // Combine hash codes of elements
-            // A simple approach is to XOR hash codes of all elements
-            // More robust methods exist for order-sensitive hashing
-            int hash = 17;
-            foreach (var item in _list)
-            {
-                hash = hash * 23 + (item?.GetHashCode() ?? 0);
-            }
-            return hash;
-        }
+        _list = list ?? throw new System.ArgumentNullException(nameof(list));
     }
+
+    public override bool Equals(object obj)
+    {
+        return Equals(obj as ListKey<T>);
+    }
+
+    public bool Equals(ListKey<T> other)
+    {
+        if (other == null) return false;
+        if (ReferenceEquals(this, other)) return true;
+
+        // Compare list contents
+        return _list.SequenceEqual(other._list);
+    }
+
+    public override int GetHashCode()
+    {
+        // Combine hash codes of elements
+        // A simple approach is to XOR hash codes of all elements
+        // More robust methods exist for order-sensitive hashing
+        int hash = 17;
+        foreach (var item in _list)
+        {
+            hash = hash * 23 + (item?.GetHashCode() ?? 0);
+        }
+        return hash;
+    }
+
+    public void add(T item)
+    {
+        _list.Add(item);
+    }
+}

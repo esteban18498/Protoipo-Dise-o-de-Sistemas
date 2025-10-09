@@ -96,3 +96,65 @@ public class Action_Attack : ICombatAction // concrect implementantion of attack
         return new Action_Attack(character);
     }
 }
+
+public class Action_Unknown : ICombatAction // concrect implementantion of attack action
+{
+    public int staminaCost => 1;
+
+    public Combat_Action_Type actionType => Combat_Action_Type.Utils;
+
+    public ListKey<Combat_Action_mod> mods => new ListKey<Combat_Action_mod>(new List<Combat_Action_mod>());
+
+    NovaCharacterController recieverCharacter;
+
+    public void Execute()
+    {
+        // trigger attack logic/animation
+
+
+        Debug.Log($"{recieverCharacter.name} Don't know what to do.");
+    }
+
+    public Action_Unknown(NovaCharacterController character)
+    {
+        recieverCharacter = character;
+    }
+
+    public ICombatAction createActionInstance(NovaCharacterController character)
+    {
+        return new Action_Attack(character);
+    }
+}
+
+
+public class Action_superAttack : ICombatAction // concrect implementantion of attack action
+{
+    public int staminaCost => 1;
+
+    public Combat_Action_Type actionType => Combat_Action_Type.Attack;
+
+    public ListKey<Combat_Action_mod> mods => new ListKey<Combat_Action_mod>(new List<Combat_Action_mod>(){
+        Combat_Action_mod.Up, Combat_Action_mod.Front });
+
+    NovaCharacterController recieverCharacter;
+
+    public void Execute()
+    {
+        // trigger attack logic/animation
+
+
+
+
+        Debug.Log($"{recieverCharacter.name} does a super attakck.");
+    }
+
+    public Action_superAttack(NovaCharacterController character)
+    {
+        recieverCharacter = character;
+    }
+
+    public ICombatAction createActionInstance(NovaCharacterController character)
+    {
+        return new Action_Attack(character);
+    }
+}
