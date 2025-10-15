@@ -330,6 +330,7 @@ GameObject:
   m_Component:
   - component: {fileID: 689765401765174776}
   - component: {fileID: 7285764502668716771}
+  - component: {fileID: 530230460500168386}
   m_Layer: 0
   m_Name: Character
   m_TagString: Untagged
@@ -372,6 +373,18 @@ MonoBehaviour:
   rigCharacter: {fileID: 3023535141670363163}
   body: {fileID: 2605078385396054488}
   speed: 5
+--- !u!114 &530230460500168386
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 944612396173209598}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8bbb56d5b56bb064583664548504b29d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1014882134429496978
 GameObject:
   m_ObjectHideFlags: 0

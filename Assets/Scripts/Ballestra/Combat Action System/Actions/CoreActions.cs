@@ -80,7 +80,22 @@ public class Action_Attack : ICombatAction // concrect implementantion of attack
 
     public void Execute()
     {
-        // trigger attack logic/animation
+        // attack logic:
+
+        //get character front anchor
+        
+        //move sowrd from anchor to front anchor
+        
+        // wait for 0.3 action time
+
+        //check for collision with enemy at anchor
+        //deal damage if hit
+
+
+
+        //wait for 0.3 action time
+
+        //move sword back to character
 
 
         Debug.Log($"{recieverCharacter.name} Executing Attack Action: Attacking.");

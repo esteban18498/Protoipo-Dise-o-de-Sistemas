@@ -15,7 +15,6 @@ public class NovaCharacterController : MonoBehaviour
     [SerializeField] private ICharacterState characterState;
     public Combat_state combat_state = Combat_state.free_move;
 
-
     // --- Combat Action Queue ---
     [Header("Combat Action ")]
     public CombatActionDictionary CombatActionDictionary;
