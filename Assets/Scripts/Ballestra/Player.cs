@@ -12,6 +12,7 @@ public class Player : MonoBehaviour
     private InputAction freezAction;
     private InputAction moveAction;
     private InputAction attackAction;
+    private InputAction blockAction;
 
     public ListKey<Combat_Action_mod> mods;
 
@@ -32,7 +33,10 @@ public class Player : MonoBehaviour
 
         attackAction = playerInput.actions["Attack"];
         attackAction.started += AttackAction;
-        
+
+        blockAction = playerInput.actions["Block"];
+        blockAction.started += BlockAction;
+
         mods = new ListKey<Combat_Action_mod>(new List<Combat_Action_mod>());
 
     }
@@ -113,16 +117,27 @@ public class Player : MonoBehaviour
             mods = new ListKey<Combat_Action_mod>(new List<Combat_Action_mod>()); // reset mods after enqueuing action
         }
     }
-    
+
     void AttackAction(InputAction.CallbackContext context)
     {
         if (CharacterController.combat_state == Combat_state.freez)
         {
             ICombatAction action = CharacterController.CombatActionDictionary.GetCombatAction(mods, Combat_Action_Type.Attack);
             CharacterController.actionQueue.EnqueueAction(action);
-            
+
             mods = new ListKey<Combat_Action_mod>(new List<Combat_Action_mod>()); // reset mods after enqueuing action
 
+        }
+    }
+
+    void BlockAction(InputAction.CallbackContext context)
+    {
+        if (CharacterController.combat_state == Combat_state.freez)
+        {
+            ICombatAction action = CharacterController.CombatActionDictionary.GetCombatAction(mods, Combat_Action_Type.Block);
+            CharacterController.actionQueue.EnqueueAction(action);
+
+            mods = new ListKey<Combat_Action_mod>(new List<Combat_Action_mod>()); // reset mods after enqueuing action
         }
     }
 }

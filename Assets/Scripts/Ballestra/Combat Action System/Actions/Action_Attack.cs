@@ -13,26 +13,32 @@ public class Action_Attack : ICombatAction // concrect implementantion of attack
 
     NovaCharacterController recieverCharacter;
 
+    Transform targetAnchor;
+    Transform originAnchor;
+
+    Sword sword;
+    
+    
+
     public void Execute()
     {
-        // attack logic:
-
-        //get character front anchor
-        Transform frontAnchor = recieverCharacter.GetComponent<Transform>().Find("Anchor").Find("Front");//bad performace... doable for now... can be better on construction
-
-
         //move sowrd from anchor to front anchor
-        Transform saveSwordAnchor = recieverCharacter.RigCharacter.Sword.Anchor; // save current sword anchor
-        recieverCharacter.RigCharacter.Sword.Anchor = frontAnchor; // set sword anchor to front anchor
+        originAnchor = recieverCharacter.RigCharacter.Sword.Anchor; // save current sword anchor
+        recieverCharacter.RigCharacter.Sword.Anchor = targetAnchor; // set sword anchor to front anchor
+        sword.SetActiveHitColor();
         
         //start coroutine to move sword back after delay
 
-        recieverCharacter.StartCoroutine(HitBoxCoroutine(frontAnchor, saveSwordAnchor));
+        recieverCharacter.StartCoroutine(HitBoxCoroutine(targetAnchor, originAnchor));
     }
 
     public Action_Attack(NovaCharacterController character)
     {
         recieverCharacter = character;
+
+        targetAnchor = recieverCharacter.GetComponent<Transform>().Find("Anchor").Find("Front");
+        sword = recieverCharacter.RigCharacter.Sword.GetComponent<Sword>();
+
     }
 
     public ICombatAction createActionInstance(NovaCharacterController character)
@@ -64,14 +70,14 @@ public class Action_Attack : ICombatAction // concrect implementantion of attack
             {
                 //Debug.Log($"{recieverCharacter.name} hit {enemy.name} with an attack!");
 
-                enemy.GetComponent<IHealth>().ApplyDamage(damage); 
+                enemy.GetComponent<IHealth>().ApplyDamage(damage);
 
             }
         }
 
 
         //move sword back to character
-
         recieverCharacter.RigCharacter.Sword.Anchor = saveSwordAnchor;
+        sword.SetNormalColor();
     }
 }
