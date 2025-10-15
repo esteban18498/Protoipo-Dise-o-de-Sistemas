@@ -68,50 +68,6 @@ public class Action_Advance : ICombatAction // concrect implementantion of actio
     }
 }
 
-public class Action_Attack : ICombatAction // concrect implementantion of attack action
-{
-    public int staminaCost => 1;
-
-    public Combat_Action_Type actionType => Combat_Action_Type.Attack;
-
-    public ListKey<Combat_Action_mod> mods => new ListKey<Combat_Action_mod>(new List<Combat_Action_mod>());
-
-    NovaCharacterController recieverCharacter;
-
-    public void Execute()
-    {
-        // attack logic:
-
-        //get character front anchor
-        
-        //move sowrd from anchor to front anchor
-        
-        // wait for 0.3 action time
-
-        //check for collision with enemy at anchor
-        //deal damage if hit
-
-
-
-        //wait for 0.3 action time
-
-        //move sword back to character
-
-
-        Debug.Log($"{recieverCharacter.name} Executing Attack Action: Attacking.");
-    }
-
-    public Action_Attack(NovaCharacterController character)
-    {
-        recieverCharacter = character;
-    }
-
-    public ICombatAction createActionInstance(NovaCharacterController character)
-    {
-        return new Action_Attack(character);
-    }
-}
-
 public class Action_Unknown : ICombatAction // concrect implementantion of attack action
 {
     public int staminaCost => 1;

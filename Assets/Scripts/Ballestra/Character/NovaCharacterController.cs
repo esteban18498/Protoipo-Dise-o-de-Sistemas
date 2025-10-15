@@ -24,8 +24,8 @@ public class NovaCharacterController : MonoBehaviour
     // --- References ---
     [Header("Internal References")]
     [SerializeField] private Transform anchor;
-    [SerializeField] private RigCharacter rigCharacter;
-    [SerializeField] private GameObject body;
+    public RigCharacter RigCharacter;
+
 
     private ArenaController arena;
 
@@ -48,13 +48,13 @@ public class NovaCharacterController : MonoBehaviour
             arena = CurrentSpot.GetComponentInParent<ArenaController>();
         }
 
-        if (rigCharacter == null)
+        if (RigCharacter == null)
         {
             throw new System.Exception("rigCharacter is not set. Please assign a RigCharacter in the inspector.");
         }
         else
         {
-            rigCharacter.speed = speed;
+            RigCharacter.speed = speed;
         }
 
         CombatActionDictionary = new CombatActionDictionary(this);

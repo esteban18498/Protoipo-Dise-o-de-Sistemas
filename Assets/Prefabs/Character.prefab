@@ -263,7 +263,7 @@ CapsuleCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
@@ -370,8 +370,7 @@ MonoBehaviour:
   CurrentSpot: {fileID: 0}
   combat_state: 0
   anchor: {fileID: 3169388729443193354}
-  rigCharacter: {fileID: 3023535141670363163}
-  body: {fileID: 2605078385396054488}
+  RigCharacter: {fileID: 3023535141670363163}
   speed: 5
 --- !u!114 &530230460500168386
 MonoBehaviour:
@@ -385,6 +384,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8bbb56d5b56bb064583664548504b29d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  max: 100
+  current: 100
 --- !u!1 &1014882134429496978
 GameObject:
   m_ObjectHideFlags: 0
@@ -1159,7 +1160,7 @@ MonoBehaviour:
   speed: 5
   Head: {fileID: 0}
   Torso: {fileID: 0}
-  attackArm: {fileID: 0}
+  Sword: {fileID: 8658148232282518628}
   supportArm: {fileID: 0}
   legs: {fileID: 0}
 --- !u!1 &3174886189942079458
@@ -1172,7 +1173,6 @@ GameObject:
   m_Component:
   - component: {fileID: 5056349244685434894}
   - component: {fileID: 8801113057433780347}
-  - component: {fileID: 1171418195462213266}
   - component: {fileID: 470201212121294552}
   m_Layer: 0
   m_Name: LLegB
@@ -1248,22 +1248,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!70 &1171418195462213266
-CapsuleCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3174886189942079458}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
-  m_Size: {x: 1, y: 2}
-  m_Direction: 0
 --- !u!114 &470201212121294552
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1632,7 +1616,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1523398591940184002}
   - component: {fileID: 1682046969490059707}
-  - component: {fileID: 4322665183324025726}
   - component: {fileID: 100009598025039564}
   m_Layer: 0
   m_Name: RArmB
@@ -1708,22 +1691,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!70 &4322665183324025726
-CapsuleCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5047482312487844429}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
-  m_Size: {x: 1, y: 2}
-  m_Direction: 0
 --- !u!114 &100009598025039564
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1763,7 +1730,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5407017959691509544}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 4.77, y: 3, z: 0}
+  m_LocalPosition: {x: 3.16, y: 3, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -2086,7 +2053,6 @@ GameObject:
   m_Component:
   - component: {fileID: 4587119110163529293}
   - component: {fileID: 3496115223617980481}
-  - component: {fileID: 3964071458953684166}
   - component: {fileID: 312120995650213725}
   m_Layer: 0
   m_Name: LArmB
@@ -2162,22 +2128,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!70 &3964071458953684166
-CapsuleCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8027105340454379540}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
-  m_Size: {x: 1, y: 2}
-  m_Direction: 0
 --- !u!114 &312120995650213725
 MonoBehaviour:
   m_ObjectHideFlags: 0

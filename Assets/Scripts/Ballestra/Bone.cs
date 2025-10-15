@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class Bone : MonoBehaviour
 {
-    [SerializeField] public Transform Anchor;
-    [SerializeField] public float speed = 5f;
+    public Transform Anchor;
+    public float speed = 5f;
     // Start is called before the first frame update
     void Awake()
     {
