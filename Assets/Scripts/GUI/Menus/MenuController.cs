@@ -1,30 +1,39 @@
 using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.UI;
-using UnityEngine.SceneManagement;
-using TMPro;
 using System.Linq;
-
+using UnityEngine;
+using UnityEngine.SceneManagement;
+using UnityEngine.UI;
+using TMPro;
 
 public sealed class MenuController : MonoBehaviour
 {
-    [Header("Volume Setting")]
-    [SerializeField] private TMP_Text volumeTextValue = null;
-    [SerializeField] private Slider volumeSlider = null;
-    [SerializeField] private float defaultVolume = 1.0f;
+    // ---------- Services ----------
+    private SettingsService settings = new SettingsService(new PlayerPrefsSettingsStore());
 
+    // ---------- Audio (UI) ----------
+    [Header("Audio")]
+    [SerializeField] private Slider volumeSlider = null;        // Master 0..1
+    [SerializeField] private TMP_Text volumeTextValue = null;
+    [SerializeField, Range(0f, 1f)] private float defaultVolume = 0.2f;
+
+    // (Optional) If you add dedicated sliders later, just wire these and they’ll work:
+    [SerializeField] private Slider musicSlider = null;         // 0..1 (optional)
+    [SerializeField] private TMP_Text musicTextValue = null;
+    [SerializeField] private Slider sfxSlider = null;           // 0..1 (optional)
+    [SerializeField] private TMP_Text sfxTextValue = null;
+
+    // ---------- Gameplay ----------
     [Header("Gameplay Settings")]
     [SerializeField] private TMP_Text ControllerSenTextvalue = null;
     [SerializeField] private Slider controllerSenSlider = null;
     [SerializeField] private int defaultSensitivity = 4;
     public int mainControllerSen = 4;
 
-
     [Header("Toggle Settings")]
     [SerializeField] private Toggle invertYToggle = null;
 
-
+    // ---------- Graphics ----------
     [Header("Graphics Settings")]
     [SerializeField] private TMP_Text brightnessTextValue = null;
     [SerializeField] private Slider brightnessSlider = null;
@@ -34,70 +43,52 @@ public sealed class MenuController : MonoBehaviour
     [SerializeField] private TMP_Dropdown qualityDropdown = null;
     [SerializeField] private Toggle fullscreenToggle = null;
 
-
     private int _qualityLevel;
     private bool _isFullScreen;
     private float _brightnessLevel;
 
-    [Header("Resolution Dropdowns")]
+    [Header("Resolution Dropdown")]
     public TMP_Dropdown resolutionDropdown;
-    private Resolution[] resolutions;
     private bool _ignoreResChange = false;
-    private Resolution[] _allModes; // All modes reported by the OS (width, height, refresh)
-    private Vector2Int[] _uniqueRes; // Unique width×height entries for the dropdown (no refresh)
-
+    private Resolution[] _allModes;     // OS modes (w,h,refresh)
+    private Vector2Int[] _uniqueRes;    // Unique sizes
 
     [Header("Confirmation")]
     [SerializeField] private GameObject confirmationPrompt = null;
 
-
     [Header("Levels to Load")]
-
     public string _newGameLevel;
     private string levelToLoad;
     [SerializeField] private GameObject noSavedGameDialog = null;
 
-    private const string MasterVolKey = "masterVolume";
+    // ---------- Keys still handled locally (not in SettingsService) ----------
     private const string SensitivityKey = "masterSensitivity";
     private const string InvertYKey = "masterInvertY";
-    private const string BrightnessKey = "masterBrightness";
-    private const string QualityKey = "masterQuality";
-    private const string FullscreenKey = "masterFullscreen";
     private const string ResolutionIndexKey = "masterResIndex";
 
-
+    // =======================
+    // Lifecycle
+    // =======================
     private void Awake()
     {
-        // --- Volume ---
-        float savedVolume = Mathf.Clamp01(PlayerPrefs.GetFloat(MasterVolKey, defaultVolume));
-        if (volumeSlider) volumeSlider.value = savedVolume;
-        SetMasterVolume(savedVolume);
-        if (volumeSlider)
-        {
-            volumeSlider.onValueChanged.RemoveListener(SetMasterVolume);
-            volumeSlider.onValueChanged.AddListener(SetMasterVolume);
-        }
 
-        // --- Sensitivity (int, whole numbers) ---
+        // ----- GAMEPLAY prefs -----
         int savedSensitivity = PlayerPrefs.GetInt(SensitivityKey, defaultSensitivity);
         if (controllerSenSlider)
         {
-            controllerSenSlider.wholeNumbers = true; // keep ints
+            controllerSenSlider.wholeNumbers = true;
             controllerSenSlider.value = savedSensitivity;
             controllerSenSlider.onValueChanged.RemoveAllListeners();
             controllerSenSlider.onValueChanged.AddListener(SetControllerSen);
         }
         SetControllerSen(savedSensitivity);
 
-        // --- Invert Y ---
         bool invertY = PlayerPrefs.GetInt(InvertYKey, 0) == 1;
         if (invertYToggle) invertYToggle.isOn = invertY;
 
-        // ---------- GRAPHICS ----------
-        // Brightness
-        float savedBrightness = PlayerPrefs.GetFloat(BrightnessKey, defaultBrightness);
-        savedBrightness = Mathf.Clamp(savedBrightness, 0f, 2f);     // rango típico
-        _brightnessLevel = savedBrightness;                         // SINCRONIZAR backing field
+        // ----- GRAPHICS (brightness/quality/fullscreen) -----
+        float savedBrightness = Mathf.Clamp(settings.Brightness, 0f, 2f);
+        _brightnessLevel = savedBrightness;
         if (brightnessSlider)
         {
             brightnessSlider.minValue = 0f;
@@ -106,11 +97,10 @@ public sealed class MenuController : MonoBehaviour
             brightnessSlider.onValueChanged.RemoveAllListeners();
             brightnessSlider.onValueChanged.AddListener(SetBrightness);
         }
-        SetBrightness(savedBrightness); // actualiza el TMP_Text
+        SetBrightness(savedBrightness);
 
-        // Quality
-        int savedQuality = PlayerPrefs.GetInt(QualityKey, QualitySettings.GetQualityLevel());
-        _qualityLevel = Mathf.Clamp(savedQuality, 0, QualitySettings.names.Length - 1);
+        int savedQuality = Mathf.Clamp(settings.Quality, 0, QualitySettings.names.Length - 1);
+        _qualityLevel = savedQuality;
         QualitySettings.SetQualityLevel(_qualityLevel);
         if (qualityDropdown)
         {
@@ -122,8 +112,7 @@ public sealed class MenuController : MonoBehaviour
             qualityDropdown.RefreshShownValue();
         }
 
-        // Fullscreen
-        bool savedFullscreen = PlayerPrefs.GetInt(FullscreenKey, Screen.fullScreen ? 1 : 0) == 1;
+        bool savedFullscreen = settings.Fullscreen;
         _isFullScreen = savedFullscreen;
         Screen.fullScreen = savedFullscreen;
         if (fullscreenToggle)
@@ -132,25 +121,47 @@ public sealed class MenuController : MonoBehaviour
             fullscreenToggle.onValueChanged.RemoveAllListeners();
             fullscreenToggle.onValueChanged.AddListener(SetFullScreen);
         }
-
-
-
     }
 
     private void Start()
     {
-        // 1) Read all modes
+        // ----- AUDIO: load saved values and apply to Mixer -----
+        float savedMaster = settings.MasterVolume; // 0..1
+        if (volumeSlider)
+        {
+            volumeSlider.value = savedMaster;
+            volumeSlider.onValueChanged.RemoveAllListeners();
+            volumeSlider.onValueChanged.AddListener(OnMasterVolumeChanged);
+        }
+        OnMasterVolumeChanged(savedMaster); // live apply & text
+
+        if (musicSlider)
+        {
+            float savedMusic = settings.MusicVolume;
+            musicSlider.value = savedMusic;
+            musicSlider.onValueChanged.RemoveAllListeners();
+            musicSlider.onValueChanged.AddListener(OnMusicVolumeChanged);
+            OnMusicVolumeChanged(savedMusic);
+        }
+        if (sfxSlider)
+        {
+            float savedSfx = settings.SfxVolume;
+            sfxSlider.value = savedSfx;
+            sfxSlider.onValueChanged.RemoveAllListeners();
+            sfxSlider.onValueChanged.AddListener(OnSfxVolumeChanged);
+            OnSfxVolumeChanged(savedSfx);
+        }
+
+        // ----- RESOLUTIONS -----
         _allModes = Screen.resolutions;
         if (_allModes == null || _allModes.Length == 0)
-            _allModes = new[] { Screen.currentResolution }; // fallback
+            _allModes = new[] { Screen.currentResolution };
 
-        // 2) Unique width×height (drop refresh); keep natural order by first appearance
         _uniqueRes = _allModes
             .Select(r => new Vector2Int(r.width, r.height))
-            .Distinct() // requires using System.Linq
+            .Distinct()
             .ToArray();
 
-        // 3) Dropdown options from unique sizes
         if (resolutionDropdown)
         {
             resolutionDropdown.ClearOptions();
@@ -158,7 +169,6 @@ public sealed class MenuController : MonoBehaviour
             resolutionDropdown.AddOptions(opts);
         }
 
-        // 4) Pick initial index: pref → desktop → 0
         int targetIndex;
         if (PlayerPrefs.HasKey(ResolutionIndexKey))
         {
@@ -167,11 +177,10 @@ public sealed class MenuController : MonoBehaviour
         else
         {
             var (dw, dh) = GetDesktopResolution();
-            targetIndex = FindBestResolutionIndex(dw, dh); // now searches in _uniqueRes
+            targetIndex = FindBestResolutionIndex(dw, dh);
             if (targetIndex < 0) targetIndex = 0;
         }
 
-        // 5) Apply once (highest refresh for that size), wire listener
         _ignoreResChange = true;
         ApplyResolutionIndex(targetIndex, keepCurrentMode: true);
         if (resolutionDropdown)
@@ -181,77 +190,102 @@ public sealed class MenuController : MonoBehaviour
             resolutionDropdown.onValueChanged.RemoveAllListeners();
             resolutionDropdown.onValueChanged.AddListener(SetResolution);
         }
-        _ignoreResChange = false; 
+        _ignoreResChange = false;
     }
 
-
-
-    #region Scene Buttons
+    // =======================
+    // Scene Buttons
+    // =======================
     public void NewGameDialogYes() => SceneManager.LoadScene(_newGameLevel);
 
     public void LoadGameDialogYes()
     {
-        if (PlayerPrefs.HasKey("SavedLevel")) // Do we have a file SavedLevel?
+        if (PlayerPrefs.HasKey("SavedLevel"))
         {
             levelToLoad = PlayerPrefs.GetString("SavedLevel");
             SceneManager.LoadScene(levelToLoad);
         }
         else
         {
-            noSavedGameDialog.SetActive(true);
+            if (noSavedGameDialog) noSavedGameDialog.SetActive(true);
         }
     }
 
     public void ExitButton()
     {
+#if !UNITY_EDITOR
         Application.Quit();
+#else
+        UnityEditor.EditorApplication.isPlaying = false;
+#endif
     }
-    #endregion
 
-    #region Volume
-    public void SetMasterVolume(float volume)
+    // =======================
+    // Audio (Master/Music/SFX)
+    // =======================
+    public void OnMasterVolumeChanged(float v01)
     {
-        AudioListener.volume = volume;
-        volumeTextValue.text = volume.ToString("0.0");
+        AudioManager.Instance.SetBusVolume("MasterVolume", Mathf.Clamp01(v01));
+        if (volumeTextValue) volumeTextValue.text = v01.ToString("0.0");
     }
 
-    public void VolumeApply()
+    public void OnMasterVolumeApply()
     {
-        PlayerPrefs.SetFloat(MasterVolKey, AudioListener.volume);
-        PlayerPrefs.Save();
-        if (confirmationPrompt != null) StartCoroutine(ConfirmationBox());
-
+        float v = volumeSlider ? volumeSlider.value : defaultVolume;
+        settings.MasterVolume = Mathf.Clamp01(v);
+        if (confirmationPrompt) StartCoroutine(ConfirmationBox());
     }
 
+    public void OnMusicVolumeChanged(float v01)
+    {
+        AudioManager.Instance.SetBusVolume("MusicVolume", Mathf.Clamp01(v01));
+        if (musicTextValue) musicTextValue.text = v01.ToString("0.0");
+    }
 
-    #endregion
+    public void OnMusicVolumeApply()
+    {
+        if (!musicSlider) return;
+        settings.MusicVolume = Mathf.Clamp01(musicSlider.value);
+        if (confirmationPrompt) StartCoroutine(ConfirmationBox());
+    }
 
-    #region Gameplay
+    public void OnSfxVolumeChanged(float v01)
+    {
+        AudioManager.Instance.SetBusVolume("SfxVolume", Mathf.Clamp01(v01));
+        if (sfxTextValue) sfxTextValue.text = v01.ToString("0.0");
+    }
+
+    public void OnSfxVolumeApply()
+    {
+        if (!sfxSlider) return;
+        settings.SfxVolume = Mathf.Clamp01(sfxSlider.value);
+        if (confirmationPrompt) StartCoroutine(ConfirmationBox());
+    }
+
+    // =======================
+    // Gameplay
+    // =======================
     public void SetControllerSen(float sensitivity)
     {
         mainControllerSen = Mathf.RoundToInt(sensitivity);
-        ControllerSenTextvalue.text = sensitivity.ToString("0");
+        if (ControllerSenTextvalue) ControllerSenTextvalue.text = sensitivity.ToString("0");
     }
 
     public void GameplayApply()
     {
-        // Save invert
         if (invertYToggle) PlayerPrefs.SetInt(InvertYKey, invertYToggle.isOn ? 1 : 0);
-
-        // Save sensitivity (as int)
         PlayerPrefs.SetInt(SensitivityKey, mainControllerSen);
-
-        StartCoroutine(ConfirmationBox());
+        PlayerPrefs.Save();
+        if (confirmationPrompt) StartCoroutine(ConfirmationBox());
     }
 
-    #endregion
-
-    #region Graphics
-
+    // =======================
+    // Graphics
+    // =======================
     public void SetBrightness(float brightness)
     {
         _brightnessLevel = brightness;
-        brightnessTextValue.text = brightness.ToString("0.0");
+        if (brightnessTextValue) brightnessTextValue.text = brightness.ToString("0.0");
     }
 
     public void SetFullScreen(bool isFullScreen)
@@ -269,7 +303,6 @@ public sealed class MenuController : MonoBehaviour
         if (_ignoreResChange) return;
         ApplyResolutionIndex(uniqueIndex, keepCurrentMode: true);
         if (resolutionDropdown) PlayerPrefs.SetInt(ResolutionIndexKey, resolutionDropdown.value);
-
     }
 
     private void ApplyResolutionIndex(int uniqueIndex, bool keepCurrentMode = true)
@@ -279,13 +312,11 @@ public sealed class MenuController : MonoBehaviour
 
         var size = _uniqueRes[uniqueIndex];
 
-        // Find all modes for this size and pick the highest refresh
         var best = _allModes
             .Where(m => m.width == size.x && m.height == size.y)
             .OrderByDescending(m => m.refreshRate)
             .FirstOrDefault();
 
-        // Fallback if not found (shouldn't happen)
         if (best.width == 0 || best.height == 0)
             best = Screen.currentResolution;
 
@@ -295,7 +326,6 @@ public sealed class MenuController : MonoBehaviour
 
         Screen.SetResolution(best.width, best.height, mode, best.refreshRate);
 
-        // Do NOT trigger onValueChanged
         if (resolutionDropdown)
         {
             resolutionDropdown.SetValueWithoutNotify(uniqueIndex);
@@ -303,51 +333,61 @@ public sealed class MenuController : MonoBehaviour
         }
     }
 
-
-
     public void GraphicsApply()
     {
-        PlayerPrefs.SetFloat("masterBrightness", _brightnessLevel);
-        // Change brightness with post processing or whatever we change it with.
+        settings.Brightness = _brightnessLevel;
+        settings.Quality = _qualityLevel;
+        settings.Fullscreen = _isFullScreen;
 
-        PlayerPrefs.SetInt("masterQuality",_qualityLevel);
         QualitySettings.SetQualityLevel(_qualityLevel);
-
-        PlayerPrefs.SetInt("masterFullscreen", (_isFullScreen ? 1 : 0));
         Screen.fullScreen = _isFullScreen;
 
-        PlayerPrefs.SetInt(ResolutionIndexKey, resolutionDropdown.value);
-
+        if (resolutionDropdown) PlayerPrefs.SetInt(ResolutionIndexKey, resolutionDropdown.value);
         PlayerPrefs.Save();
 
-        StartCoroutine(ConfirmationBox());
-
+        if (confirmationPrompt) StartCoroutine(ConfirmationBox());
     }
 
-    #endregion
-
-    public void ResetButton(string MenuType)
+    // =======================
+    // Reset sections
+    // =======================
+    public void ResetButton(string menuType)
     {
-        if (MenuType == "Audio")
+        if (menuType == "Audio")
         {
-            AudioListener.volume = defaultVolume;
-            volumeSlider.value = defaultVolume;
-            volumeTextValue.text = defaultVolume.ToString("0.0");
-            VolumeApply();
-        }
+            float v = Mathf.Clamp01(defaultVolume);
 
-        else if (MenuType == "Gameplay")
+            if (volumeSlider) volumeSlider.value = v;
+            OnMasterVolumeChanged(v);
+            settings.MasterVolume = v;
+
+            if (musicSlider)
+            {
+                if (musicTextValue) musicTextValue.text = v.ToString("0.0");
+                musicSlider.value = v;
+                OnMusicVolumeChanged(v);
+                settings.MusicVolume = v;
+            }
+            if (sfxSlider)
+            {
+                if (sfxTextValue) sfxTextValue.text = v.ToString("0.0");
+                sfxSlider.value = v;
+                OnSfxVolumeChanged(v);
+                settings.SfxVolume = v;
+            }
+
+            if (confirmationPrompt) StartCoroutine(ConfirmationBox());
+        }
+        else if (menuType == "Gameplay")
         {
-            ControllerSenTextvalue.text = defaultSensitivity.ToString("0");
-            controllerSenSlider.value = defaultSensitivity;
+            if (ControllerSenTextvalue) ControllerSenTextvalue.text = defaultSensitivity.ToString("0");
+            if (controllerSenSlider) controllerSenSlider.value = defaultSensitivity;
             mainControllerSen = defaultSensitivity;
-            invertYToggle.isOn = false;
+            if (invertYToggle) invertYToggle.isOn = false;
             GameplayApply();
         }
-
-        else if (MenuType == "Graphics")
+        else if (menuType == "Graphics")
         {
-            // 1) Estado interno primero
             _brightnessLevel = defaultBrightness;
             if (brightnessSlider) brightnessSlider.value = defaultBrightness;
             if (brightnessTextValue) brightnessTextValue.text = defaultBrightness.ToString("0.0");
@@ -360,10 +400,7 @@ public sealed class MenuController : MonoBehaviour
             if (fullscreenToggle) fullscreenToggle.SetIsOnWithoutNotify(true);
             Screen.fullScreenMode = FullScreenMode.FullScreenWindow;
 
-            // 2) Resolver a la resolución de escritorio (única por width×height)
             var (dw, dh) = GetDesktopResolution();
-
-            // Fallback duro si Display.main no reporta nada
             if (dw == 0 || dh == 0)
             {
                 int idx1080 = FindBestResolutionIndex(1920, 1080);
@@ -371,11 +408,8 @@ public sealed class MenuController : MonoBehaviour
             }
 
             int idx = FindBestResolutionIndex(dw, dh);
-            // Fallback seguro al primer tamaño disponible de la lista única
-            // (si usás _uniqueRes, esto evita depender del listado por modos)
             if (idx < 0) idx = 0;
 
-            // 3) Aplicar sin disparar el listener
             _ignoreResChange = true;
             ApplyResolutionIndex(idx, keepCurrentMode: false);
             if (resolutionDropdown)
@@ -385,36 +419,37 @@ public sealed class MenuController : MonoBehaviour
             }
             _ignoreResChange = false;
 
-            // 4) Guardar prefs (incluye el índice actual del dropdown)
-            PlayerPrefs.SetFloat(BrightnessKey, _brightnessLevel);
-            PlayerPrefs.SetInt(QualityKey, _qualityLevel);
-            PlayerPrefs.SetInt(FullscreenKey, (_isFullScreen ? 1 : 0));
+            settings.Brightness = _brightnessLevel;
+            settings.Quality = _qualityLevel;
+            settings.Fullscreen = _isFullScreen;
             if (resolutionDropdown) PlayerPrefs.SetInt(ResolutionIndexKey, idx);
             PlayerPrefs.Save();
 
-            if (confirmationPrompt != null) StartCoroutine(ConfirmationBox());
+            if (confirmationPrompt) StartCoroutine(ConfirmationBox());
         }
-
     }
 
+    // =======================
+    // Helpers
+    // =======================
     public IEnumerator ConfirmationBox()
     {
+        if (!confirmationPrompt) yield break;
         confirmationPrompt.SetActive(true);
         yield return new WaitForSeconds(2f);
         confirmationPrompt.SetActive(false);
     }
 
-    #region HelperFunctions
     private int FindBestResolutionIndex(int targetW, int targetH)
     {
         if (_uniqueRes == null || _uniqueRes.Length == 0) return -1;
 
-        // exact width×height
+        // Exact match
         for (int i = 0; i < _uniqueRes.Length; i++)
             if (_uniqueRes[i].x == targetW && _uniqueRes[i].y == targetH)
                 return i;
 
-        // closest by area delta
+        // Closest by area delta
         long bestDiff = long.MaxValue;
         int bestIdx = -1;
         for (int i = 0; i < _uniqueRes.Length; i++)
@@ -428,16 +463,11 @@ public sealed class MenuController : MonoBehaviour
 
     private (int w, int h) GetDesktopResolution()
     {
-        // Prefer system (desktop) size when available
         int sysW = Display.main != null ? Display.main.systemWidth : 0;
         int sysH = Display.main != null ? Display.main.systemHeight : 0;
-
         if (sysW > 0 && sysH > 0) return (sysW, sysH);
 
-        // Fallback to current display mode if system size isn’t available
         var cr = Screen.currentResolution;
         return (cr.width, cr.height);
     }
-
-    #endregion
 }
