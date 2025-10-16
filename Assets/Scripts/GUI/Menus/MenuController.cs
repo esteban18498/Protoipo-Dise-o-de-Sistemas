@@ -4,7 +4,8 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using TMPro;
-using System;
+using System.Linq;
+
 
 public sealed class MenuController : MonoBehaviour
 {
@@ -42,6 +43,8 @@ public sealed class MenuController : MonoBehaviour
     public TMP_Dropdown resolutionDropdown;
     private Resolution[] resolutions;
     private bool _ignoreResChange = false;
+    private Resolution[] _allModes; // All modes reported by the OS (width, height, refresh)
+    private Vector2Int[] _uniqueRes; // Unique width×height entries for the dropdown (no refresh)
 
 
     [Header("Confirmation")]
@@ -136,33 +139,39 @@ public sealed class MenuController : MonoBehaviour
 
     private void Start()
     {
-        // Inicializa resoluciones
-        resolutions = Screen.resolutions;
-        if (resolutions == null || resolutions.Length == 0)
-            resolutions = new[] { Screen.currentResolution }; // fallback
+        // 1) Read all modes
+        _allModes = Screen.resolutions;
+        if (_allModes == null || _allModes.Length == 0)
+            _allModes = new[] { Screen.currentResolution }; // fallback
 
-        // Construye opciones del dropdown
+        // 2) Unique width×height (drop refresh); keep natural order by first appearance
+        _uniqueRes = _allModes
+            .Select(r => new Vector2Int(r.width, r.height))
+            .Distinct() // requires using System.Linq
+            .ToArray();
+
+        // 3) Dropdown options from unique sizes
         if (resolutionDropdown)
         {
             resolutionDropdown.ClearOptions();
-            var opts = new List<string>(resolutions.Length);
-            for (int i = 0; i < resolutions.Length; i++)
-                opts.Add($"{resolutions[i].width} x {resolutions[i].height}");
+            var opts = _uniqueRes.Select(v => $"{v.x} x {v.y}").ToList();
             resolutionDropdown.AddOptions(opts);
         }
 
-        // Elegí la resolución “preferida”: si hay pref, úsalo; si no, la del escritorio
+        // 4) Pick initial index: pref → desktop → 0
         int targetIndex;
         if (PlayerPrefs.HasKey(ResolutionIndexKey))
-            targetIndex = Mathf.Clamp(PlayerPrefs.GetInt(ResolutionIndexKey), 0, resolutions.Length - 1);
+        {
+            targetIndex = Mathf.Clamp(PlayerPrefs.GetInt(ResolutionIndexKey), 0, _uniqueRes.Length - 1);
+        }
         else
         {
             var (dw, dh) = GetDesktopResolution();
-            targetIndex = FindBestResolutionIndex(dw, dh);
+            targetIndex = FindBestResolutionIndex(dw, dh); // now searches in _uniqueRes
             if (targetIndex < 0) targetIndex = 0;
         }
 
-        // Aplicar sin disparar onValueChanged
+        // 5) Apply once (highest refresh for that size), wire listener
         _ignoreResChange = true;
         ApplyResolutionIndex(targetIndex, keepCurrentMode: true);
         if (resolutionDropdown)
@@ -172,7 +181,7 @@ public sealed class MenuController : MonoBehaviour
             resolutionDropdown.onValueChanged.RemoveAllListeners();
             resolutionDropdown.onValueChanged.AddListener(SetResolution);
         }
-        _ignoreResChange = false;
+        _ignoreResChange = false; 
     }
 
 
@@ -255,30 +264,45 @@ public sealed class MenuController : MonoBehaviour
         _qualityLevel = qualityIndex;
     }
 
-    public void SetResolution(int resolutionIndex)
+    public void SetResolution(int uniqueIndex)
     {
-        if (_ignoreResChange) return;               
-        ApplyResolutionIndex(resolutionIndex, keepCurrentMode: true);
+        if (_ignoreResChange) return;
+        ApplyResolutionIndex(uniqueIndex, keepCurrentMode: true);
+        if (resolutionDropdown) PlayerPrefs.SetInt(ResolutionIndexKey, resolutionDropdown.value);
+
     }
 
-    private void ApplyResolutionIndex(int index, bool keepCurrentMode = true)
+    private void ApplyResolutionIndex(int uniqueIndex, bool keepCurrentMode = true)
     {
-        if (resolutions == null || resolutions.Length == 0) return;
-        if (index < 0 || index >= resolutions.Length) return;
+        if (_uniqueRes == null || _uniqueRes.Length == 0) return;
+        if (uniqueIndex < 0 || uniqueIndex >= _uniqueRes.Length) return;
 
-        var r = resolutions[index];
+        var size = _uniqueRes[uniqueIndex];
+
+        // Find all modes for this size and pick the highest refresh
+        var best = _allModes
+            .Where(m => m.width == size.x && m.height == size.y)
+            .OrderByDescending(m => m.refreshRate)
+            .FirstOrDefault();
+
+        // Fallback if not found (shouldn't happen)
+        if (best.width == 0 || best.height == 0)
+            best = Screen.currentResolution;
+
         var mode = keepCurrentMode
             ? Screen.fullScreenMode
             : (_isFullScreen ? FullScreenMode.FullScreenWindow : FullScreenMode.Windowed);
 
-        Screen.SetResolution(r.width, r.height, mode, r.refreshRate);
+        Screen.SetResolution(best.width, best.height, mode, best.refreshRate);
 
+        // Do NOT trigger onValueChanged
         if (resolutionDropdown)
         {
-            resolutionDropdown.SetValueWithoutNotify(index);
+            resolutionDropdown.SetValueWithoutNotify(uniqueIndex);
             resolutionDropdown.RefreshShownValue();
         }
     }
+
 
 
     public void GraphicsApply()
@@ -312,7 +336,7 @@ public sealed class MenuController : MonoBehaviour
             VolumeApply();
         }
 
-        if (MenuType == "Gameplay")
+        else if (MenuType == "Gameplay")
         {
             ControllerSenTextvalue.text = defaultSensitivity.ToString("0");
             controllerSenSlider.value = defaultSensitivity;
@@ -321,9 +345,9 @@ public sealed class MenuController : MonoBehaviour
             GameplayApply();
         }
 
-        if (MenuType == "Graphics")
+        else if (MenuType == "Graphics")
         {
-            // Estado interno primero
+            // 1) Estado interno primero
             _brightnessLevel = defaultBrightness;
             if (brightnessSlider) brightnessSlider.value = defaultBrightness;
             if (brightnessTextValue) brightnessTextValue.text = defaultBrightness.ToString("0.0");
@@ -336,10 +360,10 @@ public sealed class MenuController : MonoBehaviour
             if (fullscreenToggle) fullscreenToggle.SetIsOnWithoutNotify(true);
             Screen.fullScreenMode = FullScreenMode.FullScreenWindow;
 
-            // Resolver desktop a lo que tenga el SO
+            // 2) Resolver a la resolución de escritorio (única por width×height)
             var (dw, dh) = GetDesktopResolution();
 
-            // Si Display.main no devuelve nada, intentá hardcode 1920x1080 si existe
+            // Fallback duro si Display.main no reporta nada
             if (dw == 0 || dh == 0)
             {
                 int idx1080 = FindBestResolutionIndex(1920, 1080);
@@ -347,9 +371,11 @@ public sealed class MenuController : MonoBehaviour
             }
 
             int idx = FindBestResolutionIndex(dw, dh);
-            if (idx < 0) idx = resolutions.Length - 1; // fallback: la más alta
+            // Fallback seguro al primer tamaño disponible de la lista única
+            // (si usás _uniqueRes, esto evita depender del listado por modos)
+            if (idx < 0) idx = 0;
 
-            // Aplicar sin disparar el listener
+            // 3) Aplicar sin disparar el listener
             _ignoreResChange = true;
             ApplyResolutionIndex(idx, keepCurrentMode: false);
             if (resolutionDropdown)
@@ -359,11 +385,11 @@ public sealed class MenuController : MonoBehaviour
             }
             _ignoreResChange = false;
 
-            // Guardar prefs (incluye el índice actual del dropdown)
+            // 4) Guardar prefs (incluye el índice actual del dropdown)
             PlayerPrefs.SetFloat(BrightnessKey, _brightnessLevel);
             PlayerPrefs.SetInt(QualityKey, _qualityLevel);
             PlayerPrefs.SetInt(FullscreenKey, (_isFullScreen ? 1 : 0));
-            if (resolutionDropdown) PlayerPrefs.SetInt(ResolutionIndexKey, resolutionDropdown.value);
+            if (resolutionDropdown) PlayerPrefs.SetInt(ResolutionIndexKey, idx);
             PlayerPrefs.Save();
 
             if (confirmationPrompt != null) StartCoroutine(ConfirmationBox());
@@ -381,32 +407,23 @@ public sealed class MenuController : MonoBehaviour
     #region HelperFunctions
     private int FindBestResolutionIndex(int targetW, int targetH)
     {
-        if (resolutions == null || resolutions.Length == 0) return -1;
+        if (_uniqueRes == null || _uniqueRes.Length == 0) return -1;
 
-        int bestIndex = -1, bestRefresh = -1;
-        for (int i = 0; i < resolutions.Length; i++)
-        {
-            var r = resolutions[i];
-            if (r.width == targetW && r.height == targetH && r.refreshRate > bestRefresh)
-            {
-                bestRefresh = r.refreshRate;
-                bestIndex = i;
-            }
-        }
-        if (bestIndex >= 0) return bestIndex;
+        // exact width×height
+        for (int i = 0; i < _uniqueRes.Length; i++)
+            if (_uniqueRes[i].x == targetW && _uniqueRes[i].y == targetH)
+                return i;
 
+        // closest by area delta
         long bestDiff = long.MaxValue;
-        for (int i = 0; i < resolutions.Length; i++)
+        int bestIdx = -1;
+        for (int i = 0; i < _uniqueRes.Length; i++)
         {
-            var r = resolutions[i];
-            long diff = (long)Mathf.Abs(r.width - targetW) * (long)Mathf.Abs(r.height - targetH);
-            if (diff < bestDiff)
-            {
-                bestDiff = diff;
-                bestIndex = i;
-            }
+            var v = _uniqueRes[i];
+            long diff = (long)Mathf.Abs(v.x - targetW) * (long)Mathf.Abs(v.y - targetH);
+            if (diff < bestDiff) { bestDiff = diff; bestIdx = i; }
         }
-        return bestIndex;
+        return bestIdx;
     }
 
     private (int w, int h) GetDesktopResolution()
