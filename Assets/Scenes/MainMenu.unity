@@ -291,6 +291,7 @@ GameObject:
   - component: {fileID: 48469111}
   - component: {fileID: 48469110}
   - component: {fileID: 48469109}
+  - component: {fileID: 48469112}
   m_Layer: 5
   m_Name: BTN_SoundDialogApply
   m_TagString: Untagged
@@ -471,6 +472,25 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 48469107}
   m_CullTransparentMesh: 1
+--- !u!114 &48469112
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 48469107}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f34dff47e5c8fef45a85c83bb0605265, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  defaults: {fileID: 11400000, guid: 4bb69f12b0c901a46a01eaada4248080, type: 2}
+  hoverCue: {fileID: 0}
+  selectCue: {fileID: 0}
+  clickCue: {fileID: 0}
+  cancelCue: {fileID: 0}
+  changeCue: {fileID: 0}
+  hoverCooldown: 0.05
 --- !u!1 &147514623
 GameObject:
   m_ObjectHideFlags: 0
@@ -723,6 +743,7 @@ GameObject:
   - component: {fileID: 185959972}
   - component: {fileID: 185959971}
   - component: {fileID: 185959970}
+  - component: {fileID: 185959973}
   m_Layer: 5
   m_Name: BTN_No_NewGameDialog
   m_TagString: Untagged
@@ -915,6 +936,25 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 185959968}
   m_CullTransparentMesh: 1
+--- !u!114 &185959973
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 185959968}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f34dff47e5c8fef45a85c83bb0605265, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  defaults: {fileID: 11400000, guid: 4bb69f12b0c901a46a01eaada4248080, type: 2}
+  hoverCue: {fileID: 0}
+  selectCue: {fileID: 0}
+  clickCue: {fileID: 0}
+  cancelCue: {fileID: 0}
+  changeCue: {fileID: 0}
+  hoverCooldown: 0.05
 --- !u!1 &199977962
 GameObject:
   m_ObjectHideFlags: 0
@@ -1131,6 +1171,7 @@ GameObject:
   - component: {fileID: 254353302}
   - component: {fileID: 254353301}
   - component: {fileID: 254353300}
+  - component: {fileID: 254353303}
   m_Layer: 5
   m_Name: BTN_NewGame
   m_TagString: Untagged
@@ -1323,6 +1364,25 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 254353298}
   m_CullTransparentMesh: 1
+--- !u!114 &254353303
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 254353298}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f34dff47e5c8fef45a85c83bb0605265, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  defaults: {fileID: 11400000, guid: 4bb69f12b0c901a46a01eaada4248080, type: 2}
+  hoverCue: {fileID: 0}
+  selectCue: {fileID: 0}
+  clickCue: {fileID: 0}
+  cancelCue: {fileID: 0}
+  changeCue: {fileID: 0}
+  hoverCooldown: 0.05
 --- !u!1 &264153638
 GameObject:
   m_ObjectHideFlags: 0
@@ -1414,6 +1474,7 @@ GameObject:
   - component: {fileID: 294116699}
   - component: {fileID: 294116698}
   - component: {fileID: 294116697}
+  - component: {fileID: 294116700}
   m_Layer: 5
   m_Name: BTN_LoadGame
   m_TagString: Untagged
@@ -1606,6 +1667,25 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 294116695}
   m_CullTransparentMesh: 1
+--- !u!114 &294116700
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 294116695}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f34dff47e5c8fef45a85c83bb0605265, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  defaults: {fileID: 11400000, guid: 4bb69f12b0c901a46a01eaada4248080, type: 2}
+  hoverCue: {fileID: 0}
+  selectCue: {fileID: 0}
+  clickCue: {fileID: 0}
+  cancelCue: {fileID: 0}
+  changeCue: {fileID: 0}
+  hoverCooldown: 0.05
 --- !u!1 &316208798
 GameObject:
   m_ObjectHideFlags: 0
@@ -1697,6 +1777,7 @@ GameObject:
   - component: {fileID: 360456157}
   - component: {fileID: 360456156}
   - component: {fileID: 360456155}
+  - component: {fileID: 360456158}
   m_Layer: 5
   m_Name: BTN_Sound
   m_TagString: Untagged
@@ -1889,6 +1970,25 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 360456153}
   m_CullTransparentMesh: 1
+--- !u!114 &360456158
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 360456153}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f34dff47e5c8fef45a85c83bb0605265, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  defaults: {fileID: 11400000, guid: 4bb69f12b0c901a46a01eaada4248080, type: 2}
+  hoverCue: {fileID: 0}
+  selectCue: {fileID: 0}
+  clickCue: {fileID: 0}
+  cancelCue: {fileID: 0}
+  changeCue: {fileID: 0}
+  hoverCooldown: 0.05
 --- !u!1 &404715767
 GameObject:
   m_ObjectHideFlags: 0
@@ -1938,6 +2038,7 @@ GameObject:
   - component: {fileID: 419776461}
   - component: {fileID: 419776460}
   - component: {fileID: 419776459}
+  - component: {fileID: 419776462}
   m_Layer: 5
   m_Name: BTN_Controls
   m_TagString: Untagged
@@ -2142,6 +2243,25 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 419776457}
   m_CullTransparentMesh: 1
+--- !u!114 &419776462
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 419776457}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f34dff47e5c8fef45a85c83bb0605265, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  defaults: {fileID: 11400000, guid: 4bb69f12b0c901a46a01eaada4248080, type: 2}
+  hoverCue: {fileID: 0}
+  selectCue: {fileID: 0}
+  clickCue: {fileID: 0}
+  cancelCue: {fileID: 0}
+  changeCue: {fileID: 0}
+  hoverCooldown: 0.05
 --- !u!1 &456844185
 GameObject:
   m_ObjectHideFlags: 0
@@ -2309,6 +2429,7 @@ GameObject:
   - component: {fileID: 470626496}
   - component: {fileID: 470626495}
   - component: {fileID: 470626494}
+  - component: {fileID: 470626497}
   m_Layer: 5
   m_Name: BTN_SoundDialogReset
   m_TagString: Untagged
@@ -2491,6 +2612,25 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 470626492}
   m_CullTransparentMesh: 1
+--- !u!114 &470626497
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 470626492}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f34dff47e5c8fef45a85c83bb0605265, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  defaults: {fileID: 11400000, guid: 4bb69f12b0c901a46a01eaada4248080, type: 2}
+  hoverCue: {fileID: 0}
+  selectCue: {fileID: 0}
+  clickCue: {fileID: 0}
+  cancelCue: {fileID: 0}
+  changeCue: {fileID: 0}
+  hoverCooldown: 0.05
 --- !u!1 &524164034
 GameObject:
   m_ObjectHideFlags: 0
@@ -2579,6 +2719,7 @@ GameObject:
   - component: {fileID: 529410164}
   - component: {fileID: 529410163}
   - component: {fileID: 529410162}
+  - component: {fileID: 529410165}
   m_Layer: 5
   m_Name: BTN_SoundDialogApply
   m_TagString: Untagged
@@ -2759,6 +2900,25 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 529410160}
   m_CullTransparentMesh: 1
+--- !u!114 &529410165
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 529410160}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f34dff47e5c8fef45a85c83bb0605265, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  defaults: {fileID: 11400000, guid: 4bb69f12b0c901a46a01eaada4248080, type: 2}
+  hoverCue: {fileID: 0}
+  selectCue: {fileID: 0}
+  clickCue: {fileID: 0}
+  cancelCue: {fileID: 0}
+  changeCue: {fileID: 0}
+  hoverCooldown: 0.05
 --- !u!1 &532835559
 GameObject:
   m_ObjectHideFlags: 0
@@ -3464,6 +3624,7 @@ GameObject:
   - component: {fileID: 617989392}
   - component: {fileID: 617989391}
   - component: {fileID: 617989390}
+  - component: {fileID: 617989393}
   m_Layer: 5
   m_Name: BTN_SoundDialogBack
   m_TagString: Untagged
@@ -3668,6 +3829,25 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 617989388}
   m_CullTransparentMesh: 1
+--- !u!114 &617989393
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 617989388}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f34dff47e5c8fef45a85c83bb0605265, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  defaults: {fileID: 11400000, guid: 4bb69f12b0c901a46a01eaada4248080, type: 2}
+  hoverCue: {fileID: 0}
+  selectCue: {fileID: 0}
+  clickCue: {fileID: 0}
+  cancelCue: {fileID: 0}
+  changeCue: {fileID: 0}
+  hoverCooldown: 0.05
 --- !u!1 &632896662
 GameObject:
   m_ObjectHideFlags: 0
@@ -4212,6 +4392,7 @@ GameObject:
   - component: {fileID: 763677988}
   - component: {fileID: 763677987}
   - component: {fileID: 763677986}
+  - component: {fileID: 763677989}
   m_Layer: 5
   m_Name: BTN_Gameplay
   m_TagString: Untagged
@@ -4404,6 +4585,25 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 763677984}
   m_CullTransparentMesh: 1
+--- !u!114 &763677989
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 763677984}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f34dff47e5c8fef45a85c83bb0605265, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  defaults: {fileID: 11400000, guid: 4bb69f12b0c901a46a01eaada4248080, type: 2}
+  hoverCue: {fileID: 0}
+  selectCue: {fileID: 0}
+  clickCue: {fileID: 0}
+  cancelCue: {fileID: 0}
+  changeCue: {fileID: 0}
+  hoverCooldown: 0.05
 --- !u!1 &774675344
 GameObject:
   m_ObjectHideFlags: 0
@@ -4492,6 +4692,7 @@ GameObject:
   - component: {fileID: 781656170}
   - component: {fileID: 781656169}
   - component: {fileID: 781656168}
+  - component: {fileID: 781656171}
   m_Layer: 5
   m_Name: BTN_SoundDialogApply
   m_TagString: Untagged
@@ -4672,6 +4873,25 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 781656166}
   m_CullTransparentMesh: 1
+--- !u!114 &781656171
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 781656166}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f34dff47e5c8fef45a85c83bb0605265, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  defaults: {fileID: 11400000, guid: 4bb69f12b0c901a46a01eaada4248080, type: 2}
+  hoverCue: {fileID: 0}
+  selectCue: {fileID: 0}
+  clickCue: {fileID: 0}
+  cancelCue: {fileID: 0}
+  changeCue: {fileID: 0}
+  hoverCooldown: 0.05
 --- !u!1 &803012328
 GameObject:
   m_ObjectHideFlags: 0
@@ -5062,8 +5282,8 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 2058806334}
         m_TargetAssemblyTypeName: MenuController, Assembly-CSharp
-        m_MethodName: SetMasterVolume
-        m_Mode: 4
+        m_MethodName: OnMasterVolumeApply
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -5901,6 +6121,7 @@ GameObject:
   - component: {fileID: 1010566117}
   - component: {fileID: 1010566116}
   - component: {fileID: 1010566115}
+  - component: {fileID: 1010566118}
   m_Layer: 5
   m_Name: BTN_Options
   m_TagString: Untagged
@@ -6093,6 +6314,25 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1010566113}
   m_CullTransparentMesh: 1
+--- !u!114 &1010566118
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1010566113}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f34dff47e5c8fef45a85c83bb0605265, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  defaults: {fileID: 11400000, guid: 4bb69f12b0c901a46a01eaada4248080, type: 2}
+  hoverCue: {fileID: 0}
+  selectCue: {fileID: 0}
+  clickCue: {fileID: 0}
+  cancelCue: {fileID: 0}
+  changeCue: {fileID: 0}
+  hoverCooldown: 0.05
 --- !u!1 &1012118583
 GameObject:
   m_ObjectHideFlags: 0
@@ -6665,6 +6905,7 @@ GameObject:
   - component: {fileID: 1148717799}
   - component: {fileID: 1148717798}
   - component: {fileID: 1148717797}
+  - component: {fileID: 1148717800}
   m_Layer: 5
   m_Name: BTN_No_LoadGameDialog
   m_TagString: Untagged
@@ -6857,6 +7098,25 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1148717795}
   m_CullTransparentMesh: 1
+--- !u!114 &1148717800
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1148717795}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f34dff47e5c8fef45a85c83bb0605265, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  defaults: {fileID: 11400000, guid: 4bb69f12b0c901a46a01eaada4248080, type: 2}
+  hoverCue: {fileID: 0}
+  selectCue: {fileID: 0}
+  clickCue: {fileID: 0}
+  cancelCue: {fileID: 0}
+  changeCue: {fileID: 0}
+  hoverCooldown: 0.05
 --- !u!1 &1211956621
 GameObject:
   m_ObjectHideFlags: 0
@@ -7441,6 +7701,7 @@ GameObject:
   - component: {fileID: 1330635676}
   - component: {fileID: 1330635675}
   - component: {fileID: 1330635674}
+  - component: {fileID: 1330635677}
   m_Layer: 5
   m_Name: BTN_Exit
   m_TagString: Untagged
@@ -7621,6 +7882,25 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1330635672}
   m_CullTransparentMesh: 1
+--- !u!114 &1330635677
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1330635672}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f34dff47e5c8fef45a85c83bb0605265, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  defaults: {fileID: 11400000, guid: 4bb69f12b0c901a46a01eaada4248080, type: 2}
+  hoverCue: {fileID: 0}
+  selectCue: {fileID: 0}
+  clickCue: {fileID: 0}
+  cancelCue: {fileID: 0}
+  changeCue: {fileID: 0}
+  hoverCooldown: 0.05
 --- !u!1 &1374558868
 GameObject:
   m_ObjectHideFlags: 0
@@ -7711,6 +7991,7 @@ GameObject:
   - component: {fileID: 1401775933}
   - component: {fileID: 1401775932}
   - component: {fileID: 1401775931}
+  - component: {fileID: 1401775934}
   m_Layer: 5
   m_Name: BTN_SoundDialogReset
   m_TagString: Untagged
@@ -7893,6 +8174,25 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1401775929}
   m_CullTransparentMesh: 1
+--- !u!114 &1401775934
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1401775929}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f34dff47e5c8fef45a85c83bb0605265, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  defaults: {fileID: 11400000, guid: 4bb69f12b0c901a46a01eaada4248080, type: 2}
+  hoverCue: {fileID: 0}
+  selectCue: {fileID: 0}
+  clickCue: {fileID: 0}
+  cancelCue: {fileID: 0}
+  changeCue: {fileID: 0}
+  hoverCooldown: 0.05
 --- !u!1 &1422745499
 GameObject:
   m_ObjectHideFlags: 0
@@ -8610,6 +8910,7 @@ GameObject:
   - component: {fileID: 1531115987}
   - component: {fileID: 1531115986}
   - component: {fileID: 1531115985}
+  - component: {fileID: 1531115988}
   m_Layer: 5
   m_Name: BTN_SoundDialogBack
   m_TagString: Untagged
@@ -8814,6 +9115,25 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1531115983}
   m_CullTransparentMesh: 1
+--- !u!114 &1531115988
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1531115983}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f34dff47e5c8fef45a85c83bb0605265, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  defaults: {fileID: 11400000, guid: 4bb69f12b0c901a46a01eaada4248080, type: 2}
+  hoverCue: {fileID: 0}
+  selectCue: {fileID: 0}
+  clickCue: {fileID: 0}
+  cancelCue: {fileID: 0}
+  changeCue: {fileID: 0}
+  hoverCooldown: 0.05
 --- !u!1 &1572263925
 GameObject:
   m_ObjectHideFlags: 0
@@ -8961,6 +9281,7 @@ GameObject:
   - component: {fileID: 1574558426}
   - component: {fileID: 1574558425}
   - component: {fileID: 1574558424}
+  - component: {fileID: 1574558427}
   m_Layer: 5
   m_Name: BTN_SoundDialogReset
   m_TagString: Untagged
@@ -9143,6 +9464,25 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1574558422}
   m_CullTransparentMesh: 1
+--- !u!114 &1574558427
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1574558422}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f34dff47e5c8fef45a85c83bb0605265, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  defaults: {fileID: 11400000, guid: 4bb69f12b0c901a46a01eaada4248080, type: 2}
+  hoverCue: {fileID: 0}
+  selectCue: {fileID: 0}
+  clickCue: {fileID: 0}
+  cancelCue: {fileID: 0}
+  changeCue: {fileID: 0}
+  hoverCooldown: 0.05
 --- !u!1 &1623039553
 GameObject:
   m_ObjectHideFlags: 0
@@ -9855,6 +10195,83 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1699622504}
   m_CullTransparentMesh: 1
+--- !u!1001 &1714648302
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 8960519487046896459, guid: 10be0c3b7c6144341af097a9840ac1c1, type: 3}
+      propertyPath: m_audioClip
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 8960519487293506947, guid: 10be0c3b7c6144341af097a9840ac1c1, type: 3}
+      propertyPath: Loop
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8960519487293506947, guid: 10be0c3b7c6144341af097a9840ac1c1, type: 3}
+      propertyPath: m_audioClip
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 8960519488220050276, guid: 10be0c3b7c6144341af097a9840ac1c1, type: 3}
+      propertyPath: Loop
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8960519488220050276, guid: 10be0c3b7c6144341af097a9840ac1c1, type: 3}
+      propertyPath: m_audioClip
+      value: 
+      objectReference: {fileID: 8300000, guid: a034cc88ded724d41bbf7ef689adc0c4, type: 3}
+    - target: {fileID: 8960519488447189796, guid: 10be0c3b7c6144341af097a9840ac1c1, type: 3}
+      propertyPath: m_RootOrder
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 8960519488447189796, guid: 10be0c3b7c6144341af097a9840ac1c1, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 1097.1206
+      objectReference: {fileID: 0}
+    - target: {fileID: 8960519488447189796, guid: 10be0c3b7c6144341af097a9840ac1c1, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 555.33704
+      objectReference: {fileID: 0}
+    - target: {fileID: 8960519488447189796, guid: 10be0c3b7c6144341af097a9840ac1c1, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -2.3269436
+      objectReference: {fileID: 0}
+    - target: {fileID: 8960519488447189796, guid: 10be0c3b7c6144341af097a9840ac1c1, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8960519488447189796, guid: 10be0c3b7c6144341af097a9840ac1c1, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8960519488447189796, guid: 10be0c3b7c6144341af097a9840ac1c1, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8960519488447189796, guid: 10be0c3b7c6144341af097a9840ac1c1, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8960519488447189796, guid: 10be0c3b7c6144341af097a9840ac1c1, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8960519488447189796, guid: 10be0c3b7c6144341af097a9840ac1c1, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8960519488447189796, guid: 10be0c3b7c6144341af097a9840ac1c1, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8960519488447189799, guid: 10be0c3b7c6144341af097a9840ac1c1, type: 3}
+      propertyPath: m_Name
+      value: AudioManager
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 10be0c3b7c6144341af097a9840ac1c1, type: 3}
 --- !u!1 &1743379917
 GameObject:
   m_ObjectHideFlags: 0
@@ -9980,6 +10397,7 @@ GameObject:
   - component: {fileID: 1753989277}
   - component: {fileID: 1753989276}
   - component: {fileID: 1753989275}
+  - component: {fileID: 1753989278}
   m_Layer: 5
   m_Name: BTN_SoundDialogBack
   m_TagString: Untagged
@@ -10184,6 +10602,25 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1753989273}
   m_CullTransparentMesh: 1
+--- !u!114 &1753989278
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1753989273}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f34dff47e5c8fef45a85c83bb0605265, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  defaults: {fileID: 11400000, guid: 4bb69f12b0c901a46a01eaada4248080, type: 2}
+  hoverCue: {fileID: 0}
+  selectCue: {fileID: 0}
+  clickCue: {fileID: 0}
+  cancelCue: {fileID: 0}
+  changeCue: {fileID: 0}
+  hoverCooldown: 0.05
 --- !u!1 &1764222835
 GameObject:
   m_ObjectHideFlags: 0
@@ -10196,6 +10633,7 @@ GameObject:
   - component: {fileID: 1764222839}
   - component: {fileID: 1764222838}
   - component: {fileID: 1764222837}
+  - component: {fileID: 1764222840}
   m_Layer: 5
   m_Name: BTN_Back
   m_TagString: Untagged
@@ -10388,6 +10826,25 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1764222835}
   m_CullTransparentMesh: 1
+--- !u!114 &1764222840
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1764222835}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f34dff47e5c8fef45a85c83bb0605265, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  defaults: {fileID: 11400000, guid: 4bb69f12b0c901a46a01eaada4248080, type: 2}
+  hoverCue: {fileID: 0}
+  selectCue: {fileID: 0}
+  clickCue: {fileID: 0}
+  cancelCue: {fileID: 0}
+  changeCue: {fileID: 0}
+  hoverCooldown: 0.05
 --- !u!1 &1766326329
 GameObject:
   m_ObjectHideFlags: 0
@@ -10805,6 +11262,7 @@ GameObject:
   - component: {fileID: 1790088364}
   - component: {fileID: 1790088363}
   - component: {fileID: 1790088362}
+  - component: {fileID: 1790088365}
   m_Layer: 5
   m_Name: BTN_Graphics
   m_TagString: Untagged
@@ -10997,6 +11455,25 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1790088360}
   m_CullTransparentMesh: 1
+--- !u!114 &1790088365
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1790088360}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f34dff47e5c8fef45a85c83bb0605265, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  defaults: {fileID: 11400000, guid: 4bb69f12b0c901a46a01eaada4248080, type: 2}
+  hoverCue: {fileID: 0}
+  selectCue: {fileID: 0}
+  clickCue: {fileID: 0}
+  cancelCue: {fileID: 0}
+  changeCue: {fileID: 0}
+  hoverCooldown: 0.05
 --- !u!1 &1844942589
 GameObject:
   m_ObjectHideFlags: 0
@@ -11966,6 +12443,7 @@ GameObject:
   - component: {fileID: 1974173280}
   - component: {fileID: 1974173279}
   - component: {fileID: 1974173278}
+  - component: {fileID: 1974173281}
   m_Layer: 5
   m_Name: BTN_Yes_NewGameDialog
   m_TagString: Untagged
@@ -12148,6 +12626,25 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1974173276}
   m_CullTransparentMesh: 1
+--- !u!114 &1974173281
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1974173276}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f34dff47e5c8fef45a85c83bb0605265, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  defaults: {fileID: 11400000, guid: 4bb69f12b0c901a46a01eaada4248080, type: 2}
+  hoverCue: {fileID: 0}
+  selectCue: {fileID: 0}
+  clickCue: {fileID: 0}
+  cancelCue: {fileID: 0}
+  changeCue: {fileID: 0}
+  hoverCooldown: 0.05
 --- !u!1 &1977196632
 GameObject:
   m_ObjectHideFlags: 0
@@ -12160,6 +12657,7 @@ GameObject:
   - component: {fileID: 1977196636}
   - component: {fileID: 1977196635}
   - component: {fileID: 1977196634}
+  - component: {fileID: 1977196637}
   m_Layer: 5
   m_Name: BTN_Ok
   m_TagString: Untagged
@@ -12354,6 +12852,25 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1977196632}
   m_CullTransparentMesh: 1
+--- !u!114 &1977196637
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1977196632}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f34dff47e5c8fef45a85c83bb0605265, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  defaults: {fileID: 11400000, guid: 4bb69f12b0c901a46a01eaada4248080, type: 2}
+  hoverCue: {fileID: 0}
+  selectCue: {fileID: 0}
+  clickCue: {fileID: 0}
+  cancelCue: {fileID: 0}
+  changeCue: {fileID: 0}
+  hoverCooldown: 0.05
 --- !u!1 &1980196576
 GameObject:
   m_ObjectHideFlags: 0
@@ -12722,9 +13239,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1a5089c66aed6104d8904799b1726271, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  volumeTextValue: {fileID: 147514626}
   volumeSlider: {fileID: 890690379}
-  defaultVolume: 1
+  volumeTextValue: {fileID: 147514626}
+  defaultVolume: 0.1
+  musicSlider: {fileID: 0}
+  musicTextValue: {fileID: 0}
+  sfxSlider: {fileID: 0}
+  sfxTextValue: {fileID: 0}
   ControllerSenTextvalue: {fileID: 1699622506}
   controllerSenSlider: {fileID: 1636931059}
   defaultSensitivity: 4
@@ -12842,6 +13363,7 @@ GameObject:
   - component: {fileID: 2082191704}
   - component: {fileID: 2082191703}
   - component: {fileID: 2082191702}
+  - component: {fileID: 2082191705}
   m_Layer: 5
   m_Name: BTN_Yes_LoadGameDialog
   m_TagString: Untagged
@@ -13036,6 +13558,25 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2082191700}
   m_CullTransparentMesh: 1
+--- !u!114 &2082191705
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2082191700}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f34dff47e5c8fef45a85c83bb0605265, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  defaults: {fileID: 11400000, guid: 4bb69f12b0c901a46a01eaada4248080, type: 2}
+  hoverCue: {fileID: 0}
+  selectCue: {fileID: 0}
+  clickCue: {fileID: 0}
+  cancelCue: {fileID: 0}
+  changeCue: {fileID: 0}
+  hoverCooldown: 0.05
 --- !u!1 &2094362648
 GameObject:
   m_ObjectHideFlags: 0
