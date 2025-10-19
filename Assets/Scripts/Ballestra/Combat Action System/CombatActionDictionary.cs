@@ -48,6 +48,7 @@ public class CombatActionDictionary
         #region Blocks
         List<ICombatAction> CoreBlocks = new List<ICombatAction>()
         {
+            new Action_Block(character),
             // add block actions here
         };
         BlocksDictionary = new Dictionary<ListKey<Combat_Action_mod>, ICombatAction>();

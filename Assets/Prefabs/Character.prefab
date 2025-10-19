@@ -179,6 +179,8 @@ GameObject:
   - component: {fileID: 4556049504351016780}
   - component: {fileID: 8654244130301901713}
   - component: {fileID: 6865656754419617634}
+  - component: {fileID: 1995563840607893562}
+  - component: {fileID: 7832906568179051633}
   m_Layer: 0
   m_Name: SwordSprite
   m_TagString: Untagged
@@ -269,6 +271,40 @@ CapsuleCollider2D:
   m_Offset: {x: 0, y: 0}
   m_Size: {x: 1, y: 2}
   m_Direction: 0
+--- !u!114 &1995563840607893562
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 476362897317332515}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1188ac94e7f601b449078a03b5909959, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sword: {fileID: 2403556914361858557}
+--- !u!50 &7832906568179051633
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 476362897317332515}
+  m_BodyType: 0
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0
+  m_GravityScale: 0
+  m_Material: {fileID: 0}
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0
 --- !u!1 &812349465856272735
 GameObject:
   m_ObjectHideFlags: 0
@@ -320,6 +356,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Anchor: {fileID: 3994832051125246130}
   speed: 5
+  rotates: 0
 --- !u!1 &944612396173209598
 GameObject:
   m_ObjectHideFlags: 0
@@ -621,6 +658,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Anchor: {fileID: 2876811651765893137}
   speed: 5
+  rotates: 0
 --- !u!1 &2002776351482541308
 GameObject:
   m_ObjectHideFlags: 0
@@ -821,6 +859,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Anchor: {fileID: 3994832051125246130}
   speed: 5
+  rotates: 0
 --- !u!1 &2901456839549882729
 GameObject:
   m_ObjectHideFlags: 0
@@ -1024,6 +1063,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Anchor: {fileID: 1296237221669179685}
   speed: 5
+  rotates: 0
 --- !u!1 &3095867513423595869
 GameObject:
   m_ObjectHideFlags: 0
@@ -1159,6 +1199,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Anchor: {fileID: 3169388729443193354}
   speed: 5
+  rotates: 0
   Head: {fileID: 0}
   Torso: {fileID: 0}
   Sword: {fileID: 8658148232282518628}
@@ -1263,6 +1304,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Anchor: {fileID: 1204159637372961221}
   speed: 5
+  rotates: 0
 --- !u!1 &3414457938860181901
 GameObject:
   m_ObjectHideFlags: 0
@@ -1522,6 +1564,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Anchor: {fileID: 4867390387012034927}
   speed: 5
+  rotates: 1
 --- !u!114 &2403556914361858557
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1537,6 +1580,8 @@ MonoBehaviour:
   normalColor: {r: 1, g: 0.53333336, b: 0.53333336, a: 1}
   activeHitColor: {r: 1, g: 0.00000017881393, b: 0, a: 1}
   blockColor: {r: 0.16356398, g: 0.4671073, b: 0.794, a: 1}
+  isBlocking: 0
+  character: {fileID: 7285764502668716771}
 --- !u!1 &4946819089699535729
 GameObject:
   m_ObjectHideFlags: 0
@@ -1722,6 +1767,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Anchor: {fileID: 4867390387012034927}
   speed: 5
+  rotates: 0
 --- !u!1 &5407017959691509544
 GameObject:
   m_ObjectHideFlags: 0
@@ -2159,6 +2205,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Anchor: {fileID: 2996592011591946544}
   speed: 5
+  rotates: 0
 --- !u!1 &8324576535365144794
 GameObject:
   m_ObjectHideFlags: 0

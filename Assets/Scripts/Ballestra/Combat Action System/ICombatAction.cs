@@ -30,6 +30,8 @@ public interface ICombatAction
 
     void Execute();
 
+    void Interrupt();
+
 }
 
 

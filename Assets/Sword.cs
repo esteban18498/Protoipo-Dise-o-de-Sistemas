@@ -8,6 +8,10 @@ public class Sword : MonoBehaviour
     public Color activeHitColor;
     public Color blockColor;
 
+    public bool isBlocking = false;
+
+
+    [SerializeField] private NovaCharacterController character; 
 
     public void SetNormalColor()
     {
@@ -22,5 +26,20 @@ public class Sword : MonoBehaviour
     public void SetBlockColor()
     {
         this.GetComponentInChildren<SpriteRenderer>().color = blockColor;
+    }
+
+    public void triggerColliderEnter(Collider2D collision)
+    {
+        if (!isBlocking)
+            return;
+
+        SwordColliderBind otherSwordBind = collision.GetComponent<SwordColliderBind>();
+        Sword otherSword = otherSwordBind?.sword;
+        if (otherSword != null)
+        {
+            //other swword blocked
+           otherSword.character.InterruptCurrentAction();
+        }
+            
     }
 }

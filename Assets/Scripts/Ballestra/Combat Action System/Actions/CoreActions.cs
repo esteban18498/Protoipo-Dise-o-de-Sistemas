@@ -28,6 +28,11 @@ public class Action_Step : ICombatAction // concrect implementantion of void act
     {
         return new Action_Step(character);
     }
+
+        public void Interrupt()
+    {
+        // Interrupt logic for super attack
+    }
     
 }
 
@@ -66,6 +71,11 @@ public class Action_Advance : ICombatAction // concrect implementantion of actio
     {
         return new Action_Advance(character);
     }
+
+        public void Interrupt()
+    {
+        // Interrupt logic for super attack
+    }
 }
 
 public class Action_Unknown : ICombatAction // concrect implementantion of attack action
@@ -80,9 +90,6 @@ public class Action_Unknown : ICombatAction // concrect implementantion of attac
 
     public void Execute()
     {
-        // trigger attack logic/animation
-
-
         Debug.Log($"{recieverCharacter.name} Don't know what to do.");
     }
 
@@ -94,6 +101,10 @@ public class Action_Unknown : ICombatAction // concrect implementantion of attac
     public ICombatAction createActionInstance(NovaCharacterController character)
     {
         return new Action_Attack(character);
+    }
+        public void Interrupt()
+    {
+        // Interrupt logic for super attack
     }
 }
 
@@ -127,5 +138,10 @@ public class Action_superAttack : ICombatAction // concrect implementantion of a
     public ICombatAction createActionInstance(NovaCharacterController character)
     {
         return new Action_Attack(character);
+    }
+
+    public void Interrupt()
+    {
+        // Interrupt logic for super attack
     }
 }

@@ -17,6 +17,8 @@ public class Action_Attack : ICombatAction // concrect implementantion of attack
     Transform originAnchor;
 
     Sword sword;
+
+    Coroutine hitCoroutineRef;
     
     
 
@@ -29,7 +31,7 @@ public class Action_Attack : ICombatAction // concrect implementantion of attack
         
         //start coroutine to move sword back after delay
 
-        recieverCharacter.StartCoroutine(HitBoxCoroutine(targetAnchor, originAnchor));
+        hitCoroutineRef = recieverCharacter.StartCoroutine(HitBoxCoroutine());
     }
 
     public Action_Attack(NovaCharacterController character)
@@ -47,7 +49,7 @@ public class Action_Attack : ICombatAction // concrect implementantion of attack
     }
 
 
-    IEnumerator HitBoxCoroutine(Transform frontAnchor, Transform saveSwordAnchor)
+    IEnumerator HitBoxCoroutine()
     {
         // Wait for 0.3 seconds (action time)
         yield return new WaitForSeconds(0.5f);
@@ -77,7 +79,19 @@ public class Action_Attack : ICombatAction // concrect implementantion of attack
 
 
         //move sword back to character
-        recieverCharacter.RigCharacter.Sword.Anchor = saveSwordAnchor;
+        recieverCharacter.RigCharacter.Sword.Anchor = originAnchor;
+        sword.SetNormalColor();
+    }
+
+    public void Interrupt()
+    {
+        if (hitCoroutineRef != null)
+        {
+            recieverCharacter.StopCoroutine(hitCoroutineRef);
+            hitCoroutineRef = null;
+        }
+        // Move sword back to character immediately
+        recieverCharacter.RigCharacter.Sword.Anchor = originAnchor;
         sword.SetNormalColor();
     }
 }

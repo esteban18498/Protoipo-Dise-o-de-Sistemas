@@ -172,5 +172,10 @@ public class NovaCharacterController : MonoBehaviour
         }
         EnterFreeMoveState();
     }
+
+    public void InterruptCurrentAction()
+    {
+        actionQueue.executingAction?.Interrupt();
+    }
 }
 

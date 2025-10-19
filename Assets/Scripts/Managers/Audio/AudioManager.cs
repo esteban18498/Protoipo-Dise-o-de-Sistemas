@@ -26,7 +26,7 @@ public sealed class AudioManager : MonoBehaviour, IAudioService
     private void Awake()
     {
         // Comment this if you set up the audio bootstrapper as initializer
-        if (Instance != null && Instance != this) { Destroy(gameObject); return; }
+        if (Instance != null && (object)Instance != this) { Destroy(gameObject); return; }
         Instance = this;
         DontDestroyOnLoad(gameObject);
 

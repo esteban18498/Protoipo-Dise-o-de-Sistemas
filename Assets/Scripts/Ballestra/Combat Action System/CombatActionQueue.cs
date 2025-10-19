@@ -6,6 +6,8 @@ public class CombatActionQueue
 {
     private Queue<ICombatAction> actionQueue = new Queue<ICombatAction>();
 
+    public ICombatAction executingAction;
+
     private int maxQueueSize = 3;
 
     public void EnqueueAction(ICombatAction action)
@@ -22,11 +24,12 @@ public class CombatActionQueue
     {
         if (actionQueue.Count > 0)
         {
-            ICombatAction nextAction = actionQueue.Dequeue();
-            nextAction.Execute();
+            executingAction = actionQueue.Dequeue();
+            executingAction.Execute();
         }
         else
         {
+            executingAction = null;
             Debug.Log("No actions in the queue to execute.");
         }
     }
