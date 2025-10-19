@@ -9,6 +9,15 @@ public class CombatActionQueue
     public ICombatAction executingAction;
 
     private int maxQueueSize = 3;
+    private NovaCharacterController character;
+    private ISpendable CharacterResource;//stamina
+
+
+    public CombatActionQueue(NovaCharacterController _character)
+    {
+        character = _character;
+        CharacterResource = character.GetComponent<ISpendable>();
+    }
 
     public void EnqueueAction(ICombatAction action)
     {
@@ -22,9 +31,19 @@ public class CombatActionQueue
 
     public void ExecuteNextAction()
     {
-        if (actionQueue.Count > 0)
+        if (HasActions())
         {
-            executingAction = actionQueue.Dequeue();
+            ICombatAction nextAction = actionQueue.Dequeue();
+
+            if(CharacterResource.TrySpend(nextAction.staminaCost)) //stamina
+            {
+                executingAction = nextAction;
+            }
+            else
+            {
+                executingAction = new Action_Step(character);
+            }
+
             executingAction.Execute();
         }
         else
@@ -49,15 +68,7 @@ public class CombatActionQueue
         return actionQueue.Count;
     }
 
-    public void FillQueueWithTestActions(ICombatAction testAction)
-    {
-        while (actionQueue.Count < maxQueueSize)
-        {
-            actionQueue.Enqueue(testAction);
-        }
-    }
-
-    public void FillQueueWithSteps(NovaCharacterController character)
+    public void FillQueueWithSteps()
     {
         while (actionQueue.Count < maxQueueSize)
         {

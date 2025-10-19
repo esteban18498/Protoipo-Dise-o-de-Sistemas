@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Action_Block : ICombatAction // concrect implementantion of void action to do nothing
 {
-    public int staminaCost => 1;
+    public int staminaCost => 10;
 
     Transform targetAnchor;
     Transform originAnchor;

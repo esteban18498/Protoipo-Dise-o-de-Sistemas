@@ -15,7 +15,7 @@ public class NovaCharacterController : MonoBehaviour
     // --- Combat Action Queue ---
     [Header("Combat Action ")]
     public CombatActionDictionary CombatActionDictionary;
-    public CombatActionQueue actionQueue = new CombatActionQueue();
+    public CombatActionQueue actionQueue;
 
 
     // --- References ---
@@ -54,6 +54,7 @@ public class NovaCharacterController : MonoBehaviour
             RigCharacter.speed = speed;
         }
 
+        actionQueue = new CombatActionQueue(this);
         CombatActionDictionary = new CombatActionDictionary(this);
     }
     void Start()
@@ -137,20 +138,12 @@ public class NovaCharacterController : MonoBehaviour
         combat_state = Combat_state.freez;
 
 
-        //actionQueue.EnqueueAction(new Action_Advance(this));
-
-        /*
-        CombatActionDictionary.MovesDictionary.TryGetValue(
-            new ListKey<Combat_Action_mod>(new List<Combat_Action_mod>{}), out ICombatAction action);
-        Debug.Log($"Enqueued {action} action");
-        actionQueue.EnqueueAction(action);
-        */
     }
 
     public void EnterPerformState()
     {
         combat_state = Combat_state.perfom;
-        actionQueue.FillQueueWithSteps(this);
+        actionQueue.FillQueueWithSteps();
         StartCoroutine(performActionTimer());
     }
 

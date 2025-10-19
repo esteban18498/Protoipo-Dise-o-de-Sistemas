@@ -14,12 +14,13 @@ public class CombatActionDictionary
 
     public CombatActionDictionary(NovaCharacterController character)
     {
-        defaultAction = new Action_Unknown(character); // default action
+        defaultAction = new Action_Unknown(character); //----------------------------------------------------- unknown action
 
         //create core actions
-        #region Moves
+        #region Moves //----------------------------------------------------------------------------------------------- core move actions
         List<ICombatAction> CoreMoves = new List<ICombatAction>()
         {
+            new Action_Retreat(character),
             new Action_Advance(character),
         };
 
@@ -31,8 +32,7 @@ public class CombatActionDictionary
         }
         #endregion
 
-
-        #region Attacks
+        #region Attacks //--------------------------------------------------------------------------------------------- core attack actions
         List<ICombatAction> CoreAttacks = new List<ICombatAction>()
         {
             new Action_Attack(character),
@@ -45,7 +45,7 @@ public class CombatActionDictionary
         }
         #endregion
 
-        #region Blocks
+        #region Blocks //---------------------------------------------------------------------------------------------- core block actions
         List<ICombatAction> CoreBlocks = new List<ICombatAction>()
         {
             new Action_Block(character),
@@ -58,7 +58,7 @@ public class CombatActionDictionary
         }
         #endregion
 
-        #region Utils
+        #region Utils //----------------------------------------------------------------------------------------------- core util actions
         List<ICombatAction> CoreUtils = new List<ICombatAction>()
         {
             new Action_Step(character),

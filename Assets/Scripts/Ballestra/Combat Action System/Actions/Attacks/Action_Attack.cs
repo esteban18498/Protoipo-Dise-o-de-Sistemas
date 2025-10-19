@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Action_Attack : ICombatAction // concrect implementantion of attack action
 {
-    public int staminaCost => 1;
+    public int staminaCost => 10;
     public int damage => 10;
 
     public Combat_Action_Type actionType => Combat_Action_Type.Attack;
