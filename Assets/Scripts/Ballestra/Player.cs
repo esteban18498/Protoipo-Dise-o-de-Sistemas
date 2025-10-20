@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement;
 
 public class Player : MonoBehaviour
 {
@@ -13,6 +14,7 @@ public class Player : MonoBehaviour
     private InputAction moveAction;
     private InputAction attackAction;
     private InputAction blockAction;
+    private InputAction pauseAction;
 
     public ListKey<Combat_Action_mod> mods;
 
@@ -37,9 +39,27 @@ public class Player : MonoBehaviour
         blockAction = playerInput.actions["Block"];
         blockAction.started += BlockAction;
 
+        pauseAction = playerInput.actions["Pause"];
+        pauseAction.started += OnPausePressed;
+
         mods = new ListKey<Combat_Action_mod>(new List<Combat_Action_mod>());
 
     }
+
+    #region pause
+    // THIS SHOULD BE CHANGED ONCE WE GET A REAL PAUSE MENU
+    private void OnDestroy()
+    {
+        // Always unsubscribe
+        directionalAction.performed -= DirectionalAction;
+        directionalAction.canceled -= DirectionalAction;
+        freezAction.started -= Freez;
+        moveAction.started -= MoveAction;
+        attackAction.started -= AttackAction;
+        blockAction.started -= BlockAction;
+        if (pauseAction != null) pauseAction.started -= OnPausePressed;
+    }
+    #endregion
 
     // Update is called once per frame
     void Update()
@@ -139,5 +159,12 @@ public class Player : MonoBehaviour
 
             mods = new ListKey<Combat_Action_mod>(new List<Combat_Action_mod>()); // reset mods after enqueuing action
         }
+    }
+
+    // -------------------- PAUSE MENU --------------------
+
+    private void OnPausePressed(InputAction.CallbackContext ctx)
+    {
+        SceneManager.LoadScene("MainMenu");
     }
 }
