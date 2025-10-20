@@ -36,7 +36,10 @@ public class CombatActionDictionary
         List<ICombatAction> CoreAttacks = new List<ICombatAction>()
         {
             new Action_Attack(character),
-            new Action_superAttack(character)
+            new Action_superAttack(character),
+            new Action_Attack_low(character),
+            new Action_Attack_high(character),
+            // add attack actions here
         };
         AttacksDictionary = new Dictionary<ListKey<Combat_Action_mod>, ICombatAction>();
         foreach (var action in CoreAttacks)
@@ -49,6 +52,8 @@ public class CombatActionDictionary
         List<ICombatAction> CoreBlocks = new List<ICombatAction>()
         {
             new Action_Block(character),
+            new Action_Block_Low(character),
+            new Action_Block_High(character),
             // add block actions here
         };
         BlocksDictionary = new Dictionary<ListKey<Combat_Action_mod>, ICombatAction>();
