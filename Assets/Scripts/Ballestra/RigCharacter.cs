@@ -4,14 +4,12 @@ using UnityEngine;
 
 public class RigCharacter : Bone
 {
-    // Start is called before the first frame update
 
-
-    [SerializeField] public Bone Head;
-    [SerializeField] public Bone Torso;
-    [SerializeField] public Bone attackArm;
-    [SerializeField] public Bone supportArm;
-    [SerializeField] public Bone legs;
+    public Bone Head;
+    public Bone Torso;
+    public Bone Sword;
+    public Bone supportArm;
+    public Bone legs;
 
     void FixedUpdate()
     {

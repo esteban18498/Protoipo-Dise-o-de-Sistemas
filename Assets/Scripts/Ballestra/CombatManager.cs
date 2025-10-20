@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using UnityEngine.UI;
 
 
 
@@ -18,7 +19,10 @@ public class CombatManager : MonoBehaviour
 
     public float freezDuration = 3.0f;
     public float perfomDuration = 3.0f;
-    public float freezTime = 0;
+
+
+    public Image time_bar;
+    public float timer_start = 0.0f;
 
     public void Awake()
     {
@@ -36,21 +40,25 @@ public class CombatManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+
     }
 
     // Update is called once per frame
     void Update()
     {
-        switch (state) { 
+        switch (state)
+        {
             case Combat_state.free_move:
                 state_text.text = "free move";
+                time_bar.fillAmount = 0.0f;
                 break;
             case Combat_state.freez:
                 state_text.text = "freez";
+                time_bar.fillAmount = 1-(Time.time - timer_start) / freezDuration;
                 break;
             case Combat_state.perfom:
                 state_text.text = "performing";
+                time_bar.fillAmount = 1-(Time.time -timer_start) / perfomDuration;
                 break;
         }
     }
@@ -65,6 +73,7 @@ public class CombatManager : MonoBehaviour
         Character2.EnterFreezState();
 
         StartCoroutine(EndFreez());
+        timer_start = Time.time;
     }
 
     public IEnumerator EndFreez()
@@ -77,17 +86,23 @@ public class CombatManager : MonoBehaviour
 
 
         StartCoroutine(EndPerform());
+        timer_start = Time.time;
     }
 
     public IEnumerator EndPerform()
     {
         yield return new WaitForSeconds(perfomDuration);
         state = Combat_state.free_move;
-    
+
         Character1.EnterFreeMoveState();
         Character2.EnterFreeMoveState();
-    
+
+
+
     }
+
+
+
 
 
 }

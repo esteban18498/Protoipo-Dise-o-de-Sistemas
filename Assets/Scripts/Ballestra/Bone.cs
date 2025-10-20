@@ -4,8 +4,10 @@ using UnityEngine;
 
 public class Bone : MonoBehaviour
 {
-    [SerializeField] public Transform Anchor;
-    [SerializeField] public float speed = 5f;
+    public Transform Anchor;
+    public float speed = 5f;
+
+    public bool rotates = false;
     // Start is called before the first frame update
     void Awake()
     {
@@ -25,7 +27,7 @@ public class Bone : MonoBehaviour
         //Bone Function
         MoveToAnchor();
     }
-    
+
     public void MoveToAnchor()
     {
         this.transform.position = Vector3.Lerp(
@@ -33,5 +35,16 @@ public class Bone : MonoBehaviour
             Anchor.position,
             Time.deltaTime * speed
         );
+
+        //rotate to anchor
+        if (rotates)
+        {
+            this.transform.rotation = Quaternion.Slerp(
+                this.transform.rotation,
+                Anchor.rotation,
+                Time.deltaTime * speed*1.5f
+            );
+        }
+
     }
 }
