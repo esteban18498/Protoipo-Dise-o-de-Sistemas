@@ -522,7 +522,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   max: 100
   current: 100
-  regenPerSecond: 0
+  regenPerSecond: 20
 --- !u!1 &1014882134429496978
 GameObject:
   m_ObjectHideFlags: 0
