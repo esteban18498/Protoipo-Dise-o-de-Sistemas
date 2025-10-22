@@ -34,7 +34,7 @@ public class HealthComponent : MonoBehaviour, IHealth
         if (IsDead) return;
 
         current = Mathf.Max(0f, current - amount);
-        OnChanged?.Invoke(amount, max);
+        OnChanged?.Invoke(current, max);
 
         if (current <= 0f) OnDeath?.Invoke();
     }

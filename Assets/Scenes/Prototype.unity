@@ -1681,34 +1681,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 5197935563453908116, guid: 3d63661bd774f0a4195f9fd2c6831c21, type: 3}
-      propertyPath: baseColor.b
-      value: 0.40392157
-      objectReference: {fileID: 0}
-    - target: {fileID: 5197935563453908116, guid: 3d63661bd774f0a4195f9fd2c6831c21, type: 3}
-      propertyPath: baseColor.g
-      value: 0.15098791
-      objectReference: {fileID: 0}
-    - target: {fileID: 5197935563453908116, guid: 3d63661bd774f0a4195f9fd2c6831c21, type: 3}
-      propertyPath: baseColor.r
-      value: 0.9019608
-      objectReference: {fileID: 0}
-    - target: {fileID: 5292046129005079717, guid: 3d63661bd774f0a4195f9fd2c6831c21, type: 3}
-      propertyPath: baseColor.b
-      value: 0.95686275
-      objectReference: {fileID: 0}
-    - target: {fileID: 5292046129005079717, guid: 3d63661bd774f0a4195f9fd2c6831c21, type: 3}
-      propertyPath: baseColor.g
-      value: 0.83137256
-      objectReference: {fileID: 0}
-    - target: {fileID: 5292046129005079717, guid: 3d63661bd774f0a4195f9fd2c6831c21, type: 3}
-      propertyPath: baseColor.r
-      value: 0.21568628
-      objectReference: {fileID: 0}
-    - target: {fileID: 6478783490473697210, guid: 3d63661bd774f0a4195f9fd2c6831c21, type: 3}
-      propertyPath: m_FillAmount
-      value: 1
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3d63661bd774f0a4195f9fd2c6831c21, type: 3}
 --- !u!1 &1145434605
@@ -3740,82 +3712,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 662223632}
     m_Modifications:
-    - target: {fileID: 1821139914, guid: dce3f39cf99519949a7c9f7c01e47946, type: 3}
-      propertyPath: baseColor.b
-      value: 0.40392157
-      objectReference: {fileID: 0}
-    - target: {fileID: 1821139914, guid: dce3f39cf99519949a7c9f7c01e47946, type: 3}
-      propertyPath: baseColor.g
-      value: 0.15098791
-      objectReference: {fileID: 0}
-    - target: {fileID: 1821139914, guid: dce3f39cf99519949a7c9f7c01e47946, type: 3}
-      propertyPath: baseColor.r
-      value: 0.9019608
-      objectReference: {fileID: 0}
-    - target: {fileID: 95658821377199099, guid: dce3f39cf99519949a7c9f7c01e47946, type: 3}
-      propertyPath: baseColor.b
-      value: 0.95686275
-      objectReference: {fileID: 0}
-    - target: {fileID: 95658821377199099, guid: dce3f39cf99519949a7c9f7c01e47946, type: 3}
-      propertyPath: baseColor.g
-      value: 0.83137256
-      objectReference: {fileID: 0}
-    - target: {fileID: 95658821377199099, guid: dce3f39cf99519949a7c9f7c01e47946, type: 3}
-      propertyPath: baseColor.r
-      value: 0.21568628
-      objectReference: {fileID: 0}
-    - target: {fileID: 95658821377199099, guid: dce3f39cf99519949a7c9f7c01e47946, type: 3}
-      propertyPath: colorByPercent.atime0
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 95658821377199099, guid: dce3f39cf99519949a7c9f7c01e47946, type: 3}
-      propertyPath: colorByPercent.atime1
-      value: 65535
-      objectReference: {fileID: 0}
-    - target: {fileID: 95658821377199099, guid: dce3f39cf99519949a7c9f7c01e47946, type: 3}
-      propertyPath: colorByPercent.atime2
-      value: 65535
-      objectReference: {fileID: 0}
-    - target: {fileID: 95658821377199099, guid: dce3f39cf99519949a7c9f7c01e47946, type: 3}
-      propertyPath: colorByPercent.atime3
-      value: 65535
-      objectReference: {fileID: 0}
-    - target: {fileID: 95658821377199099, guid: dce3f39cf99519949a7c9f7c01e47946, type: 3}
-      propertyPath: colorByPercent.ctime0
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 95658821377199099, guid: dce3f39cf99519949a7c9f7c01e47946, type: 3}
-      propertyPath: colorByPercent.ctime1
-      value: 65535
-      objectReference: {fileID: 0}
-    - target: {fileID: 95658821377199099, guid: dce3f39cf99519949a7c9f7c01e47946, type: 3}
-      propertyPath: colorByPercent.key0.b
-      value: 0.95686275
-      objectReference: {fileID: 0}
-    - target: {fileID: 95658821377199099, guid: dce3f39cf99519949a7c9f7c01e47946, type: 3}
-      propertyPath: colorByPercent.key0.g
-      value: 0.83137256
-      objectReference: {fileID: 0}
-    - target: {fileID: 95658821377199099, guid: dce3f39cf99519949a7c9f7c01e47946, type: 3}
-      propertyPath: colorByPercent.key0.r
-      value: 0.21568628
-      objectReference: {fileID: 0}
-    - target: {fileID: 95658821377199099, guid: dce3f39cf99519949a7c9f7c01e47946, type: 3}
-      propertyPath: colorByPercent.key2.a
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 95658821377199099, guid: dce3f39cf99519949a7c9f7c01e47946, type: 3}
-      propertyPath: colorByPercent.key3.a
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 95658821377199099, guid: dce3f39cf99519949a7c9f7c01e47946, type: 3}
-      propertyPath: colorByPercent.m_Mode
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 95658821377199099, guid: dce3f39cf99519949a7c9f7c01e47946, type: 3}
-      propertyPath: colorByPercent.m_NumAlphaKeys
-      value: 2
-      objectReference: {fileID: 0}
     - target: {fileID: 5107664074963489968, guid: dce3f39cf99519949a7c9f7c01e47946, type: 3}
       propertyPath: actorRoot
       value: 
@@ -3904,17 +3800,9 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 9099677959851367599, guid: dce3f39cf99519949a7c9f7c01e47946, type: 3}
-      propertyPath: m_Enabled
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 9099677959851367761, guid: dce3f39cf99519949a7c9f7c01e47946, type: 3}
       propertyPath: m_Name
       value: PlayerHUD
-      objectReference: {fileID: 0}
-    - target: {fileID: 9099677959851367761, guid: dce3f39cf99519949a7c9f7c01e47946, type: 3}
-      propertyPath: m_IsActive
-      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: dce3f39cf99519949a7c9f7c01e47946, type: 3}
