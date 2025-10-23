@@ -453,7 +453,7 @@ GameObject:
   - component: {fileID: 7285764502668716771}
   - component: {fileID: 530230460500168386}
   - component: {fileID: 6258729235239251326}
-  - component: {fileID: 2993737553568310892}
+  - component: {fileID: 1476167826}
   m_Layer: 0
   m_Name: Character
   m_TagString: Untagged
@@ -523,8 +523,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   max: 100
   current: 100
-  regenPerSecond: 20
---- !u!114 &2993737553568310892
+  regenPerSecond: 5
+--- !u!114 &1476167826
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -537,14 +537,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   comboUI: {fileID: 0}
+  playerInput: {fileID: 0}
+  directional: {fileID: 6759877765567910139, guid: 00a8e97a5f8669242a542107fc4539b1, type: 3}
+  moveAction: {fileID: 6081900411240206687, guid: 00a8e97a5f8669242a542107fc4539b1, type: 3}
+  attackAction: {fileID: 6392102824111145426, guid: 00a8e97a5f8669242a542107fc4539b1, type: 3}
+  blockAction: {fileID: -7492757432379237903, guid: 00a8e97a5f8669242a542107fc4539b1, type: 3}
+  extraAction: {fileID: 5253220639610775357, guid: 00a8e97a5f8669242a542107fc4539b1, type: 3}
   phaseSourceBehaviour: {fileID: 0}
-  directional: {fileID: -1921870326277709615, guid: 00a8e97a5f8669242a542107fc4539b1, type: 3}
-  moveAction: {fileID: 9191592989763430360, guid: 00a8e97a5f8669242a542107fc4539b1, type: 3}
-  attackAction: {fileID: -8753798645687123828, guid: 00a8e97a5f8669242a542107fc4539b1, type: 3}
-  blockAction: {fileID: 4594523103265830087, guid: 00a8e97a5f8669242a542107fc4539b1, type: 3}
-  extraAction: {fileID: 7817525912562319861, guid: 00a8e97a5f8669242a542107fc4539b1, type: 3}
   character: {fileID: 7285764502668716771}
-  pressThreshold: 0.5
+  pressThreshold: 0.1
 --- !u!1 &1014882134429496978
 GameObject:
   m_ObjectHideFlags: 0

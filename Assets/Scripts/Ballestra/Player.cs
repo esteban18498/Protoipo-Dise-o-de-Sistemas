@@ -9,6 +9,7 @@ public class Player : MonoBehaviour
     [SerializeField] public NovaCharacterController CharacterController;
     [SerializeField] private PlayerComboUIController comboUI;
 
+
     private PlayerInput playerInput;
     private InputAction directionalAction;
     private InputAction freezAction;
@@ -62,11 +63,7 @@ public class Player : MonoBehaviour
     }
     #endregion
 
-    // Update is called once per frame
-    void Update()
-    {
 
-    }
 
     void DirectionalAction(InputAction.CallbackContext context)
     {
@@ -126,7 +123,24 @@ public class Player : MonoBehaviour
     void Freez(InputAction.CallbackContext context)
     {
         CharacterController.RequestFreezState();
+
+        // Show panel immediately
+        comboUI?.ForceShow();
     }
+
+    void OnEndFreezOrOnEnterPerform()
+    {
+        comboUI?.ForceHide(clearHistory: false); // hide but keep current history during performance if you like
+    }
+
+    void OnBackToFreeMove()
+    {
+        comboUI?.ForceHide(clearHistory: true);
+    }
+
+
+
+
 
     void MoveAction(InputAction.CallbackContext context)
     {

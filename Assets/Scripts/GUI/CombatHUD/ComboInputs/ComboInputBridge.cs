@@ -50,10 +50,10 @@ public class ComboInputBridge : MonoBehaviour
         TryBind(directional, OnDirectionalChanged, "directional");
 
         // Acciones → commit
-        //TryBind(moveAction, _ => Commit(ActKey.A, Combat_Action_Type.Move), "moveAction");
-        //TryBind(attackAction, _ => Commit(ActKey.B, Combat_Action_Type.Attack), "attackAction");
-        //TryBind(blockAction, _ => Commit(ActKey.C, Combat_Action_Type.Block), "blockAction");
-        //if (extraAction) TryBind(extraAction, _ => Commit(ActKey.D, Combat_Action_Type.Utils), "extraAction");
+        TryBind(moveAction, _ => Commit(ActKey.A, Combat_Action_Type.Move), "moveAction");
+        TryBind(attackAction, _ => Commit(ActKey.B, Combat_Action_Type.Attack), "attackAction");
+        TryBind(blockAction, _ => Commit(ActKey.C, Combat_Action_Type.Block), "blockAction");
+        if (extraAction) TryBind(extraAction, _ => Commit(ActKey.D, Combat_Action_Type.Utils), "extraAction");
     }
 
     private void OnDisable()

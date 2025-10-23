@@ -1,109 +1,153 @@
-// PlayerComboUIController.cs
 using UnityEngine;
 
 public class PlayerComboUIController : MonoBehaviour
 {
     [Header("Sources")]
-    [SerializeField] private MonoBehaviour phaseSourceBehaviour; // arrastrar CombatManager en escena
+    [SerializeField] private MonoBehaviour phaseSourceBehaviour;   // CombatManager
     private ICombatPhaseSource phaseSource;
 
     [Header("UI")]
-    [SerializeField] private ComboPanelUI panelUI;
-    [SerializeField] private ComboHistoryUI historyUI;
+    [SerializeField] private ComboPanelUI panelUI;     // InputPanel_Left/Right
+    [SerializeField] private ComboHistoryUI historyUI; // History_Left/Right
+
+    [Header("Behaviour")]
+    [Tooltip("If false, ignores CombatManager events. You control Show/Hide manually (e.g., from Player.Freez/EndPerform).")]
+    [SerializeField] private bool usePhaseEvents = true;
+    [SerializeField] private bool pollPhaseEveryFrame = true;
+
 
     public InputBuffer Buffer { get; private set; } = new();
-
     private CombatPhase _lastPhase = CombatPhase.FreeMove;
+    private CombatPhase _lastAppliedPhase = (CombatPhase)(-1);
+
+    private bool _subscribed;
 
     public void PushDirection(DirKey d) => Buffer.PushDirection(d);
 
-
-    public void PressAction(ActKey a, bool comboSuccess) // Cuando el jugador presiona acción, se “commitea”
+    public void PressAction(ActKey a, bool comboSuccess)
     {
         Buffer.SetAction(a);
-        var snap = Buffer.Snapshot(); // snapshot para mostrar en history
-
+        var snap = Buffer.Snapshot();
 
         if (comboSuccess)
         {
             panelUI.FlashSuccess();
             if (historyUI) historyUI.AddRow(snap);
-            Buffer.Clear();
         }
         else
         {
-            panelUI.FlashFail(); // o esperar un frame que se vea el fail con la acción puesta
-
-            Buffer.Clear();
+            panelUI.FlashFail();
         }
+        Buffer.Clear();
     }
 
+    // ----- explicit control (useful while debugging) -----
+    public void ForceShow()
+    {
+        Debug.Log("[ComboUI] ForceShow()", this);
+        if (panelUI) panelUI.SetVisible(true);
+        if (historyUI) historyUI.SetVisible(true);
+    }
+
+    public void ForceHide(bool clearHistory = true)
+    {
+        Debug.Log("[ComboUI] ForceHide()", this);
+        if (panelUI) panelUI.SetVisible(false);
+        if (historyUI) historyUI.SetVisible(false);
+        if (clearHistory && historyUI) historyUI.ClearAll();
+        Buffer.Clear();
+    }
+    // -----------------------------------------------------
 
     private void Awake()
     {
-        if (panelUI != null && panelUI.gameObject == gameObject)
-            Debug.LogError($"{name}: panelUI cannot be on the same GameObject as the controller. " +
-                           "Move the controller to a different GO.", this);
-
-        phaseSource = phaseSourceBehaviour as ICombatPhaseSource;
         panelUI.Bind(Buffer);
 
-        if (phaseSource != null)
+        if (panelUI && panelUI.gameObject == gameObject)
+            Debug.LogError($"{name}: Move PlayerComboUIController to a different GameObject than the panel.", this);
+    }
+
+    private void Start()
+    {
+        // Auto-wire the manager if not assigned
+        if (phaseSourceBehaviour == null)
+            phaseSourceBehaviour = FindObjectOfType<CombatManager>();
+
+        phaseSource = phaseSourceBehaviour as ICombatPhaseSource;
+
+        if (usePhaseEvents)
         {
-            _lastPhase = phaseSource.Current;
-            phaseSource.OnPhaseChanged += OnPhaseChanged;
-            OnPhaseChanged(phaseSource.Current); // inicializa
+            if (phaseSource == null)
+            {
+                Debug.LogError($"{name}: phaseSourceBehaviour not set or not ICombatPhaseSource.", this);
+            }
+            else if (!_subscribed)
+            {
+                phaseSource.OnPhaseChanged += OnPhaseChanged;
+                _subscribed = true;
+                Debug.Log($"[ComboUI] Subscribed to {phaseSourceBehaviour.name} (id {phaseSourceBehaviour.GetInstanceID()})", this);
+                OnPhaseChanged(phaseSource.Current);
+            }
         }
         else
         {
-            // Fallback: si no hay fuente de fases, mantener visible
-            panelUI.SetVisible(true);
-            if (historyUI) historyUI.SetVisible(true);
+            // Manual mode: keep it visible until you call ForceHide
+            ForceShow();
         }
     }
 
-    private void OnEnable()
+    private void Update()
     {
-        if (phaseSource == null)
-            phaseSource = phaseSourceBehaviour as ICombatPhaseSource;
+        if (!pollPhaseEveryFrame) return;
+        if (phaseSource == null) return;
 
-        if (phaseSource != null)
+        var current = phaseSource.Current;
+        if (current != _lastAppliedPhase)
         {
-            phaseSource.OnPhaseChanged -= OnPhaseChanged; // avoid double-subscribe
-            phaseSource.OnPhaseChanged += OnPhaseChanged;
-            OnPhaseChanged(phaseSource.Current); // force initial visibility
+            OnPhaseChanged(current);
+            _lastAppliedPhase = current;
         }
     }
-
-    private void OnDisable()
-    {
-        if (phaseSource != null)
-            phaseSource.OnPhaseChanged -= OnPhaseChanged;
-    }
-
 
     private void OnDestroy()
     {
-        if (phaseSource != null) phaseSource.OnPhaseChanged -= OnPhaseChanged;
+        if (_subscribed && phaseSource != null)
+            phaseSource.OnPhaseChanged -= OnPhaseChanged;
     }
 
-  
     private void OnPhaseChanged(CombatPhase phase)
     {
         Debug.Log($"[ComboUI] Phase changed to: {phase}", this);
-        // Panel e histórico solo visibles en OnGuard
+
         bool onGuard = (phase == CombatPhase.OnGuard);
-        panelUI.SetVisible(onGuard);
+        if (panelUI) panelUI.SetVisible(onGuard);
         if (historyUI) historyUI.SetVisible(onGuard);
 
-        // Limpiar histórico y buffer al SALIR de OnGuard (cuando pase a Performance o FreeMove)
-        if (_lastPhase == CombatPhase.OnGuard && phase != CombatPhase.OnGuard)
+        // Clear when LEAVING OnGuard
+        if (_lastPhase == CombatPhase.OnGuard && !onGuard)
         {
             if (historyUI) historyUI.ClearAll();
             Buffer.Clear();
         }
 
         _lastPhase = phase;
+    }
+
+    // Unity events to wire into combat manager
+    public void ShowOnGuard()
+    {
+        if (panelUI) panelUI.SetVisible(true);
+        if (historyUI) historyUI.SetVisible(true);
+        Debug.Log("[ComboUI] ShowOnGuard", this);
+    }
+
+    public void HideOnNonGuardAndClear()
+    {
+        if (panelUI) panelUI.SetVisible(false);
+        if (historyUI) historyUI.SetVisible(false);
+        if (historyUI) historyUI.ClearAll();
+        Buffer.Clear();
+        Debug.Log("[ComboUI] HideOnNonGuardAndClear", this);
     }
 
 }

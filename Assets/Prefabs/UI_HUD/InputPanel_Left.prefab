@@ -380,7 +380,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4a05a8c065b9d3b4da74e2d4721f2511, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  iconSet: {fileID: 0}
+  iconSet: {fileID: 11400000, guid: 726c4de9fd93b204295233d4b2525f67, type: 2}
   slot1: {fileID: 4612266425602456734}
   slot2: {fileID: 4612266427116072752}
   slot3: {fileID: 4612266426214455795}

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
+using UnityEngine.Events;
 
 
 
@@ -16,7 +17,12 @@ public class CombatManager : MonoBehaviour, ICombatPhaseSource
 {
     static public CombatManager Instance;
 
+    [Header("UI Phase Events (Inspector-callable)")]
+    public UnityEvent OnEnterFreeMove;
+    public UnityEvent OnEnterOnGuard;      // freez
+    public UnityEvent OnEnterPerformance;
 
+    [Header("Combat Management)")]
     public float freezDuration = 3.0f;
     public float perfomDuration = 3.0f;
 
@@ -46,7 +52,25 @@ public class CombatManager : MonoBehaviour, ICombatPhaseSource
             _ => CombatPhase.FreeMove
         };
 
-    private void RaisePhaseChanged() => OnPhaseChanged?.Invoke(Current);
+    private void RaisePhaseChanged()
+    {
+        Debug.Log($"[CM] Raising phase: {Current} (state={state})", this);
+        OnPhaseChanged?.Invoke(Current);
+
+        switch (Current)
+        {
+            case CombatPhase.FreeMove:
+                OnEnterFreeMove?.Invoke();
+                break;
+            case CombatPhase.OnGuard:
+                OnEnterOnGuard?.Invoke();
+                break;
+            case CombatPhase.Performance:
+                OnEnterPerformance?.Invoke();
+                break;
+        }
+    }
+
     // ============================
     #endregion    
 
