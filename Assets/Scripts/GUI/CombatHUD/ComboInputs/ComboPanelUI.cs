@@ -1,4 +1,5 @@
 using UnityEngine;
+using System.Collections;
 using UnityEngine.UI;
 
 public class ComboPanelUI : MonoBehaviour
@@ -64,10 +65,13 @@ public class ComboPanelUI : MonoBehaviour
         StartCoroutine(Flash(backdrop, new Color(1f, 0f, 0f, 0.4f)));
     }
 
-    private System.Collections.IEnumerator Flash(Image img, Color c)
+    private IEnumerator Flash(Image img, Color flashColor)
     {
-        img.color = c; img.enabled = true;
-        yield return new WaitForSeconds(0.15f);
-        img.enabled = false;
+        var originalColor = new Color(0f, 0f, 0f, 186f / 255f); // negro con alpha 186
+        img.color = flashColor;
+        img.enabled = true;
+        yield return new WaitForSeconds(0.2f);
+        img.color = originalColor; // ← restauramos el fondo
     }
+
 }

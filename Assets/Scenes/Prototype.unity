@@ -3884,6 +3884,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 55271371}
     m_Modifications:
+    - target: {fileID: 1880513691403023518, guid: b9b0c73af90524f4fab6c0679eb48514, type: 3}
+      propertyPath: m_RaycastTarget
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1880513692765060886, guid: b9b0c73af90524f4fab6c0679eb48514, type: 3}
       propertyPath: m_IsActive
       value: 1
@@ -4047,6 +4051,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4511289167566778507, guid: 6e25509e29b074a4ab7912a6db20f010, type: 3}
       propertyPath: m_SizeDelta.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4511289168536849549, guid: 6e25509e29b074a4ab7912a6db20f010, type: 3}
+      propertyPath: m_RaycastTarget
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6171189058147120320, guid: 6e25509e29b074a4ab7912a6db20f010, type: 3}
