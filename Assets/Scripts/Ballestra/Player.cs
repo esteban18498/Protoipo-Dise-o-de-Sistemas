@@ -7,6 +7,7 @@ using UnityEngine.SceneManagement;
 public class Player : MonoBehaviour
 {
     [SerializeField] public NovaCharacterController CharacterController;
+    [SerializeField] private PlayerComboUIController comboUI;
 
     private PlayerInput playerInput;
     private InputAction directionalAction;
@@ -134,6 +135,9 @@ public class Player : MonoBehaviour
             ICombatAction action = CharacterController.CombatActionDictionary.GetCombatAction(mods, Combat_Action_Type.Move);
             CharacterController.actionQueue.EnqueueAction(action);
 
+            bool success = !(action is Action_Unknown);
+            comboUI?.PressAction(ActKey.A, success);   // A = Move en nuestro HUD
+
             mods = new ListKey<Combat_Action_mod>(new List<Combat_Action_mod>()); // reset mods after enqueuing action
         }
     }
@@ -144,6 +148,9 @@ public class Player : MonoBehaviour
         {
             ICombatAction action = CharacterController.CombatActionDictionary.GetCombatAction(mods, Combat_Action_Type.Attack);
             CharacterController.actionQueue.EnqueueAction(action);
+
+            bool success = !(action is Action_Unknown);
+            comboUI?.PressAction(ActKey.B, success);   // B = Attack
 
             mods = new ListKey<Combat_Action_mod>(new List<Combat_Action_mod>()); // reset mods after enqueuing action
 
@@ -156,6 +163,9 @@ public class Player : MonoBehaviour
         {
             ICombatAction action = CharacterController.CombatActionDictionary.GetCombatAction(mods, Combat_Action_Type.Block);
             CharacterController.actionQueue.EnqueueAction(action);
+
+            bool success = !(action is Action_Unknown);
+            comboUI?.PressAction(ActKey.C, success);   // C = Block
 
             mods = new ListKey<Combat_Action_mod>(new List<Combat_Action_mod>()); // reset mods after enqueuing action
         }

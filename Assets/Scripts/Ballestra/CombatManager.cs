@@ -12,7 +12,7 @@ public enum Combat_state {
  perfom = 2
 }
 
-public class CombatManager : MonoBehaviour
+public class CombatManager : MonoBehaviour, ICombatPhaseSource
 {
     static public CombatManager Instance;
 
@@ -24,18 +24,38 @@ public class CombatManager : MonoBehaviour
     public Image time_bar;
     public float timer_start = 0.0f;
 
+
+    public Combat_state state = Combat_state.free_move;
+    [SerializeField] private TextMeshProUGUI state_text;
+
+    [SerializeField] private NovaCharacterController Character1; // left
+    [SerializeField] private NovaCharacterController Character2; // right
+
+
+    #region ICombatPhaseSource    
+    // ==== ICombatPhaseSource ====
+    public event System.Action<CombatPhase> OnPhaseChanged;
+    public CombatPhase Current => Map(state);
+
+    private CombatPhase Map(Combat_state combatState) // mapeo a la UI
+        => combatState switch
+        {
+            Combat_state.free_move => CombatPhase.FreeMove,     
+            Combat_state.freez => CombatPhase.OnGuard,      
+            Combat_state.perfom => CombatPhase.Performance, 
+            _ => CombatPhase.FreeMove
+        };
+
+    private void RaisePhaseChanged() => OnPhaseChanged?.Invoke(Current);
+    // ============================
+    #endregion    
+
     public void Awake()
     {
         Instance = this;
     }
 
 
-    public Combat_state state = Combat_state.free_move;
-    [SerializeField] private TextMeshProUGUI state_text;
-
-
-    [SerializeField] private NovaCharacterController Character1; // left
-    [SerializeField] private NovaCharacterController Character2; // right
 
     // Start is called before the first frame update
     void Start()
@@ -68,41 +88,39 @@ public class CombatManager : MonoBehaviour
         if (state != Combat_state.free_move) return;
 
         state = Combat_state.freez;
+        RaisePhaseChanged(); // ← notifica OnGuard
 
         Character1.EnterFreezState();
         Character2.EnterFreezState();
 
-        StartCoroutine(EndFreez());
         timer_start = Time.time;
+        StartCoroutine(EndFreez());
     }
 
     public IEnumerator EndFreez()
     {
         yield return new WaitForSeconds(freezDuration);
+
         state = Combat_state.perfom;
+        RaisePhaseChanged(); // ← notifica Performance
 
         Character1.EnterPerformState();
         Character2.EnterPerformState();
 
-
-        StartCoroutine(EndPerform());
         timer_start = Time.time;
+        StartCoroutine(EndPerform());
     }
 
     public IEnumerator EndPerform()
     {
         yield return new WaitForSeconds(perfomDuration);
+
         state = Combat_state.free_move;
+        RaisePhaseChanged(); // ← notifica FreeMove
 
         Character1.EnterFreeMoveState();
         Character2.EnterFreeMoveState();
-
-
-
     }
-
-
-
 
 
 }

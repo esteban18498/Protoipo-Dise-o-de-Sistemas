@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9cd816f7a50fff346975bf72779cea43, type: 3}
+  m_Name: InputIconSet
+  m_EditorClassIdentifier: 
+  up: {fileID: 21300000, guid: bc6b9905894f64e4f993d4a245867287, type: 3}
+  right: {fileID: 21300000, guid: 65435f0df118af647bb89bc6ff05dc46, type: 3}
+  down: {fileID: 21300000, guid: 6420032eaf712d14e8fcb91908631bd5, type: 3}
+  left: {fileID: 21300000, guid: e71449bf24b5c314c81a0ce378035eb5, type: 3}
+  actA: {fileID: 21300000, guid: e3373622ccb07c2469b446d085a8233d, type: 3}
+  actB: {fileID: 21300000, guid: aafb6ab817be6a440938686e25711cc2, type: 3}
+  actC: {fileID: 21300000, guid: 221d39ea265f9a042b9a44ff7471a3a4, type: 3}
+  actD: {fileID: 21300000, guid: 98fa0b313eb15d74ebade775cc7c0b46, type: 3}
+  emptySlot: {fileID: 21300000, guid: 5d8d27d36a61bd440bfd50d004e26a9f, type: 3}
