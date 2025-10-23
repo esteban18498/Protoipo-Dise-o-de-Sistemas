@@ -77,7 +77,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 944612396173209598, guid: 8719dbbf18b73f34a94ae5d956c69ffc, type: 3}
       propertyPath: m_Name
-      value: Character 2
+      value: Character 2 Variant
       objectReference: {fileID: 0}
     - target: {fileID: 2993737553568310892, guid: 8719dbbf18b73f34a94ae5d956c69ffc, type: 3}
       propertyPath: comboUI

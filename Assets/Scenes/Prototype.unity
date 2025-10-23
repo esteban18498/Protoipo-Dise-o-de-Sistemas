@@ -830,7 +830,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   CharacterController: {fileID: 1476167821}
   comboUI: {fileID: 4511289169139543600}
-  uiDirThreshold: 0.1
 --- !u!4 &594621322
 Transform:
   m_ObjectHideFlags: 0
@@ -1164,7 +1163,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   CharacterController: {fileID: 914757044}
   comboUI: {fileID: 371260211890709027}
-  uiDirThreshold: 0.1
 --- !u!4 &731386199
 Transform:
   m_ObjectHideFlags: 0
@@ -4217,6 +4215,10 @@ PrefabInstance:
       propertyPath: comboUI
       value: 
       objectReference: {fileID: 371260211890709027}
+    - target: {fileID: 8937647685184068372, guid: 90cb6fc5917838e4d8c209ccf5b617ee, type: 3}
+      propertyPath: directional
+      value: 
+      objectReference: {fileID: -1921870326277709615, guid: 00a8e97a5f8669242a542107fc4539b1, type: 3}
     - target: {fileID: 8937647685184068372, guid: 90cb6fc5917838e4d8c209ccf5b617ee, type: 3}
       propertyPath: playerInput
       value: 

@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.InputSystem.Users;
 
 public class ComboInputBridge : MonoBehaviour
 {
@@ -41,20 +42,51 @@ public class ComboInputBridge : MonoBehaviour
 
         if (character && actionDict == null)
             actionDict = new CombatActionDictionary(character);
+
+        //Debug.Log($"[P2] directional ref: {directional?.action}, enabled: {directional?.action?.enabled}");
+        Debug.Log($"[P2] directional ref: {directional?.name}");
+        Debug.Log($"[P2] asset path: {UnityEditor.AssetDatabase.GetAssetPath(directional)}");
+        Debug.Log($"[P2] action ID: {directional?.action?.id}");
+        Debug.Log($"[P2] action path: {directional?.action?.expectedControlType}");
     }
     private bool IsOnGuard() => phaseSource == null || phaseSource.Current == CombatPhase.OnGuard;
 
     private void OnEnable()
     {
+        EnsureCorrectActionMap();
+        if (GetComponent<PlayerInput>() is PlayerInput playerInput)
+        {
+            Debug.Log($"[Bridge:{name}] Mapa activo: {playerInput.currentActionMap?.name}");
+            if (playerInput.currentActionMap == null || playerInput.currentActionMap.name != "Player2")
+            {
+                playerInput.SwitchCurrentActionMap("Player2"); // <-- importante
+                Debug.Log("[Bridge] Forzado cambio a mapa Player2");
+            }
+        }
         // Direccional
         TryBind(directional, OnDirectionalChanged, "directional");
-
+        // 🔧 Forzar activación manual por seguridad
+        if (!directional.action.enabled)
+        {
+            directional.action.Enable();
+            Debug.Log($"[P2] Forzando Enable() de directional manualmente.");
+        }
         // Acciones → commit
         TryBind(moveAction, _ => Commit(ActKey.A, Combat_Action_Type.Move), "moveAction");
         TryBind(attackAction, _ => Commit(ActKey.B, Combat_Action_Type.Attack), "attackAction");
         TryBind(blockAction, _ => Commit(ActKey.C, Combat_Action_Type.Block), "blockAction");
         if (extraAction) TryBind(extraAction, _ => Commit(ActKey.D, Combat_Action_Type.Utils), "extraAction");
+
+
+        Debug.Log($"[P2] directional ref: {directional?.name}");
+        Debug.Log($"[P2] asset path: {UnityEditor.AssetDatabase.GetAssetPath(directional)}");
+        Debug.Log($"[P2] action ID: {directional?.action?.id}");
+        Debug.Log($"[P2] action path: {directional?.action?.expectedControlType}");
+
+        LogActiveMaps();
     }
+
+
 
     private void OnDisable()
     {
@@ -71,6 +103,9 @@ public class ComboInputBridge : MonoBehaviour
         }
         _handlers.Clear();
     }
+
+
+
 
     private void TryBind(InputActionReference aref,
                          Action<InputAction.CallbackContext> callback,
@@ -159,7 +194,7 @@ public class ComboInputBridge : MonoBehaviour
     private void OnDirectionalChanged(InputAction.CallbackContext ctx)
     {
         var v = ctx.ReadValue<Vector2>();
-
+        Debug.Log($"[Bridge:{name}] Dirección detectada: {v} - phase: {phaseSource?.Current}");
         if (_lastDir.x <= pressThreshold && v.x > pressThreshold) comboUI.PushDirection(DirKey.Right);
         if (_lastDir.x >= -pressThreshold && v.x < -pressThreshold) comboUI.PushDirection(DirKey.Left);
         if (_lastDir.y <= pressThreshold && v.y > pressThreshold) comboUI.PushDirection(DirKey.Up);
@@ -167,4 +202,34 @@ public class ComboInputBridge : MonoBehaviour
 
         _lastDir = v;
     }
+    private void EnsureCorrectActionMap()
+    {
+        if (TryGetComponent(out PlayerInput playerInput))
+        {
+            var expectedMap = $"Player{playerInput.playerIndex + 1}"; // ej. Player1, Player2
+            if (playerInput.currentActionMap == null || playerInput.currentActionMap.name != expectedMap)
+            {
+                Debug.Log($"[Bridge:{name}] Mapa activo es '{playerInput.currentActionMap?.name}', se cambia a '{expectedMap}'");
+                playerInput.SwitchCurrentActionMap(expectedMap);
+            }
+        }
+    }
+
+    void LogActiveMaps()
+    {
+        var pi = GetComponent<PlayerInput>();
+        if (pi == null || pi.actions == null)
+        {
+            Debug.LogWarning($"[Bridge:{name}] PlayerInput o sus acciones están vacías.");
+            return;
+        }
+
+        foreach (var actionMap in pi.actions.actionMaps)
+        {
+            Debug.Log($"[PlayerInput] Map: {actionMap.name}, Enabled: {actionMap.enabled}");
+        }
+    }
+
+
+
 }
