@@ -24,8 +24,8 @@ public enum Combat_Action_mod // flechitas
 public interface ICombatAction
 {
     int staminaCost { get; }
-    Combat_Action_Type actionType { get; }
-    public ListKey<Combat_Action_mod> mods { get; }
+    Combat_Action_Type ActionType { get; }
+    public ListKey<Combat_Action_mod> Mods { get; }
 
     ICombatAction createActionInstance(NovaCharacterController character);
 

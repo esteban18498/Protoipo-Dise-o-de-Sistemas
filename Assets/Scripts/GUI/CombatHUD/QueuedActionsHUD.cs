@@ -8,7 +8,7 @@ public class QueuedActionsHUD : MonoBehaviour
     public NovaCharacterController character;
     public CombatActionQueue actionQueue;
 
-    public TMPro.TextMeshProUGUI hudTextprefab;
+    [SerializeField] private CombatActionHUD combatActionHUDPrefab;
 
     // Start is called before the first frame update
     void Start()
@@ -39,14 +39,14 @@ public class QueuedActionsHUD : MonoBehaviour
         //clear childs
         foreach (Transform child in this.transform)
         {
-            if (child.name == "PrefabChild") continue;
+            if (child.name == "ActionPrefabHUD") continue;
             Destroy(child.gameObject);
         }
 
         for (int i = 0; i < actions.Count; i++)
         {
-            TMPro.TextMeshProUGUI child = Instantiate(hudTextprefab, this.transform);
-            child.text = ActionToString(actions[i]);
+            CombatActionHUD child = Instantiate(combatActionHUDPrefab, this.transform);
+            child.Action = actions[i];
             child.gameObject.SetActive(true);
             child.name = $"Action_{i}";
         }
@@ -58,14 +58,14 @@ public class QueuedActionsHUD : MonoBehaviour
     {
         string text = "|";
 
-        List<Combat_Action_mod> mods = action.mods.ToList();
+        List<Combat_Action_mod> mods = action.Mods.ToList();
 
         foreach (Combat_Action_mod mod in mods)
         {
             text += mod.ToString() + " ";
         }
         
-        text += $" {action.actionType.ToString() }-> {action.GetType().ToString()} |";
+        text += $" {action.ActionType.ToString() }-> {action.GetType().ToString()} |";
         Debug.Log(text);
 
 

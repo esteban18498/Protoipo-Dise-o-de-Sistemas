@@ -8,7 +8,7 @@ using UnityEngine.UI;
 public class actionTypeHud : MonoBehaviour
 {
 
-    public Combat_Action_Type type;
+    public Combat_Action_Type? type;
 
     public UnityEngine.UI.Image img;
 
@@ -20,9 +20,16 @@ public class actionTypeHud : MonoBehaviour
     void Start()
 
     {
-        if (type == Combat_Action_Type.Attack)
+
+    }
+    
+
+    public void ConfigImage()
+    {
+        if (type == null)
         {
-            img.color = atackColor;
+            gameObject.SetActive(false);
+            Debug.LogError("actionTypeHud: Unknown Combat_Action_Type.");
         }
         else if (type == Combat_Action_Type.Block)
         {
@@ -37,12 +44,10 @@ public class actionTypeHud : MonoBehaviour
             img.color = moveColor;
 
         }
-        else if (type == null)
+        else if (type == Combat_Action_Type.Attack)
         {
-            gameObject.SetActive(false);
-            Debug.LogError("actionTypeHud: Unknown Combat_Action_Type.");
+            img.color = atackColor;
         }
     }
-    
 
 }

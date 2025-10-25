@@ -32,7 +32,7 @@ public class CombatActionDictionary
 
         foreach (var action in CoreMoves)
         {
-            MovesDictionary[action.mods] = action;
+            MovesDictionary[action.Mods] = action;
         }
         #endregion
 
@@ -48,7 +48,7 @@ public class CombatActionDictionary
         AttacksDictionary = new Dictionary<ListKey<Combat_Action_mod>, ICombatAction>();
         foreach (var action in CoreAttacks)
         {
-            AttacksDictionary[action.mods] = action;
+            AttacksDictionary[action.Mods] = action;
         }
         #endregion
 
@@ -63,7 +63,7 @@ public class CombatActionDictionary
         BlocksDictionary = new Dictionary<ListKey<Combat_Action_mod>, ICombatAction>();
         foreach (var action in CoreBlocks)
         {
-            BlocksDictionary[action.mods] = action;
+            BlocksDictionary[action.Mods] = action;
         }
         #endregion
 
@@ -75,7 +75,7 @@ public class CombatActionDictionary
         UtilsDictionary = new Dictionary<ListKey<Combat_Action_mod>, ICombatAction>();
         foreach (var action in CoreUtils)
         {
-            UtilsDictionary[action.mods] = action;
+            UtilsDictionary[action.Mods] = action;
         }
         #endregion
 

@@ -13,9 +13,9 @@ public class Action_Block_Low : ICombatAction // concrect implementantion of voi
 
     Coroutine returnCoroutineRef;
 
-    public Combat_Action_Type actionType => Combat_Action_Type.Block;
+    public Combat_Action_Type ActionType => Combat_Action_Type.Block;
 
-    public ListKey<Combat_Action_mod> mods => new ListKey<Combat_Action_mod>(new List<Combat_Action_mod>()
+    public ListKey<Combat_Action_mod> Mods => new ListKey<Combat_Action_mod>(new List<Combat_Action_mod>()
     {
         Combat_Action_mod.Down,
     });

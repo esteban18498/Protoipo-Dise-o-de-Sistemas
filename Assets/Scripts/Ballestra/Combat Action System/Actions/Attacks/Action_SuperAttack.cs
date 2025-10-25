@@ -8,9 +8,9 @@ public class Action_superAttack : ICombatAction // concrect implementantion of a
 {
     public int staminaCost => 20;
 
-    public Combat_Action_Type actionType => Combat_Action_Type.Attack;
+    public Combat_Action_Type ActionType => Combat_Action_Type.Attack;
 
-    public ListKey<Combat_Action_mod> mods => new ListKey<Combat_Action_mod>(new List<Combat_Action_mod>(){
+    public ListKey<Combat_Action_mod> Mods => new ListKey<Combat_Action_mod>(new List<Combat_Action_mod>(){
         Combat_Action_mod.Up, Combat_Action_mod.Front });
 
     NovaCharacterController recieverCharacter;
