@@ -65,9 +65,11 @@ public class CombatManager : MonoBehaviour
 
     public void EnterFreezState()
     {
+        Debug.Log("arena freez");
         if (state != Combat_state.free_move) return;
 
         state = Combat_state.freez;
+
 
         Character1.EnterFreezState();
         Character2.EnterFreezState();
@@ -96,6 +98,10 @@ public class CombatManager : MonoBehaviour
 
         Character1.EnterFreeMoveState();
         Character2.EnterFreeMoveState();
+
+
+        Character1.RequestFreezState();
+
 
 
 

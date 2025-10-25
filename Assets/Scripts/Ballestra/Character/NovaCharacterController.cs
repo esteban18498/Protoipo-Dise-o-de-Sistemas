@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using System.Security.Cryptography;
 using UnityEngine;
 
 public class NovaCharacterController : MonoBehaviour
@@ -138,6 +139,9 @@ public class NovaCharacterController : MonoBehaviour
     public void EnterFreezState()
     {
         combat_state = Combat_state.freez;
+        Debug.Log("chars freez");
+        Debug.Log(combat_state.ToString());
+        
 
 
     }
@@ -154,6 +158,8 @@ public class NovaCharacterController : MonoBehaviour
     public void EnterFreeMoveState()
     {
         combat_state = Combat_state.free_move;
+        Debug.Log("enter free move");
+        Debug.Log(combat_state.ToString());
         actionQueue.ClearQueue();
 
     }
@@ -167,7 +173,7 @@ public class NovaCharacterController : MonoBehaviour
 
             yield return new WaitForSeconds(1f); // Wait 1 second between actions
         }
-        EnterFreeMoveState();
+        //EnterFreeMoveState();
     }
 
     public void InterruptCurrentAction()
