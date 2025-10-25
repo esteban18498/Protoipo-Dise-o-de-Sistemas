@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Globalization;
 using Microsoft.Unity.VisualStudio.Editor;
 using UnityEngine;
 using UnityEngine.UI;
@@ -11,12 +12,10 @@ public class actionModHud : MonoBehaviour
     public Combat_Action_mod? Mod;
 
     public bool reversed = false;
-
-    void Start()
-    {
-
-    }
     
+    public UnityEngine.UI.Image img;
+
+
 
     public void ConfigImage()
     {
@@ -56,5 +55,10 @@ public class actionModHud : MonoBehaviour
                 }
                 break;
         }
+    }
+    
+    public void setOpacity(float opacity_0to1)
+    {
+        img.color = new Color(img.color.r, img.color.g, img.color.b, opacity_0to1);
     }
 }

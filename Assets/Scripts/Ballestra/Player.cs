@@ -1,4 +1,4 @@
-using System.Collections;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -16,7 +16,8 @@ public class Player : MonoBehaviour
     private InputAction blockAction;
     private InputAction pauseAction;
 
-    public ListKey<Combat_Action_mod> mods;
+    public ListKey<Combat_Action_mod> Mods;
+    public Action OnModsUpdated;
 
     // Start is called before the first frame update
     void Awake()
@@ -42,8 +43,13 @@ public class Player : MonoBehaviour
         pauseAction = playerInput.actions["Pause"];
         pauseAction.started += OnPausePressed;
 
-        mods = new ListKey<Combat_Action_mod>(new List<Combat_Action_mod>());
+        Mods = new ListKey<Combat_Action_mod>(new List<Combat_Action_mod>());
 
+    }
+
+    void Start()
+    {
+        CharacterController.OnFreezEnd += OnFreezEnd;
     }
 
     #region pause
@@ -91,33 +97,36 @@ public class Player : MonoBehaviour
             {
                 if (CharacterController.transform.localScale.x > 0)// facing right
                 {
-                    mods.add(Combat_Action_mod.Back);
+                    Mods.add(Combat_Action_mod.Back);
                 }
                 else
                 {
-                    mods.add(Combat_Action_mod.Front);
+                    Mods.add(Combat_Action_mod.Front);
                 }
             }
             else if (context.ReadValue<Vector2>().x > 0)
             {
                 if (CharacterController.transform.localScale.x > 0)// facing right
                 {
-                    mods.add(Combat_Action_mod.Front);
+                    Mods.add(Combat_Action_mod.Front);
                 }
                 else
                 {
-                    mods.add(Combat_Action_mod.Back);
+                    Mods.add(Combat_Action_mod.Back);
                 }
             }
 
             if (context.ReadValue<Vector2>().y < 0)
             {
-                mods.add(Combat_Action_mod.Down);
+                Mods.add(Combat_Action_mod.Down);
             }
             else if (context.ReadValue<Vector2>().y > 0)
             {
-                mods.add(Combat_Action_mod.Up);
+                Mods.add(Combat_Action_mod.Up);
             }
+
+            OnModsUpdated?.Invoke();
+
         }
 
     }
@@ -131,10 +140,11 @@ public class Player : MonoBehaviour
     {
         if (CharacterController.combat_state == Combat_state.freez)
         {
-            ICombatAction action = CharacterController.CombatActionDictionary.GetCombatAction(mods, Combat_Action_Type.Move);
+            ICombatAction action = CharacterController.CombatActionDictionary.GetCombatAction(Mods, Combat_Action_Type.Move);
             CharacterController.actionQueue.EnqueueAction(action);
 
-            mods = new ListKey<Combat_Action_mod>(new List<Combat_Action_mod>()); // reset mods after enqueuing action
+            Mods = new ListKey<Combat_Action_mod>(new List<Combat_Action_mod>()); // reset mods after enqueuing action
+            OnModsUpdated?.Invoke();
         }
     }
 
@@ -142,11 +152,11 @@ public class Player : MonoBehaviour
     {
         if (CharacterController.combat_state == Combat_state.freez)
         {
-            ICombatAction action = CharacterController.CombatActionDictionary.GetCombatAction(mods, Combat_Action_Type.Attack);
+            ICombatAction action = CharacterController.CombatActionDictionary.GetCombatAction(Mods, Combat_Action_Type.Attack);
             CharacterController.actionQueue.EnqueueAction(action);
 
-            mods = new ListKey<Combat_Action_mod>(new List<Combat_Action_mod>()); // reset mods after enqueuing action
-
+            Mods = new ListKey<Combat_Action_mod>(new List<Combat_Action_mod>()); // reset mods after enqueuing action
+            OnModsUpdated?.Invoke();
         }
     }
 
@@ -154,11 +164,19 @@ public class Player : MonoBehaviour
     {
         if (CharacterController.combat_state == Combat_state.freez)
         {
-            ICombatAction action = CharacterController.CombatActionDictionary.GetCombatAction(mods, Combat_Action_Type.Block);
+            ICombatAction action = CharacterController.CombatActionDictionary.GetCombatAction(Mods, Combat_Action_Type.Block);
             CharacterController.actionQueue.EnqueueAction(action);
 
-            mods = new ListKey<Combat_Action_mod>(new List<Combat_Action_mod>()); // reset mods after enqueuing action
+            Mods = new ListKey<Combat_Action_mod>(new List<Combat_Action_mod>()); // reset mods after enqueuing action
+            OnModsUpdated?.Invoke();
         }
+    }
+
+
+    public void OnFreezEnd()
+    {
+        Mods = new ListKey<Combat_Action_mod>(new List<Combat_Action_mod>());
+        OnModsUpdated?.Invoke();
     }
 
     // -------------------- PAUSE MENU --------------------

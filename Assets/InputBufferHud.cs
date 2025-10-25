@@ -1,54 +1,35 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
-using TMPro;
 using UnityEngine;
-using UnityEngine.PlayerLoop;
 
-public class CombatActionHUD : MonoBehaviour
+public class InputBufferHud : MonoBehaviour
 {
-    [Header("Debug Options")]
-    public bool DebugText = false;
+    public Player player;
 
-    [Header("Combat Action - Must be assigned")]
-    public ICombatAction Action;
 
 
     [Header("internal References")]
-
-    [SerializeField] private TextMeshProUGUI actionNameText;
-
     [SerializeField] private actionTypeHud actionTypeHudElement;
     [SerializeField] private GameObject arrowModsContainer;
     [SerializeField] private actionModHud arrowModprefab;
 
 
-    // Start is called before the first frame update
     void Start()
     {
-        if (Action == null)
+        if (player == null)
         {
             this.enabled = false;
-            Debug.LogError("CombatActionHUD: action reference is not set.");
             return;
         }
-        Init();
+
+        actionTypeHudElement.gameObject.SetActive(false);
+
+
+        player.OnModsUpdated += UpdateModsQueue;
     }
 
-    public void Init()
+    public void UpdateModsQueue()
     {
-        if (DebugText && actionNameText != null)
-        {
-            actionNameText.text = Action.GetType().ToString();
-        }
-
-        if (actionTypeHudElement != null)
-        {
-            actionTypeHudElement.type = Action.ActionType;
-            actionTypeHudElement.ConfigImage();
-            
-        }
-
         if (arrowModsContainer != null && arrowModprefab != null)
         {
             foreach (Transform child in arrowModsContainer.transform)
@@ -57,17 +38,26 @@ public class CombatActionHUD : MonoBehaviour
                 Destroy(child.gameObject);
             }
 
-            foreach (Combat_Action_mod mod in Action.Mods)
+            int counter = 0;
+
+            //list reverse mods
+
+            List<Combat_Action_mod> reversed = new List<Combat_Action_mod>(player.Mods.ToList());
+            reversed.Reverse();
+
+
+
+            foreach (Combat_Action_mod mod in reversed)
             {
+                counter++;
                 actionModHud modHudInstance = Instantiate(arrowModprefab, arrowModsContainer.transform);
                 modHudInstance.Mod = mod;
                 modHudInstance.ConfigImage();
+                modHudInstance.setOpacity(1 - counter * 0.1f);
                 modHudInstance.gameObject.SetActive(true);
 
             }
         }
-        //TODO init HUD elements according to action data
-
     }
 
 }
