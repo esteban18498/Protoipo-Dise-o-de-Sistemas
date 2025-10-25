@@ -12,10 +12,14 @@ public class CombatActionDictionary
 
     public ICombatAction defaultAction;
 
+
     public CombatActionDictionary(NovaCharacterController character)
     {
+        #region Defaults //----------------------------------------------------- default actions
         defaultAction = new Action_Unknown(character); //----------------------------------------------------- unknown action
 
+
+        #endregion
         //create core actions
         #region Moves //----------------------------------------------------------------------------------------------- core move actions
         List<ICombatAction> CoreMoves = new List<ICombatAction>()
@@ -86,18 +90,39 @@ public class CombatActionDictionary
         if (type == Combat_Action_Type.Attack)
         {
             AttacksDictionary.TryGetValue(mods, out action);
+
+            while (action == null)
+            {
+                mods.dequuee();
+                AttacksDictionary.TryGetValue(mods, out action);
+            }
         }
         else if (type == Combat_Action_Type.Block)
         {
             BlocksDictionary.TryGetValue(mods, out action);
+            while (action == null)
+            {
+                mods.dequuee();
+                BlocksDictionary.TryGetValue(mods, out action);
+            }
         }
         else if (type == Combat_Action_Type.Utils)
         {
             UtilsDictionary.TryGetValue(mods, out action);
+            while (action == null)
+            {
+                mods.dequuee();
+                UtilsDictionary.TryGetValue(mods, out action);
+            }
         }
         else // Move
         {
             MovesDictionary.TryGetValue(mods, out action);
+            while (action == null)
+            {
+                mods.dequuee();
+                MovesDictionary.TryGetValue(mods, out action);
+            }
         }
 
         if (action == null)

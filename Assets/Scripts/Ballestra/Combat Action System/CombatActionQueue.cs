@@ -1,6 +1,8 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 public class CombatActionQueue
 {
@@ -11,6 +13,8 @@ public class CombatActionQueue
     private int maxQueueSize = 3;
     private NovaCharacterController character;
     private ISpendable CharacterResource;//stamina
+
+    public Action OnQueueUpdated;
 
 
     public CombatActionQueue(NovaCharacterController _character)
@@ -27,6 +31,8 @@ public class CombatActionQueue
             return;
         }
         actionQueue.Enqueue(action);
+        //Debug.Log(ToStringQueue());
+        OnQueueUpdated?.Invoke();
     }
 
     public void ExecuteNextAction()
@@ -45,6 +51,7 @@ public class CombatActionQueue
             }
 
             executingAction.Execute();
+            OnQueueUpdated?.Invoke();
         }
         else
         {
@@ -74,6 +81,24 @@ public class CombatActionQueue
         {
             actionQueue.Enqueue(new Action_Step(character));
         }
+        OnQueueUpdated?.Invoke();
+    }
+
+    public string ToStringQueue()
+    {
+        string result = "Action Queue: ";
+        foreach (var action in actionQueue)
+        {
+            result += action.GetType().ToString() + " ";
+        }
+
+        result = GetQueuedActions().ToString();
+        return result;
     }
     
+    public List<ICombatAction> GetQueuedActions()
+    {
+        return new List<ICombatAction>(actionQueue);
+    }
+
 }
