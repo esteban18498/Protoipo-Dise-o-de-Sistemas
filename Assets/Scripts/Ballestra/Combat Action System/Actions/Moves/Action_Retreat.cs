@@ -7,9 +7,9 @@ public class Action_Retreat : ICombatAction // concrect implementantion of actio
 {
     public int staminaCost => 10;
 
-    public Combat_Action_Type actionType => Combat_Action_Type.Move;
+    public Combat_Action_Type ActionType => Combat_Action_Type.Move;
 
-    public ListKey<Combat_Action_mod> mods => new ListKey<Combat_Action_mod>(new List<Combat_Action_mod>()
+    public ListKey<Combat_Action_mod> Mods => new ListKey<Combat_Action_mod>(new List<Combat_Action_mod>()
     {
 
     });

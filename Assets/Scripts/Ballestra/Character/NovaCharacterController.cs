@@ -32,6 +32,8 @@ public class NovaCharacterController : MonoBehaviour
 
 
 
+    public Action OnFreezEnd;
+
 
     void Awake()
     {
@@ -142,6 +144,8 @@ public class NovaCharacterController : MonoBehaviour
 
     public void EnterPerformState()
     {
+        OnFreezEnd.Invoke();
+        
         combat_state = Combat_state.perfom;
         actionQueue.FillQueueWithSteps();
         StartCoroutine(performActionTimer());

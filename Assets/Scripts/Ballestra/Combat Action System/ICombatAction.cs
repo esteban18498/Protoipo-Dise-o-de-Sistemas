@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
+using UnityEngine.UI;
 
 public enum Combat_Action_Type 
 {
@@ -23,8 +24,8 @@ public enum Combat_Action_mod // flechitas
 public interface ICombatAction
 {
     int staminaCost { get; }
-    Combat_Action_Type actionType { get; }
-    public ListKey<Combat_Action_mod> mods { get; }
+    Combat_Action_Type ActionType { get; }
+    public ListKey<Combat_Action_mod> Mods { get; }
 
     ICombatAction createActionInstance(NovaCharacterController character);
 
@@ -58,6 +59,11 @@ public class ListKey<T>
         return _list.SequenceEqual(other._list);
     }
 
+    public IEnumerator GetEnumerator()
+    {
+        return _list.GetEnumerator();
+    }
+
     public override int GetHashCode()
     {
         // Combine hash codes of elements
@@ -74,5 +80,41 @@ public class ListKey<T>
     public void add(T item)
     {
         _list.Add(item);
+    }
+
+    public T dequuee()
+    {
+        T first = _list[0];
+        _list.RemoveAt(0);
+        return first;
+    }
+
+    public bool isEmpty()
+    {
+        return _list.Count == 0;
+    }
+
+    public override string ToString()
+    {
+
+        string text;
+
+
+        text = "";
+        for (int i = 0; i < _list.Count; i++)
+        {
+            T item = _list[i];
+            text += item.ToString();
+            if (i < _list.Count - 1)
+            {
+                text += ", ";
+            }
+        }
+        return text;
+    }
+
+    public List<T> ToList()
+    {
+        return new List<T>(_list);
     }
 }

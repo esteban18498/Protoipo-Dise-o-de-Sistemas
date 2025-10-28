@@ -7,9 +7,9 @@ public class Action_Attack : ICombatAction // concrect implementantion of attack
     public int staminaCost => 10;
     public int damage => 10;
 
-    public Combat_Action_Type actionType => Combat_Action_Type.Attack;
+    public Combat_Action_Type ActionType => Combat_Action_Type.Attack;
 
-    public ListKey<Combat_Action_mod> mods => new ListKey<Combat_Action_mod>(new List<Combat_Action_mod>());
+    public ListKey<Combat_Action_mod> Mods => new ListKey<Combat_Action_mod>(new List<Combat_Action_mod>());
 
     NovaCharacterController recieverCharacter;
 
