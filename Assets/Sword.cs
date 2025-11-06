@@ -11,7 +11,7 @@ public class Sword : MonoBehaviour
     public bool isBlocking = false;
 
 
-    [SerializeField] private NovaCharacterController character; 
+    //[SerializeField] private NovaCharacterController character; 
 
     public void SetNormalColor()
     {
@@ -38,7 +38,7 @@ public class Sword : MonoBehaviour
         if (otherSword != null)
         {
             //other swword blocked
-           otherSword.character.InterruptCurrentAction();
+          // otherSword.character.InterruptCurrentAction();
         }
             
     }
