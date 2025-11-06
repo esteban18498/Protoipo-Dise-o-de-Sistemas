@@ -20,22 +20,22 @@ public class NovaCharacterController : MonoBehaviour
 
     // --- References ---
     [Header("Internal References")]
-    [SerializeField] private Transform anchor;
+    [SerializeField] protected Transform anchor;
     public RigCharacter RigCharacter;
 
 
-    private ArenaController arena;
+    protected ArenaController arena;
 
     // --- Parameters ---
     [Header("Character Stats")]
-    [SerializeField] private float speed = 5f;
+    [SerializeField] protected float speed = 5f;
 
 
 
     public Action OnFreezEnd;
 
 
-    void Awake()
+    protected void Awake()
     {
         if (CurrentSpot == null)
         {
