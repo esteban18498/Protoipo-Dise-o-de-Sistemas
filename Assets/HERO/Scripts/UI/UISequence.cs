@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class UISequence : MonoBehaviour
 {
-
+    public GameObject stepPrefab;
     private List<InputStep> currentSequence;
 
     // Start is called before the first frame update
@@ -33,7 +33,7 @@ public class UISequence : MonoBehaviour
         this.gameObject.SetActive(true);
                 // For testing, print the current sequence
         string sequenceStr = "Current Sequence: ";
-        foreach (var step in currentSequence)
+        foreach (InputStep step in currentSequence)
         {
             sequenceStr += step.ToString() + " ";
         }

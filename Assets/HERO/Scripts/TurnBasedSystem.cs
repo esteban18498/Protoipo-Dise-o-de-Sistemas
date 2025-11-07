@@ -97,7 +97,7 @@ public class TurnBasedSystem : MonoBehaviour
 
     public void SequenceFailed()
     {
-        if (currentPhase != TurnPhase.WaitingForInputs)
+        if (currentPhase != TurnPhase.WaitingForCombatAnimations)
             return;
         // Called by SequenceManager when sequence fails
         currentPhase = TurnPhase.SwitchTurns;

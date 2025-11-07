@@ -73,6 +73,7 @@ public class SequenceManager : MonoBehaviour
                 }else
                 {
                     TurnBasedSystem.Instance.SequenceFailed();
+                    Debug.Log("Sequence Success! Attack Initiated.");
                 }
             }
         }
