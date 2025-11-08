@@ -55,11 +55,11 @@ public class SequenceManager : MonoBehaviour
                 // Correct Input!
                 sequenceDisplay.GoodStep(currentStepIndex);
                 inputAcuarcy++;
-                Debug.Log("good");
+               // Debug.Log("good");
             }else
             {
                 sequenceDisplay.BadStep(currentStepIndex);
-                Debug.Log("bad");
+               // Debug.Log("bad");
                 // Incorrect Input
             }
                 
@@ -77,7 +77,7 @@ public class SequenceManager : MonoBehaviour
                     //Debug.Log($"Sequence Success! Attack Initiated. Accuracy: {inputAcuarcy}/{currentSequence.Count}");
 
                     // Execute attack
-                    hero.animator.SetTrigger("Attack1");
+                    hero.AttackAnimation();
                     hero.sword.damage = hero.sword.baseDamage * inputAcuarcy/currentSequence.Count;
                         // modify damage based on inputAcuarcy
                 }else

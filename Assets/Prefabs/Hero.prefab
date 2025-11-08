@@ -27,14 +27,14 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 137211757412826967}
-  m_LocalRotation: {x: -0, y: -0, z: -0.6586527, w: 0.7524471}
-  m_LocalPosition: {x: 0.8808, y: -0.1826, z: 0}
+  m_LocalRotation: {x: 0, y: 0, z: -0.6454577, w: 0.76379603}
+  m_LocalPosition: {x: 1, y: -0.16, z: 0}
   m_LocalScale: {x: 0.3105893, y: 0.9044166, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 2452738029596960493}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: -82.394}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: -80.4}
 --- !u!212 &9178641657694307045
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -921,10 +921,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   baseDamage: 10
   damage: 10
-  normalColor: {r: 1, g: 0.53333336, b: 0.53333336, a: 1}
+  normalColor: {r: 1, g: 0.5333334, b: 0.5333334, a: 1}
   activeHitColor: {r: 1, g: 0.00000017881393, b: 0, a: 1}
   blockColor: {r: 0.16356398, g: 0.4671073, b: 0.794, a: 1}
   isBlocking: 0
+  hero: {fileID: 4538238218654490796}
 --- !u!1 &3989358299027078457
 GameObject:
   m_ObjectHideFlags: 0

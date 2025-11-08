@@ -14,7 +14,7 @@ public class Sword : MonoBehaviour
     public bool isBlocking = false;
 
 
-    //[SerializeField] private NovaCharacterController character; 
+    public HERO hero; 
 
     public void SetNormalColor()
     {
@@ -35,22 +35,23 @@ public class Sword : MonoBehaviour
     {
         if (!isBlocking)
         {
-            HealthComponent enemy = collision.GetComponent<HealthComponent>();
+            HERO enemy = collision.GetComponent<HERO>();
             if (enemy != null)
             {
                 //hit enemy
-                enemy.ApplyDamage(damage);
+                enemy.Gethit( damage);
                 //enemy.TakeDamage(10);
             }
             return;
         }
-
+        Debug.Log("trigger Block!");
         SwordColliderBind otherSwordBind = collision.GetComponent<SwordColliderBind>();
         Sword otherSword = otherSwordBind?.sword;
         if (otherSword != null)
         {
+            
             //other swword blocked
-          // otherSword.character.InterruptCurrentAction();
+          otherSword.hero.Parried();
         }
             
     }

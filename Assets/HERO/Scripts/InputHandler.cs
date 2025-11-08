@@ -41,6 +41,7 @@ public class InputHandler : MonoBehaviour
         if (hero == null)
         {
             Debug.LogError("hero reference not set in InputHandler.");
+            this.enabled = false;
             return;
         } else
         {
@@ -93,7 +94,8 @@ public class InputHandler : MonoBehaviour
 
     void BlockAction(InputAction.CallbackContext context)
     {
-        // Handle block action if needed
+        hero.BlockAnimation();
+       // Debug.Log("block buton");
     }
 
     void OnPausePressed(InputAction.CallbackContext context)
