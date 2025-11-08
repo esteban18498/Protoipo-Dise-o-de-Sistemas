@@ -53,27 +53,37 @@ public class SequenceManager : MonoBehaviour
             if (inputPressed == currentSequence[currentStepIndex])
             {
                 // Correct Input!
+                sequenceDisplay.GoodStep(currentStepIndex);
                 inputAcuarcy++;
+                Debug.Log("good");
+            }else
+            {
+                sequenceDisplay.BadStep(currentStepIndex);
+                Debug.Log("bad");
+                // Incorrect Input
             }
                 
             currentStepIndex++;
-            //   sequenceDisplay.UpdateDisplay(currentStepIndex); // Highlight the next step
+            sequenceDisplay.AdvanceSecuenceDisplay(currentStepIndex); // Highlight the next step
             if (currentStepIndex >= currentSequence.Count)
             {
+                // Sequence Complete
+                StartCoroutine(sequenceDisplay.FadeOutSecunceDisplay());
                 TurnBasedSystem.Instance.SequenceCompleted();
 
                 // Sequence Complete! Evaluate success
                 if (inputAcuarcy > 0)
                 {
-                    Debug.Log("Sequence Success! Attack Initiated.");
-                    
+                    //Debug.Log($"Sequence Success! Attack Initiated. Accuracy: {inputAcuarcy}/{currentSequence.Count}");
+
                     // Execute attack
                     hero.animator.SetTrigger("Attack1");
+                    hero.sword.damage = hero.sword.baseDamage * inputAcuarcy/currentSequence.Count;
                         // modify damage based on inputAcuarcy
                 }else
                 {
                     TurnBasedSystem.Instance.SequenceFailed();
-                    Debug.Log("Sequence Success! Attack Initiated.");
+                    //Debug.Log("Sequence fail! Attack miss.");
                 }
             }
         }

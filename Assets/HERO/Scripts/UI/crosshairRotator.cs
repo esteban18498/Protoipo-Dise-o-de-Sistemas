@@ -2,8 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class UIStep : MonoBehaviour
+public class crosshairRotator : MonoBehaviour
 {
+    public float rotationSpeed = 50f;
     // Start is called before the first frame update
     void Start()
     {
@@ -13,6 +14,6 @@ public class UIStep : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        this.transform.Rotate(Vector3.forward * Time.deltaTime * rotationSpeed);
     }
 }

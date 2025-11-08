@@ -17,6 +17,8 @@ public class HERO : MonoBehaviour
 
     public Animator animator;
 
+    public Sword sword;
+
 
     public void Start()
     {
@@ -28,7 +30,8 @@ public class HERO : MonoBehaviour
     public void CombatAnimationComplete()
     {
         TurnBasedSystem.Instance.OnCombatAnimationsComplete();
-        Debug.Log("HERO Combat Animation Complete, notifying TurnBasedSystem.");
     }
+
+
 
 }

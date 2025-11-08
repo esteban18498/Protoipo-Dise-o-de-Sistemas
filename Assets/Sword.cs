@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class Sword : MonoBehaviour
 {
+    public float baseDamage = 10f;
+    public float damage = 10f;
+
     public Color normalColor;
     public Color activeHitColor;
     public Color blockColor;
@@ -31,7 +34,16 @@ public class Sword : MonoBehaviour
     public void triggerColliderEnter(Collider2D collision)
     {
         if (!isBlocking)
+        {
+            HealthComponent enemy = collision.GetComponent<HealthComponent>();
+            if (enemy != null)
+            {
+                //hit enemy
+                enemy.ApplyDamage(damage);
+                //enemy.TakeDamage(10);
+            }
             return;
+        }
 
         SwordColliderBind otherSwordBind = collision.GetComponent<SwordColliderBind>();
         Sword otherSword = otherSwordBind?.sword;

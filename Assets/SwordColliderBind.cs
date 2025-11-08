@@ -19,6 +19,6 @@ public class SwordColliderBind : MonoBehaviour
     
     void OnTriggerEnter2D(Collider2D collision)
     {
-       sword.triggerColliderEnter(collision);
+        sword.triggerColliderEnter(collision);
     }
 }
