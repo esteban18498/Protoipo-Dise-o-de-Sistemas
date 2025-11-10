@@ -217,7 +217,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sequenceLength: 3
-  sequenceComplexity: 2
+  sequenceComplexity: 6
   sequenceDisplay: {fileID: 9008264161875395079}
   hero: {fileID: 0}
 --- !u!95 &1053177944823277704

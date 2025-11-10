@@ -939,6 +939,10 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2008918046574052387, guid: b797c99adaeee1445b1426c6f4751905, type: 3}
+      propertyPath: m_ReverseArrangement
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7090676737031771031, guid: b797c99adaeee1445b1426c6f4751905, type: 3}
       propertyPath: CurrentSpot
       value: 
@@ -993,6 +997,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8042711194875474810, guid: b797c99adaeee1445b1426c6f4751905, type: 3}
       propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9008264161875395079, guid: b797c99adaeee1445b1426c6f4751905, type: 3}
+      propertyPath: reversed
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
