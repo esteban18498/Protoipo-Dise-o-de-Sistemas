@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 
 public enum TurnPhase
@@ -11,12 +12,13 @@ public enum TurnPhase
     WaitingForCombatAnimations,
     SwitchTurns,
     CombatEnd,
-}   
+}
 
 public class TurnBasedSystem : MonoBehaviour
 {
     //singleton instance
     public static TurnBasedSystem Instance;
+    public TimeSlideBar timeSlideBar;
 
     void Awake()
     {
@@ -32,6 +34,10 @@ public class TurnBasedSystem : MonoBehaviour
     }
 
     public TurnPhase currentPhase;
+
+    public float turnTime = 10.0f;
+
+    private Coroutine coroutine;
 
     public HERO AttackingHero;
     public HERO DefendingHero;
@@ -57,6 +63,7 @@ public class TurnBasedSystem : MonoBehaviour
             case TurnPhase.Start:
                 // Start turn for AttackingHero
                 AttackingHero.sequenceManager.StartSequence();
+                coroutine = StartCoroutine(turnCooldown(turnTime));
                 currentPhase = TurnPhase.WaitingForInputs;
                 break;
 
@@ -65,10 +72,29 @@ public class TurnBasedSystem : MonoBehaviour
                 break;
 
             case TurnPhase.WaitingForCombatAnimations:
+                if (coroutine != null)
+                {
+                    StopCoroutine(coroutine);
+                    coroutine = null;
+                }
                 // Wait for animations to complete
                 break;
 
             case TurnPhase.SwitchTurns:
+
+                if (coroutine != null)
+                {
+                    StopCoroutine(coroutine);
+                    coroutine = null;
+                }
+
+                if(DefendingHero.health.Current <= 0)
+                {
+                    currentPhase = TurnPhase.CombatEnd;
+                    break;
+                }
+
+
                 // Switch roles
                 HERO temp = AttackingHero;
                 AttackingHero = DefendingHero;
@@ -82,6 +108,7 @@ public class TurnBasedSystem : MonoBehaviour
 
             case TurnPhase.CombatEnd:
                 // Handle end of combat
+                SceneManager.LoadScene("MainMenu");
                 break;
         }
     }
@@ -107,5 +134,17 @@ public class TurnBasedSystem : MonoBehaviour
     {
         // Called when combat animations are done
         currentPhase = TurnPhase.SwitchTurns;
+    }
+
+    IEnumerator turnCooldown(float seconds)
+    {
+        timeSlideBar.StartTimer(seconds);
+        if (seconds <= 0)
+        {
+            yield break;
+        }
+        yield return new WaitForSeconds(seconds);
+        AttackingHero.sequenceManager.ExecuteSecuenceAtMid();
+
     }
 }

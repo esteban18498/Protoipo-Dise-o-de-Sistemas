@@ -147,7 +147,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1074549553867187340}
   - component: {fileID: 9245867675219894}
-  - component: {fileID: 5881808652860789770}
   - component: {fileID: 8674965988423174627}
   - component: {fileID: 1053177944823277704}
   - component: {fileID: 4538238218654490796}
@@ -189,21 +188,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   max: 100
   current: 100
---- !u!114 &5881808652860789770
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 747869263561889418}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 837ea36032e61cd4aa4b2066b4317547, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  max: 100
-  current: 100
-  regenPerSecond: 5
 --- !u!114 &8674965988423174627
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -919,7 +903,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c0809f4455d20234d9d63165eb299a5f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  baseDamage: 10
+  baseDamage: 30
   damage: 10
   normalColor: {r: 1, g: 0.5333334, b: 0.5333334, a: 1}
   activeHitColor: {r: 1, g: 0.00000017881393, b: 0, a: 1}

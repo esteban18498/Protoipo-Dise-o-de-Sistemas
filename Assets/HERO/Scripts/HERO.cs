@@ -19,7 +19,7 @@ public class HERO : MonoBehaviour
 
     public Sword sword;
 
-    private HealthComponent health;
+    public HealthComponent health;
 
     public void Start()
     {

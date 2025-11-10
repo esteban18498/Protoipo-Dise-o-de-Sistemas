@@ -6,6 +6,8 @@ using UnityEngine.UI;
 public class UIStepButton : MonoBehaviour
 {
 
+    public bool flipside = false;
+
     public InputStep? stepType; //{ ATK1, ATK2, UP, DOWN, LEFT, RIGHT }
     public Texture atk1;
     public Texture atk2;
@@ -36,10 +38,24 @@ public class UIStepButton : MonoBehaviour
                 GetComponent<RawImage>().texture = down;
                 break;
             case InputStep.LEFT:
-                GetComponent<RawImage>().texture = left;
+                if (flipside)
+                {
+                    GetComponent<RawImage>().texture = right;
+                }
+                else
+                {
+                    GetComponent<RawImage>().texture = left;
+                }
                 break;
             case InputStep.RIGHT:
-                GetComponent<RawImage>().texture = right;
+                if (!flipside)
+                {
+                    GetComponent<RawImage>().texture = right;
+                }
+                else
+                {
+                    GetComponent<RawImage>().texture = left;
+                }
                 break;
             default:
                 GetComponent<RawImage>().texture = badEntry;
@@ -56,8 +72,8 @@ public class UIStepButton : MonoBehaviour
     {
         GetComponent<RawImage>().color = new Color(1f, 1f, 1f, 1f);
     }
-    
-        public void SetBad()
+
+    public void SetBad()
     {
         GetComponent<RawImage>().texture = badEntry;
         GetComponent<RawImage>().color = new Color(1f, 1f, 1f, 0f);

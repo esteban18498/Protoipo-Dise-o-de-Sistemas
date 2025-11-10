@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using JetBrains.Annotations;
 using UnityEngine;
 
 public enum InputStep { ATK1, ATK2, UP, DOWN, LEFT, RIGHT }
@@ -10,7 +11,7 @@ public class SequenceManager : MonoBehaviour
     // Configuration
     public int sequenceLength = 3;
     public int sequenceComplexity = 2; // Number of different input types to use
-    private int inputAcuarcy = 0; 
+    private int inputAcuarcy = 0;
     private List<InputStep> currentSequence = new List<InputStep>();
     private int currentStepIndex = 0;
 
@@ -55,18 +56,21 @@ public class SequenceManager : MonoBehaviour
                 // Correct Input!
                 sequenceDisplay.GoodStep(currentStepIndex);
                 inputAcuarcy++;
-               // Debug.Log("good");
-            }else
+                // Debug.Log("good");
+            }
+            else
             {
                 sequenceDisplay.BadStep(currentStepIndex);
-               // Debug.Log("bad");
+                // Debug.Log("bad");
                 // Incorrect Input
             }
-                
+
             currentStepIndex++;
             sequenceDisplay.AdvanceSecuenceDisplay(currentStepIndex); // Highlight the next step
             if (currentStepIndex >= currentSequence.Count)
             {
+
+
                 // Sequence Complete
                 StartCoroutine(sequenceDisplay.FadeOutSecunceDisplay());
                 TurnBasedSystem.Instance.SequenceCompleted();
@@ -78,14 +82,43 @@ public class SequenceManager : MonoBehaviour
 
                     // Execute attack
                     hero.AttackAnimation();
-                    hero.sword.damage = hero.sword.baseDamage * inputAcuarcy/currentSequence.Count;
-                        // modify damage based on inputAcuarcy
-                }else
+                    hero.sword.damage = hero.sword.baseDamage * inputAcuarcy / currentSequence.Count;
+                    // modify damage based on inputAcuarcy
+                }
+                else
                 {
                     TurnBasedSystem.Instance.SequenceFailed();
                     //Debug.Log("Sequence fail! Attack miss.");
                 }
             }
         }
+    }
+
+    public void ExecuteSecuenceAtMid()
+    {
+        // Execute attack
+
+        TurnBasedSystem.Instance.SequenceCompleted();
+
+        // Sequence Complete! Evaluate success
+        if (inputAcuarcy > 0)
+        {
+            StartCoroutine(sequenceDisplay.FadeOutSecunceDisplay());
+            //Debug.Log($"Sequence Success! Attack Initiated. Accuracy: {inputAcuarcy}/{currentSequence.Count}");
+
+            // Execute attack
+            hero.AttackAnimation();
+            hero.sword.damage = hero.sword.baseDamage * inputAcuarcy / currentSequence.Count;
+            // modify damage based on inputAcuarcy
+        }
+        else
+        {
+            sequenceDisplay.TurnOff();
+            TurnBasedSystem.Instance.SequenceFailed();
+            //Debug.Log("Sequence fail! Attack miss.");
+        }
+
+        currentSequence.Clear();
+        currentStepIndex = 0;
     }
 }
