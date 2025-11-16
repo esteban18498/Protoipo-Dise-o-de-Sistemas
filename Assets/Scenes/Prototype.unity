@@ -1899,6 +1899,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1445154672019044202, guid: b797c99adaeee1445b1426c6f4751905, type: 3}
+      propertyPath: m_PresetInfoIsWorld
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1933992184259636481, guid: b797c99adaeee1445b1426c6f4751905, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
@@ -2197,11 +2201,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   hero: {fileID: 1917949498}
---- !u!4 &750030947 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 9065613386711825997, guid: b797c99adaeee1445b1426c6f4751905, type: 3}
-  m_PrefabInstance: {fileID: 685761102}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &774702730
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2843,6 +2842,11 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 910248406}
   m_CullTransparentMesh: 1
+--- !u!4 &936409797 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 2452738029596960493, guid: b797c99adaeee1445b1426c6f4751905, type: 3}
+  m_PrefabInstance: {fileID: 7056644048121222174}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1010522209
 GameObject:
   m_ObjectHideFlags: 0
@@ -3596,6 +3600,11 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1178481803}
   m_CullTransparentMesh: 1
+--- !u!4 &1182164161 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 2452738029596960493, guid: b797c99adaeee1445b1426c6f4751905, type: 3}
+  m_PrefabInstance: {fileID: 685761102}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1242011816
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4847,10 +4856,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 601ec512b872d5e4d800a1c58db0c5de, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  targetA: {fileID: 2027106951188982355}
-  targetB: {fileID: 750030947}
-  frameOffset: {x: 0, y: 4}
-  zOffset: -10
+  targetA: {fileID: 936409797}
+  targetB: {fileID: 1182164161}
+  frameOffset: {x: 0, y: 2}
+  zOffset: -14
   followSmooth: 8
   minFOV: 60
   maxFOV: 100
@@ -6933,11 +6942,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2110772738}
   m_CullTransparentMesh: 1
---- !u!4 &2027106951188982355 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 9065613386711825997, guid: b797c99adaeee1445b1426c6f4751905, type: 3}
-  m_PrefabInstance: {fileID: 7056644048121222174}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &7056644048121222174
 PrefabInstance:
   m_ObjectHideFlags: 0
