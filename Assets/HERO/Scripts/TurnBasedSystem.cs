@@ -1,9 +1,6 @@
 using System.Collections;
-using System.Collections.Generic;
-using JetBrains.Annotations;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-
 
 public enum TurnPhase
 {
@@ -17,13 +14,31 @@ public enum TurnPhase
 
 public class TurnBasedSystem : MonoBehaviour
 {
-    //singleton instance
+    // Singleton
     public static TurnBasedSystem Instance;
+
+    [Header("Timeline")]
     public TimeSlideBar timeSlideBar;
 
-    void Awake()
+    [Header("Turn Settings")]
+    [Tooltip("Fallback fixed turn time if dynamic calculation fails.")]
+    public float turnTime = 10.0f;
+
+    private Coroutine coroutine;
+
+    [Header("Heroes")]
+    public HERO AttackingHero;
+    public HERO DefendingHero;
+
+    [Header("Input Handlers")]
+    public InputHandler player1;
+    public InputHandler player2;
+
+    [Header("Debug")]
+    public TurnPhase currentPhase;
+
+    private void Awake()
     {
-        //if instance is null, set it to this
         if (Instance == null)
         {
             Instance = this;
@@ -34,60 +49,65 @@ public class TurnBasedSystem : MonoBehaviour
         }
     }
 
-    public TurnPhase currentPhase;
-
-    public float turnTime = 10.0f;
-
-    private Coroutine coroutine;
-
-    public HERO AttackingHero;
-    public HERO DefendingHero;
-
-    public InputHandler player1;
-    public InputHandler player2;
-
-
-    // Start is called before the first frame update
-    void Start()
+    private void Start()
     {
-        AttackingHero.currentState = HEROState.Attacking;
-        DefendingHero.currentState = HEROState.Defending;
+        // Initial states
+        if (AttackingHero != null)
+            AttackingHero.currentState = HEROState.Attacking;
+
+        if (DefendingHero != null)
+            DefendingHero.currentState = HEROState.Defending;
     }
 
-    // Update is called once per frame
-    void Update()
+    private void Update()
     {
         switch (currentPhase)
         {
             case TurnPhase.CombatStart:
-                // Initialize combat
-                player1.playerInput = PlayerAsignation.instance.player1;
-                player2.playerInput = PlayerAsignation.instance.player2;
+                // Initialize combat + player inputs
+                if (PlayerAsignation.instance != null)
+                {
+                    if (player1 != null)
+                    {
+                        player1.playerInput = PlayerAsignation.instance.player1;
+                        player1.gameObject.SetActive(true);
+                    }
 
-                player1.gameObject.SetActive(true);
-                player2.gameObject.SetActive(true);
+                    if (player2 != null)
+                    {
+                        player2.playerInput = PlayerAsignation.instance.player2;
+                        player2.gameObject.SetActive(true);
+                    }
+                }
 
                 currentPhase = TurnPhase.Start;
                 break;
 
             case TurnPhase.Start:
                 // Start turn for AttackingHero
-                AttackingHero.sequenceManager.StartSequence();
-                coroutine = StartCoroutine(turnCooldown(turnTime));
+                if (AttackingHero != null && AttackingHero.sequenceManager != null)
+                {
+                    AttackingHero.sequenceManager.StartSequence();
+
+                    // 🔥 Dynamic turn time based on both heroes' HP
+                    float dynamicTurnTime = GetDynamicTurnTime();
+                    coroutine = StartCoroutine(TurnCooldown(dynamicTurnTime));
+                }
+
                 currentPhase = TurnPhase.WaitingForInputs;
                 break;
 
             case TurnPhase.WaitingForInputs:
-                // Wait for player inputs handled in InputHandler and SequenceManager
+                // Waiting for input; handled by InputHandler / SequenceManager
                 break;
 
             case TurnPhase.WaitingForCombatAnimations:
+                // Waiting for combat animations; SequenceManager / Animation events
                 if (coroutine != null)
                 {
                     StopCoroutine(coroutine);
                     coroutine = null;
                 }
-                // Wait for animations to complete
                 break;
 
             case TurnPhase.SwitchTurns:
@@ -98,63 +118,98 @@ public class TurnBasedSystem : MonoBehaviour
                     coroutine = null;
                 }
 
-                if(DefendingHero.health.Current <= 0)
+                // Check if defender died
+                if (DefendingHero != null && DefendingHero.health != null &&
+                    DefendingHero.health.Current <= 0)
                 {
                     currentPhase = TurnPhase.CombatEnd;
                     break;
                 }
 
-
-                // Switch roles
+                // Swap attacker/defender
                 HERO temp = AttackingHero;
                 AttackingHero = DefendingHero;
                 DefendingHero = temp;
 
-                AttackingHero.currentState = HEROState.Attacking;
-                DefendingHero.currentState = HEROState.Defending;
+                if (AttackingHero != null)
+                    AttackingHero.currentState = HEROState.Attacking;
+
+                if (DefendingHero != null)
+                    DefendingHero.currentState = HEROState.Defending;
 
                 currentPhase = TurnPhase.Start;
                 break;
 
             case TurnPhase.CombatEnd:
-                // Handle end of combat
+                // End of combat → back to main menu (or results screen later)
                 SceneManager.LoadScene("MainMenu");
                 break;
         }
     }
 
+    /// <summary>
+    /// Called by SequenceManager when the input sequence was successfully entered.
+    /// </summary>
     public void SequenceCompleted()
     {
         if (currentPhase != TurnPhase.WaitingForInputs)
             return;
-        // Called by SequenceManager when sequence is complete
-        currentPhase = TurnPhase.WaitingForCombatAnimations;
 
+        currentPhase = TurnPhase.WaitingForCombatAnimations;
     }
 
+    /// <summary>
+    /// Called by SequenceManager when the sequence fails.
+    /// </summary>
     public void SequenceFailed()
     {
         if (currentPhase != TurnPhase.WaitingForCombatAnimations)
             return;
-        // Called by SequenceManager when sequence fails
+
         currentPhase = TurnPhase.SwitchTurns;
     }
 
+    /// <summary>
+    /// Called from animation events / SequenceManager when all combat anims are done.
+    /// </summary>
     public void OnCombatAnimationsComplete()
     {
-        // Called when combat animations are done
         currentPhase = TurnPhase.SwitchTurns;
     }
 
-    IEnumerator turnCooldown(float seconds)
+    /// <summary>
+    /// Computes the current turn duration based on the sum of both heroes' HP,
+    /// using TimeSlideBar's HP→time mapping. Falls back to 'turnTime' if anything is missing.
+    /// </summary>
+    private float GetDynamicTurnTime()
     {
-        timeSlideBar.StartTimer(seconds);
-        if (seconds <= 0)
+        // Safety: if timer or heroes/health are missing, use fallback
+        if (timeSlideBar == null ||
+            AttackingHero == null || AttackingHero.health == null ||
+            DefendingHero == null || DefendingHero.health == null)
         {
-            yield break;
+            return turnTime;
         }
-        yield return new WaitForSeconds(seconds);
-        AttackingHero.sequenceManager.ExecuteSecuenceAtMid();
 
+        float currentSum = AttackingHero.health.Current + DefendingHero.health.Current;
+        float maxSum = AttackingHero.health.Max + DefendingHero.health.Max;
+
+        return timeSlideBar.CalculateArenaTimeFromHealth(currentSum, maxSum);
+    }
+
+    private IEnumerator TurnCooldown(float seconds)
+    {
+        if (timeSlideBar != null)
+            timeSlideBar.StartTimer(seconds);
+
+        if (seconds <= 0f)
+            yield break;
+
+        yield return new WaitForSeconds(seconds);
+
+        if (AttackingHero != null && AttackingHero.sequenceManager != null)
+        {
+            AttackingHero.sequenceManager.ExecuteSecuenceAtMid();
+        }
     }
 }
