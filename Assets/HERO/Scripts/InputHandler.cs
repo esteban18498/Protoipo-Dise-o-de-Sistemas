@@ -6,8 +6,11 @@ public class InputHandler : MonoBehaviour
     public HERO hero;
     private SequenceManager sequenceManager;
 
+    public SelectionKeysUI selectionKeysUI;
 
-    private PlayerInput playerInput;
+
+
+    public PlayerInput playerInput;
     private InputAction directionalAction;
     private InputAction attack1Action;
     private InputAction attack2Action;
@@ -17,7 +20,21 @@ public class InputHandler : MonoBehaviour
 
     void Awake()
     {
-        playerInput = GetComponent<PlayerInput>();
+        if (playerInput == null)
+        {
+            Debug.Log("PlayerInput component not assigned in InputHandler.");
+            this.enabled = false;
+            return;
+        }
+
+        if (playerInput.currentControlScheme == "Keyboard")
+        {
+            selectionKeysUI.ShowKeyboardUI();
+        }
+        else
+        {
+            selectionKeysUI.ShowGamepadUI();
+        }
 
         directionalAction = playerInput.actions["Directional"];
         directionalAction.started += DirectionalAction;
@@ -39,10 +56,11 @@ public class InputHandler : MonoBehaviour
     {
         if (hero == null)
         {
-            Debug.LogError("hero reference not set in InputHandler.");
+            Debug.Log("hero reference not set in InputHandler.");
             this.enabled = false;
             return;
-        } else
+        }
+        else
         {
             sequenceManager = hero.sequenceManager;
         }
@@ -52,8 +70,7 @@ public class InputHandler : MonoBehaviour
     private void OnDestroy()
     {
         // Always unsubscribe
-        directionalAction.performed -= DirectionalAction;
-        directionalAction.canceled -= DirectionalAction;
+        directionalAction.started -= DirectionalAction;
         attack1Action.started -= Attack1Action;
         attack2Action.started -= Attack2Action;
         blockAction.started -= BlockAction;
@@ -94,7 +111,7 @@ public class InputHandler : MonoBehaviour
     void BlockAction(InputAction.CallbackContext context)
     {
         hero.BlockAnimation();
-       // Debug.Log("block buton");
+        // Debug.Log("block buton");
     }
 
     void OnPausePressed(InputAction.CallbackContext context)

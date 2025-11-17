@@ -13258,7 +13258,7 @@ MonoBehaviour:
   fullscreenToggle: {fileID: 1021617400}
   resolutionDropdown: {fileID: 1523343267}
   confirmationPrompt: {fileID: 967334496}
-  _newGameLevel: Prototype
+  _newGameLevel: Control_Selection
   noSavedGameDialog: {fileID: 657989952}
 --- !u!4 &2058806335
 Transform:

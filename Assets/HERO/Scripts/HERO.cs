@@ -69,4 +69,9 @@ public class HERO : MonoBehaviour
 
     }
 
+    public void GetHeal(float healAmount)
+    {
+        health.Heal(healAmount);
+    }
+
 }

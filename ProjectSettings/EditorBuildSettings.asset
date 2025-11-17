@@ -14,5 +14,8 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Prototype.unity
     guid: 7f5cd485b039f3946b81bf4619f5d8f7
+  - enabled: 1
+    path: Assets/Scenes/Control_Selection.unity
+    guid: 9939ba95e6f47444693b9d984ad1c689
   m_configObjects:
     com.unity.input.settings: {fileID: 11400000, guid: 221c0dfbfc812474bad049c0d0fe25d9, type: 2}

@@ -6,6 +6,7 @@ public class Sword : MonoBehaviour
 {
     public float baseDamage = 10f;
     public float damage = 10f;
+    public float healAmount = 5f;
 
     public Color normalColor;
     public Color activeHitColor;
@@ -44,7 +45,7 @@ public class Sword : MonoBehaviour
             }
             return;
         }
-        Debug.Log("trigger Block!");
+        //Debug.Log("trigger Block!");
         SwordColliderBind otherSwordBind = collision.GetComponent<SwordColliderBind>();
         Sword otherSword = otherSwordBind?.sword;
         if (otherSword != null)
@@ -52,6 +53,8 @@ public class Sword : MonoBehaviour
             
             //other swword blocked
           otherSword.hero.Parried();
+          hero.GetHeal(healAmount); // Heal the hero for half the damage value upon a successful parry
+
         }
             
     }
