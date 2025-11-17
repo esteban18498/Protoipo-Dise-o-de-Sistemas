@@ -21,6 +21,7 @@ public class HealthComponent : MonoBehaviour, IHealth
 {
     [SerializeField] private float max = 100f;
     [SerializeField] private float current = 100f;
+    
 
     public float Current => current;
     public float Max => max;
