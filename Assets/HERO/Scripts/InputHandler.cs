@@ -20,8 +20,7 @@ public class InputHandler : MonoBehaviour
         playerInput = GetComponent<PlayerInput>();
 
         directionalAction = playerInput.actions["Directional"];
-        directionalAction.performed += DirectionalAction;
-        directionalAction.canceled += DirectionalAction;
+        directionalAction.started += DirectionalAction;
 
         attack1Action = playerInput.actions["Attack1"];
         attack1Action.started += Attack1Action;

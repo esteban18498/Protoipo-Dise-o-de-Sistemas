@@ -11,7 +11,7 @@ public class ResourceBarUI : MonoBehaviour
     [SerializeField] private Gradient colorByPercent;       // Opcional: para colorear 0..1
     [SerializeField] private bool useGradient = false;
     [SerializeField] private Color baseColor = Color.white;
-
+    
 
     // Fuente de datos (uno u otro)
     private IHealth health;
