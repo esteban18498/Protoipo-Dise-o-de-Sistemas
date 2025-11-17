@@ -1631,7 +1631,7 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 3921028059668577264, guid: 3d63661bd774f0a4195f9fd2c6831c21, type: 3}
   m_PrefabInstance: {fileID: 1094580001}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &579110169
+--- !u!1 &594621320
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1639,36 +1639,22 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 579110171}
-  - component: {fileID: 579110170}
+  - component: {fileID: 594621322}
+  - component: {fileID: 594621324}
   m_Layer: 0
-  m_Name: Player Handler 1
+  m_Name: Player 1_handler
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 0
---- !u!114 &579110170
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 579110169}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e467f4b3e7760234badb3a9d631f1289, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  hero: {fileID: 8000554026190844053}
-  playerInput: {fileID: 0}
---- !u!4 &579110171
+--- !u!4 &594621322
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 579110169}
+  m_GameObject: {fileID: 594621320}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -1.6672236, y: 0.20158385, z: -0.013771389}
   m_LocalScale: {x: 1, y: 1, z: 1}
@@ -1677,6 +1663,20 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &594621324
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 594621320}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e467f4b3e7760234badb3a9d631f1289, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  hero: {fileID: 8000554026190844053}
+  playerInput: {fileID: 0}
 --- !u!1 &626332315
 GameObject:
   m_ObjectHideFlags: 0
@@ -2200,7 +2200,7 @@ GameObject:
   - component: {fileID: 731386199}
   - component: {fileID: 731386200}
   m_Layer: 0
-  m_Name: Player Handler 2
+  m_Name: Player 2_handler
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2234,6 +2234,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   hero: {fileID: 1917949498}
+  playerInput: {fileID: 0}
 --- !u!1 &760823198
 GameObject:
   m_ObjectHideFlags: 0
@@ -4519,52 +4520,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1323898346}
   m_CullTransparentMesh: 1
---- !u!1 &1327994151
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1327994153}
-  - component: {fileID: 1327994152}
-  m_Layer: 0
-  m_Name: PlayerAsignation
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &1327994152
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1327994151}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9f5f8a9d657589e438c000f5d63ceb13, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  player1: {fileID: 0}
-  player2: {fileID: 0}
---- !u!4 &1327994153
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1327994151}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 541.53296, y: 316.9146, z: 3.3735013}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 7
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1357567387
 GameObject:
   m_ObjectHideFlags: 0
@@ -7249,7 +7204,7 @@ MonoBehaviour:
   turnTime: 4
   AttackingHero: {fileID: 8000554026190844053}
   DefendingHero: {fileID: 1917949498}
-  player1: {fileID: 579110170}
+  player1: {fileID: 594621324}
   player2: {fileID: 731386200}
 --- !u!1 &2107577170
 GameObject:
