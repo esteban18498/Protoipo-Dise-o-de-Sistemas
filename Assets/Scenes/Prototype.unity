@@ -1767,7 +1767,7 @@ GameObject:
   - component: {fileID: 685157278}
   - component: {fileID: 685157277}
   m_Layer: 5
-  m_Name: WorldSpaceCanvas
+  m_Name: Arena_WorldSpaceCanvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4933,7 +4933,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   fillImage: {fileID: 1548112292}
   arenaTimeValue: {fileID: 1863549532}
-  maxTime: 10
+  maxTime: 5
+  minArenaTime: 2
+  maxArenaTime: 5
+  highTimeColor: {r: 1, g: 1, b: 1, a: 1}
+  midTimeColor: {r: 0.9529412, g: 0.7607843, b: 0.23529412, a: 1}
+  lowTimeColor: {r: 0.9019608, g: 0.15294118, b: 0.40392157, a: 1}
 --- !u!1 &1449870350
 GameObject:
   m_ObjectHideFlags: 0
@@ -5147,7 +5152,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1503369953}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 2, z: -10}
+  m_LocalPosition: {x: 0, y: 2, z: -14}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
