@@ -37,8 +37,6 @@ public class PlayerSideSelection : MonoBehaviour
             return;
         }
 
-        Debug.Log(playerInput.currentControlScheme);
-        Debug.Log(playerInput.devices[0]);
 
         if (playerInput.currentControlScheme == "Keyboard")
         {

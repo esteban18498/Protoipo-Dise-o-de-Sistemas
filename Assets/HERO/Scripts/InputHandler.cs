@@ -6,6 +6,8 @@ public class InputHandler : MonoBehaviour
     public HERO hero;
     private SequenceManager sequenceManager;
 
+    public SelectionKeysUI selectionKeysUI;
+
 
 
     public PlayerInput playerInput;
@@ -23,6 +25,15 @@ public class InputHandler : MonoBehaviour
             Debug.Log("PlayerInput component not assigned in InputHandler.");
             this.enabled = false;
             return;
+        }
+
+        if (playerInput.currentControlScheme == "Keyboard")
+        {
+            selectionKeysUI.ShowKeyboardUI();
+        }
+        else
+        {
+            selectionKeysUI.ShowGamepadUI();
         }
 
         directionalAction = playerInput.actions["Directional"];
