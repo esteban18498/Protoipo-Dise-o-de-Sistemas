@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
@@ -12,6 +13,8 @@ public class PlayerSideSelection : MonoBehaviour
     public PlayerInput playerInput;
     private InputAction directionalAction;
     private InputAction confirmAction;
+
+    public SelectionKeysUI selectionKeysUI;
 
 
     private RectTransform rectTransform;
@@ -28,6 +31,23 @@ public class PlayerSideSelection : MonoBehaviour
 
     void Start()
     {
+        if (playerInput == null)
+        {
+            Debug.LogError("PlayerInput not assigned in PlayerSideSelection");
+            return;
+        }
+
+        Debug.Log(playerInput.currentControlScheme);
+        Debug.Log(playerInput.devices[0]);
+
+        if (playerInput.currentControlScheme == "Keyboard")
+        {
+            selectionKeysUI.ShowKeyboardUI();
+        }
+        else
+        {
+            selectionKeysUI.ShowGamepadUI();
+        }
 
         directionalAction = playerInput.actions["Directional"];
         directionalAction.started += DirectionalAction;

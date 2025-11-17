@@ -33,6 +33,11 @@ public class multicontrol_manager : MonoBehaviour
             return;
         }
 
+        if (PlayerAsignation.instance != null)
+        {
+            PlayerAsignation.instance.ResetPlayers();
+        }
+
         playerInputManager = GetComponent<PlayerInputManager>();
         playerInputManager.onPlayerJoined += OnPlayerJoined;
         player1 = null;
@@ -49,7 +54,7 @@ public class multicontrol_manager : MonoBehaviour
     {
 
         playerInput.gameObject.name = "Player_" + (playerInput.playerIndex + 1);
-        
+
         PlayerSelectionHud.JoinPlayer(playerInput);
 
 
@@ -90,7 +95,7 @@ public class multicontrol_manager : MonoBehaviour
 
             player1.transform.SetParent(PlayerAsignation.instance.transform);
             player2.transform.SetParent(PlayerAsignation.instance.transform);
-            
+
             SceneManager.LoadScene("Prototype");
             // Here you can add code to transition to the game scene or start the game logic.
         }
