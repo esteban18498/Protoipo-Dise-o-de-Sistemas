@@ -14,8 +14,8 @@ public class TimeSlideBar : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        if (arenaTimeValue != null)
-            arenaTimeValue.text = $"{Mathf.CeilToInt(currentTime)} / {Mathf.CeilToInt(maxTime)}";
+        currentTime = maxTime;
+        UpdateText();
     }
 
     // Update is called once per frame
@@ -24,9 +24,14 @@ public class TimeSlideBar : MonoBehaviour
         if (currentTime > 0)
         {
             currentTime -= Time.deltaTime;
+
+            if (currentTime < 0)
+                currentTime = 0;
+
             fillImage.fillAmount = currentTime / maxTime;
-            arenaTimeValue.text = $"{Mathf.CeilToInt(currentTime)} / {Mathf.CeilToInt(maxTime)}";
-        }
+
+            UpdateText();
+        }   
     }
 
     public void StartTimer()
@@ -34,12 +39,23 @@ public class TimeSlideBar : MonoBehaviour
         currentTime = maxTime;
 
     }
-        public void StartTimer(float time)
+    public void StartTimer(float time)
     {
         maxTime = time;
         currentTime = maxTime;
 
     }
 
-    
+    private void UpdateText()
+    {
+        // Whole seconds left
+        int seconds = Mathf.FloorToInt(currentTime);
+
+        // Decimal part (hundredths)
+        int decimals = Mathf.FloorToInt((currentTime - seconds) * 100f);
+
+        // Format: 00:00
+        arenaTimeValue.text = $"{seconds:00}:{decimals:00}";
+    }
+
 }
