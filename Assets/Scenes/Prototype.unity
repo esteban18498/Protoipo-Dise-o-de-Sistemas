@@ -7205,12 +7205,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   timeSlideBar: {fileID: 1440692019}
-  currentPhase: 0
   turnTime: 4
   AttackingHero: {fileID: 8000554026190844053}
   DefendingHero: {fileID: 1917949498}
   player1: {fileID: 594621324}
   player2: {fileID: 731386200}
+  currentPhase: 0
 --- !u!1 &2107577170
 GameObject:
   m_ObjectHideFlags: 0
