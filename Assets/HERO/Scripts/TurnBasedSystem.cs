@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using JetBrains.Annotations;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -42,6 +43,9 @@ public class TurnBasedSystem : MonoBehaviour
     public HERO AttackingHero;
     public HERO DefendingHero;
 
+    public InputHandler player1;
+    public InputHandler player2;
+
 
     // Start is called before the first frame update
     void Start()
@@ -57,6 +61,12 @@ public class TurnBasedSystem : MonoBehaviour
         {
             case TurnPhase.CombatStart:
                 // Initialize combat
+                player1.playerInput = PlayerAsignation.instance.player1;
+                player2.playerInput = PlayerAsignation.instance.player2;
+
+                player1.gameObject.SetActive(true);
+                player2.gameObject.SetActive(true);
+
                 currentPhase = TurnPhase.Start;
                 break;
 
